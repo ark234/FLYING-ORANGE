@@ -19,7 +19,9 @@
 -- then:
 -- psql -d chewsy_db_test -f seeds.sql
 -----------------------------------------------------------
-\c chewsy_db_test
+-- \c chewsy_db_test
+\c chewsy_db
+
 
 -----------------------------------------------------------
 -- USERS table is to keep user's requisites during sign-up
