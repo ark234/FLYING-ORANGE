@@ -38,13 +38,17 @@ app.listen(PORT, () => {
 	console.log('Server started on port', PORT);
 });
 
-// Hook up chewsy router
-const chewsyRouter = require('./controllers/chewsy.js');
-app.use('/chewsy', chewsyRouter);
+// Hook up recipes router
+const recipesRouter = require('./controllers/recipes.js');
+app.use('/recipes', recipesRouter);
+
+// Hook up users router
+const usersRouter = require('./controllers/users.js');
+app.use('/users', usersRouter);
 
 // Redirect default route
 app.get('/', (req, res) => {
-	res.redirect('/chewsy');
+	res.redirect('/recipes');
 });
 
 // Set up error handling middleware
