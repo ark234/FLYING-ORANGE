@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './orange.png';
 import './App.css';
+import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+
 
 class App extends Component {
 	constructor(props) {
@@ -16,12 +18,25 @@ class App extends Component {
 
 	render() {
 		return (
-			<div className="App">
-				<header className="App-header">
-					<img src={logo} className="App-logo" alt="logo" />
-					<h1 className="App-title">Chewsy</h1>
-				</header>
-			</div>
+			<BrowserRouter>
+			<Switch>
+			<Route exact path='/' render={props =>{
+				return(
+
+					)
+			}} />
+			<Route exact path='/results' render={props =>{
+				return(
+
+					)
+			}} />
+			<Route exact path='/moreInfo' render={ props =>{
+				return(
+
+					)
+			}} />
+			</Switch>
+			</BrowserRouter>
 		);
 	}
 }
