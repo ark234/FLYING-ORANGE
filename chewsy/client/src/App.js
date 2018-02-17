@@ -10,6 +10,7 @@ class App extends Component {
 	}
 
 	getData() {
+		console.log('grabbing data');
 		// axios.get('')
 	}
 
