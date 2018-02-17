@@ -1,15 +1,24 @@
 // Import dependencies
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const session = require('express-session');
-const cookieParser = require('cookie-parser');
 const mustache = require('mustache-express');
 const dotenv = require('dotenv').config();
+const PORT = process.env.PORT || 8080;
 
 // Configure app
 const app = express();
-const PORT = process.env.PORT || 8080;
+
+// Setup cors to allow front end
+app.use(cors());
+
+// Body Parser setup
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// Set up morgan
+app.use(morgan('dev'));
 
 // Register the engine template
 app.engine('html', mustache());
@@ -20,44 +29,20 @@ app.set('views', __dirname + '/views');
 // Set up directory for static resources
 app.use(express.static(__dirname + '/public'));
 
-// Set up session middleware
-app.use(
-	session({
-		secret: process.env.SECRET_KEY, // secret key required for sessions
-		resave: true,
-		saveUninitialized: true
-	})
-);
-
-// Set up passport
-// const auth = require('./services/auth.js');
-// app.use(auth.passportInstance);
-// app.use(auth.passportSession);
-
-// Set up morgan
-app.use(morgan('dev'));
-
 // Set up body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(cookieParser());
-
+// Start server
 app.listen(PORT, () => {
 	console.log('Server started on port', PORT);
 });
 
-// Set up user controller
-// const userRouter = require('./controllers/users.js');
-// app.use('/users', userRouter);
+// Hook up chewsy router
+const chewsyRouter = require('./controllers/chewsy.js');
+app.use('/chewsy', chewsyRouter);
 
-// Set up magic controller
-// const magicRouter = require('./controllers/magic.js');
-// app.use('/magic', magicRouter);
-
-const feedmeRouter = require('./controllers/chewsy.js');
-app.use('/chewsy', feedmeRouter);
-
+// Redirect default route
 app.get('/', (req, res) => {
 	res.redirect('/chewsy');
 });
