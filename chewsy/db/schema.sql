@@ -19,7 +19,7 @@
 -- then:
 -- psql -d chewsy_db_test -f seeds.sql
 -----------------------------------------------------------
-\c chewsy_db
+\c chewsy_db_test
 
 -----------------------------------------------------------
 -- USERS table is to keep user's requisites during sign-up
@@ -123,7 +123,7 @@ DROP TABLE IF EXISTS label_ingred_ref CASCADE;
 
 CREATE TABLE label_ingred_ref (
   id                BIGSERIAL PRIMARY KEY,
-  health_id         INTEGER REFERENCES health_label_ref (id)
+  health_id         INTEGER REFERENCES health_label_ref (id),
   api_label         VARCHAR(32),
   ingredient        VARCHAR(255)
 

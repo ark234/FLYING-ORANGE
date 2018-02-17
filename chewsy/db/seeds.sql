@@ -23,7 +23,7 @@ VALUES
   ('Health', 'Paleo', 'paleo', 'Excludes what are perceived to be agricultural products; grains, legumes, dairy products, potatoes, refined salt, refined sugar, and processed oils', ' '),
   ('Health', 'Peanuts', 'peanut-free', 'No peanuts or products containing peanuts', 'label_ingred_ref'),
   ('Health', 'Pescatarian', 'pescatarian', 'Does not contain meat or meat based products, can contain dairy and fish', ' '),
-  ('Health', 'Pork-free', 'pork-free' 'Does not contain pork or derivatives', ' '),
+  ('Health', 'Pork-free', 'pork-free', 'Does not contain pork or derivatives', ' '),
   ('Health', 'Red meat-free', 'red-meat-free', 'Does not contain beef, lamb, pork, duck, goose, game, horse, and other types of red meat or products containing red meat', ' '),
   ('Health', 'Sesame-free', 'sesame-free', 'Does not contain sesame seed or derivatives', 'label_ingred_ref'),
   ('Health', 'Shellfish', 'shellfish-free',  'No shellfish or shellfish derivatives', 'label_ingred_ref'),
