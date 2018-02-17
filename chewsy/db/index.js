@@ -6,7 +6,7 @@ const dotenv = require('dotenv').config();
 const cn = {
 	host: 'localhost',
 	port: 5432,
-	database: 'flying_orange'
+	database: 'chewsy_db'
 };
 
 const db = pgp(process.env.DATABASE_URL || cn);
