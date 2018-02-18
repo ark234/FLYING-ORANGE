@@ -251,4 +251,5 @@ usersModel.incrUserCounter = function incrUserCounter(req, res, next) {
         next();
     }).catch(err => console.log('Error: in incrUserCounter. Details: ', err));
 };
+
 module.exports = usersModel;
