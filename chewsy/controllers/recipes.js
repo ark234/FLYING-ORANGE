@@ -2,7 +2,7 @@
 const router = require('express').Router();
 const recipesModel = require('../models/recipes.js');
 
-router.post('/', recipesModel.getFood, (req, res, next) => {
+router.post('/', (req, res, next) => {
 	console.log('Post / route hit');
 });
 

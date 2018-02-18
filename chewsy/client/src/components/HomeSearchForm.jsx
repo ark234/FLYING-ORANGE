@@ -11,6 +11,7 @@ class HomeSearchForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
     this.postApiParams = this.postApiParams.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
   handleChange(event){
@@ -79,7 +80,7 @@ class HomeSearchForm extends Component {
 					<button>Sign Up</button>
 				</div>
 
-				<form>
+				<form onSubmit={this.handleSubmit}>
 					<h2>Allergens</h2>
           {checkBoxes}
 
@@ -88,7 +89,7 @@ class HomeSearchForm extends Component {
           <input type='text' name='foodType' 
           onChange={this.handleChange}/>
 
-					<button>Go</button>
+					<input type='submit' value='click here to search' />
 				</form>
 			</div>
 		);
