@@ -75,6 +75,7 @@ class HomeSearchForm extends Component {
 
 		return (
 			<div>
+<<<<<<< HEAD
 				<div>
 					<button>Log In</button>
 					<button>Sign Up</button>
@@ -91,6 +92,9 @@ class HomeSearchForm extends Component {
 
 					<input type='submit' value='click here to search' />
 				</form>
+=======
+				<h1>Home Search Form</h1>
+>>>>>>> bc8fde68e863f7b4a20eb8667bb8f9235169d85e
 			</div>
 		);
 	}
