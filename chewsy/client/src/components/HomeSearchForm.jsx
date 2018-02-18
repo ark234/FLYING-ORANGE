@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 // import { Link } from "react-router-dom";
+import axios from 'axios';
 
 class HomeSearchForm extends Component {
 	constructor(props) {
@@ -9,11 +10,14 @@ class HomeSearchForm extends Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
+    this.postApiParams = this.postApiParams.bind(this);
 	}
+
   handleChange(event){
     const name = event.target.name;
     this.setState({[name]:event.target.value});
   }
+
   handleChangeCheckbox(event){
    const value = event.target.value;
     
@@ -31,9 +35,21 @@ class HomeSearchForm extends Component {
         return prevState;
       })
     }
+  }
 
-      
-    
+  handleSubmit(event){
+    event.preventDefault();
+    this.postApiParams(this.state);
+  }
+  postApiParams(info){
+    axios({
+      url:'http://localhost:8080/recipes',
+      method: 'post',
+      data: info
+    })
+    .then( response =>{
+      console.log(response);
+    })
   }
 
 
