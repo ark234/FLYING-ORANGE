@@ -44,12 +44,7 @@ app.use('/recipes', recipesRouter);
 
 // Hook up users router
 const usersRouter = require('./controllers/users.js');
-app.use('/users', usersRouter);
-
-// Redirect default route
-app.get('/', (req, res) => {
-	res.redirect('/recipes');
-});
+// app.use('/users', usersRouter);
 
 // Set up error handling middleware
 app.use((err, req, res, next) => {
