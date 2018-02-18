@@ -5,7 +5,7 @@ class HomeSearchForm extends Component {
 	constructor(props) {
 		super(props);
     this.state= {
-        health:[]
+        health:new Set()
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
@@ -16,14 +16,24 @@ class HomeSearchForm extends Component {
   }
   handleChangeCheckbox(event){
    const value = event.target.value;
-    if(!this.state.health.includes(value)){
-   
+    
+       if(this.state.health.has(value)){
+      console.log('ifStatement')
 
       this.setState(prevState =>{
-        prevState.health.push(value);
+        prevState.health.delete(value);
+        return prevState;
+      })
+    }else{
+      console.log('elseStatement')
+      this.setState(prevState =>{
+        prevState.health.add(value);
         return prevState;
       })
     }
+
+      
+    
   }
 
 
@@ -33,7 +43,13 @@ class HomeSearchForm extends Component {
   
    const checkBoxes = allergens.map((allergen, i )=>{
     return(<div key={i} >
-      <p>{allergen}<input onChange={this.handleChangeCheckbox} type="checkbox" name='health' value={allergen} /></p>
+      <p>{allergen}
+      <input 
+      onChange={this.handleChangeCheckbox} 
+      type="checkbox" 
+      name='health' 
+      value={allergen} 
+      /></p>
       
     
     </div>
