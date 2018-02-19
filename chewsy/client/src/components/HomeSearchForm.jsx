@@ -6,7 +6,6 @@ class HomeSearchForm extends Component {
 	constructor(props) {
 		super(props);
     this.state= {
-        health:new Set()
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
@@ -16,31 +15,29 @@ class HomeSearchForm extends Component {
 
   handleChange(event){
     const name = event.target.name;
-    this.setState({[name]:event.target.value});
+    this.setState({[name]:' '+ event.target.value});
   }
 
   handleChangeCheckbox(event){
    const value = event.target.value;
     
-       if(this.state.health.has(value)){
+       if(this.healthArray.has(value)){
       console.log('ifStatement')
 
-      this.setState(prevState =>{
-        prevState.health.delete(value);
-        return prevState;
-      })
+      this.healthArray.delete(value);
+      
     }else{
       console.log('elseStatement')
-      this.setState(prevState =>{
-        prevState.health.add(value);
-        return prevState;
-      })
+      this.healthArray.add(value);
     }
+    const healthArray = Array.from(this.healthArray);
+    this.setState({health: healthArray});
   }
 
   handleSubmit(event){
     event.preventDefault();
-    this.postApiParams(this.state);
+    this.postApiParams(this.state)
+    console.log(this.state);
   }
   postApiParams(info){
     axios({
@@ -53,7 +50,9 @@ class HomeSearchForm extends Component {
     })
   }
 
-
+  componentDidMount(){
+    this.healthArray = new Set();
+  }
 	render() {
     
     const allergens = ['crustacean-free','shellfish-free','soy-free', 'dairy-free', 'egg-free', 'fish-free', 'gluten-free', 'kosher', 'lupine-free', 'peanut-free', 'pork-free', 'red-meat-free', 'vegan', 'tree-nut-free', 'wheat-free']
@@ -75,7 +74,7 @@ class HomeSearchForm extends Component {
 
 		return (
 			<div>
-<<<<<<< HEAD
+
 				<div>
 					<button>Log In</button>
 					<button>Sign Up</button>
@@ -92,9 +91,8 @@ class HomeSearchForm extends Component {
 
 					<input type='submit' value='click here to search' />
 				</form>
-=======
+
 				<h1>Home Search Form</h1>
->>>>>>> bc8fde68e863f7b4a20eb8667bb8f9235169d85e
 			</div>
 		);
 	}

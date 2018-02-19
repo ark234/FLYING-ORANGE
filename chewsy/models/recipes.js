@@ -26,6 +26,7 @@ const generateUrl = (query, healthArr) => {
 // middleware that takes in user search form inputs and makes axios request to retrieve 10 recipes
 recipesModel.getRecipes = (req, res, next) => {
 	console.log('in recipesModel.getRecipes!');
+  console.log('req.body', req.body);
 	const q = req.body.q;
 	const health = req.body.health || null;
 	const url = generateUrl(q, health);
