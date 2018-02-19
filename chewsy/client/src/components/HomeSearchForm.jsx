@@ -86,7 +86,7 @@ class HomeSearchForm extends Component {
 
 					<h2>Cravings</h2>
 
-          <input type='text' name='foodType' 
+          <input type='text' name='q' 
           onChange={this.handleChange}/>
 
 					<input type='submit' value='click here to search' />
