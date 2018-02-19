@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 // import { Link } from "react-router-dom";
+import logo from '../orange.png';
+
 import axios from "axios";
 
 class HomeSearchForm extends Component {
@@ -10,6 +12,8 @@ class HomeSearchForm extends Component {
     this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
     this.postApiParams = this.postApiParams.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleError = this.handleError.bind(this);
+    this.handleLoad = this.handleLoad.bind(this);
   }
 
   handleChange(event) {
@@ -34,6 +38,7 @@ class HomeSearchForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({searching:true})
     this.postApiParams(this.state);
     console.log(this.state);
   }
@@ -45,13 +50,30 @@ class HomeSearchForm extends Component {
     }).then(response => {
       this.props.getResponseData(response.data);
       this.props.history.push("/results");
+      this.setState({searching:false});
       console.log(response);
+    })
+    .catch(error => {
+      console.log('NO response', error);
+      this.setState({error: true, searching: false});
     });
   }
+  handleError(){
+    return(
+      <h6>Please enter an ingredent in Search Bar</h6>
+      )
+  }
+  handleLoad(){
+    return(
+      <img src='../images/orange.png' />
+      )
+  }
+
 
   componentDidMount() {
     this.healthArray = new Set();
   }
+
   render() {
     const allergens = [
       "crustacean-free",
@@ -87,6 +109,26 @@ class HomeSearchForm extends Component {
         </div>
       );
     });
+    const form = ()=>{
+      return(
+          <form onSubmit={this.handleSubmit} className="apiQueryForm">
+                      <div className="textInputContainer">
+                      <h2>Cravings</h2>
+
+                      <input type="text" name="q" onChange={this.handleChange} />
+                      <input 
+                      type="submit" 
+                      className="submitButton"
+                      value="click here to search" />
+                      </div>
+                      <div className="checkBoxContainer">
+                        <h2>Allergens</h2>
+                        {checkBoxes}
+                      </div>
+                      
+                    </form>
+        )
+    }
 
     return (
       <div>
@@ -95,22 +137,10 @@ class HomeSearchForm extends Component {
           <button>Sign Up</button>
         </div>
         <div className="homePage">
-          <form onSubmit={this.handleSubmit} className="apiQueryForm">
-            <div className="textInputContainer">
-            <h2>Cravings</h2>
+          {form()}
+          {this.state.searching? this.handleLoad(): null}
+          {this.state.error? this.handleError():null}
 
-            <input type="text" name="q" onChange={this.handleChange} />
-            <input 
-            type="submit" 
-            className="submitButton"
-            value="click here to search" />
-            </div>
-            <div className="checkBoxContainer">
-              <h2>Allergens</h2>
-              {checkBoxes}
-            </div>
-            
-          </form>
         </div>
       </div>
     );
