@@ -1,48 +1,57 @@
-import React, { Component } from "react";
 // import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import axios from 'axios';
 
 class ShowResults extends Component {
-  constructor(props) {
-    super(props);
-    this.recipeResults = this.recipeResults.bind(this);
+	constructor(props) {
+		super(props);
+    this.state ={
+      
+    }
+    this.moreInfo = this.moreInfo.bind(this);
+	}
+  moreInfo(uri){
+    axios({
+      url:'http://localhost:8080/recipes/moreInfo',
+      method:'post',
+      data: uri
+    })
+    .then( response =>{
+      console.log('POST FOR MORE INFO',response);
+      this.props.history.push('/moreInfo');
+    })
+
   }
 
-  recipeResults(recipeDatum, index) {
-    // const recipeDatum = this.props.recipeDatum;
-    const index = this.props.index;
-    const recipeName = recipeDatum.label;
-    const recipeImage = recipeDatum.image;
-    const healthLabels = recipeDatum.healthLabels;
-    const servings = recipeDatum.yield;
-    const calories = recipeDatum.calories;
-    return (
-      <div>
-        recipeDatum={recipeDatum}
-        index={index}
-        queryRecipe={this.props.queryRecipe}
-      </div>
-    );
-  }
 
-  render() {
-    //grid/flex box to have these recipes displayed in 3 columns
-    //recipeDatum = data.hits.recipe
-    //const recipeName = data.hits.recipe.index.label;
-    const recipes = this.props.recipes.map(this.recipeResults);
+	render() {
+    const results = this.props.results || [];
+    const resultList = results.hits.map( recipeObject =>{
+        const recipeInfo = recipeObject.recipe;
 
-    return (
-      <div>
-        <h2>#CountofResults Matching Results for #FoodType</h2>
-        <div>
-          <h2>{recipeImage}</h2>
-          <h2>{recipeName}</h2>
-          <h2>{healthLabels}</h2>
-          <h2>{servings}</h2>
-          <h2>{calories}</h2>
-        </div>
-      </div>
-    );
-  }
+      return(
+          <div key = {recipeInfo.uri}
+           onClick = {()=> this.moreInfo(recipeInfo.uri) }>
+          <h2>{recipeInfo.label}</h2>
+          <h6>{recipeInfo.healthLabels}</h6>
+                                        
+                                        
+          <img src={recipeInfo.image} 
+          width='100px'
+          height='100px'
+          />
+
+          </div>
+        )
+    });
+    console.log(results);
+		return (
+          <div>
+          {resultList}
+          </div>
+      )
+	}
+
 }
 
 export default ShowResults;
