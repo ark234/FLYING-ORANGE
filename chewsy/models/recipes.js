@@ -10,7 +10,7 @@ const recipesModel = {};
 
 // helper method for generating url string to be used in axios call
 const generateUrl = (query, healthArr) => {
-	const q = query.split(' ').join('%20'); // URL encode query string
+	const q = query; // URL encode query string
 	if (healthArr === null) {
 		// no optional health labels
 		return `https://api.edamam.com/search?app_id=${app_id}&app_key=${app_key}&q=${q}`;
