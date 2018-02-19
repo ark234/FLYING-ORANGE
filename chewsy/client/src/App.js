@@ -11,13 +11,13 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = { foodData: [], isLoaded: false };
+		this.state = { recipeData: [], isLoaded: false };
 		this.getResponseData = this.getResponseData.bind(this);
 	}
 
-	getResponseData(responceData) {
-		console.log('grabbing data', responceData);
-		this.setState({foodData:responceData});
+	getResponseData(responseData) {
+		console.log('grabbing data', responseData);
+		this.setState({recipeData:responseData});
 	}
 
 	render() {
@@ -39,7 +39,7 @@ class App extends Component {
 						render={props => {
 							return (<Results 
 									{...props} 
-									results = {this.state.foodData}
+									results = {this.state.recipeData}
 									/>);
 									}}
 					/>
