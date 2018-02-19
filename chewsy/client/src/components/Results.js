@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { Link } from "react-router-dom";
+import axios from 'axios';
 
 class ShowResults extends Component {
 	constructor(props) {
@@ -7,15 +7,38 @@ class ShowResults extends Component {
     this.state ={
       
     }
-    
+    this.moreInfo = this.moreInfo.bind(this);
 	}
-  
+  moreInfo(uri){
+    axios({
+      url:'http://localhost:8080/recipes/moreInfo',
+      method:'post',
+      data: uri
+    })
+    .then( response =>{
+      console.log('POST FOR MORE INFO',response);
+      this.props.history.push('/moreInfo');
+    })
+
+  }
+
+
 	render() {
-    const results = this.props.results;
-    const resultList = results.hits.map( recipeObj =>{
+    const results = this.props.results || [];
+    const resultList = results.hits.map( recipeObject =>{
+        const recipeInfo = recipeObject.recipe;
+        // const url = `/moreInfo/${recipeInfo.uri}`;
+
       return(
-          <div key = {recipeObj.recipe.uri}>
-          <h2>{recipeObj.recipe.label}</h2>
+          <div key = {recipeInfo.uri}
+           onClick = {()=> this.moreInfo(recipeInfo.uri) }>
+          <h2>{recipeInfo.label}</h2>
+          <h6>{recipeInfo.healthLabels}</h6>
+          <img src={recipeInfo.image} 
+          width='100px'
+          height='100px'
+          />
+
           </div>
         )
     });

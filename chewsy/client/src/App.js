@@ -45,7 +45,7 @@ class App extends Component {
 					/>
 					<Route
 						exact
-						path="/moreInfo"
+						path="/moreInfo/:id"
 						render={props => {
 							return <RecipeInfo />;
 						}}
