@@ -4,10 +4,22 @@ import React, { Component } from 'react';
 class ShowResults extends Component {
 	constructor(props) {
 		super(props);
+    this.state ={
+      
+    }
+    
 	}
-
+  componentDidMount(){
+    this.setState({queryResults:this.props.results});
+  }
 	render() {
-		return <h1>Top 15 Results</h1>;
+    
+    console.log(this.state.queryResults);
+		return (
+          <div>
+          
+          </div>
+      )
 	}
 }
 

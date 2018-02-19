@@ -46,7 +46,7 @@ class HomeSearchForm extends Component {
       data: info
     })
     .then( response =>{
-      this.props.getResponseData(response);
+      this.props.getResponseData(response.data);
       this.props.history.push('/results');
       console.log(response);
     })

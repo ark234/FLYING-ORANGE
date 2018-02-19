@@ -18,7 +18,6 @@ class App extends Component {
 	getResponseData(responceData) {
 		console.log('grabbing data', responceData);
 		this.setState({foodData:responceData});
-
 	}
 
 	render() {
@@ -38,9 +37,11 @@ class App extends Component {
 						exact
 						path="/results"
 						render={props => {
-							return <Results 
-							{...props} />;
-						}}
+							return (<Results 
+									{...props} 
+									results = {this.state.foodData}
+									/>);
+									}}
 					/>
 					<Route
 						exact
