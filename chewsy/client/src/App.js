@@ -12,11 +12,13 @@ class App extends Component {
 		super(props);
 
 		this.state = { foodData: [], isLoaded: false };
+		this.getResponseData = this.getResponseData.bind(this);
 	}
 
-	getData() {
-		console.log('grabbing data');
-		// axios.get('')
+	getResponseData(responceData) {
+		console.log('grabbing data', responceData);
+		this.setState({foodData:responceData});
+
 	}
 
 	render() {
@@ -27,14 +29,17 @@ class App extends Component {
 						exact
 						path="/"
 						render={props => {
-							return <HomeSearchForm />;
+							return <HomeSearchForm 
+							{...props} 
+							getResponseData={this.getResponseData}/>;
 						}}
 					/>
 					<Route
 						exact
 						path="/results"
 						render={props => {
-							return <Results />;
+							return <Results 
+							{...props} />;
 						}}
 					/>
 					<Route
