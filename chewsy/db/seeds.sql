@@ -157,7 +157,7 @@ VALUES
   ('30', 'tree-nut-free', 'Shea nut'),
   ('30', 'tree-nut-free', 'Walnut'),
   ('30', 'tree-nut-free', 'Walnut hull extract'),
-  ('30', 'tree-nut-free', 'Beer nuts'),
+  ('30', 'tree-nut-free', 'Beer nuts');
 
  
   
