@@ -6,6 +6,9 @@ const dotenv = require('dotenv').config();
 const app_id = process.env.APP_ID;
 const app_key = process.env.APP_KEY;
 
+// specify how many hits we want per page
+const HIT_COUNT = 32;
+
 const recipesModel = {};
 
 // helper method for generating url string to be used in axios call
@@ -13,13 +16,13 @@ const generateUrl = (query, healthArr) => {
 	const q = query; // URL encode query string
 	if (healthArr === null) {
 		// no optional health labels
-		return `https://api.edamam.com/search?app_id=${app_id}&app_key=${app_key}&q=${q}`;
+		return `https://api.edamam.com/search?app_id=${app_id}&app_key=${app_key}&q=${q}&to=${HIT_COUNT}`;
 	} else {
 		// url encode health labels
 		const health = healthArr.reduce((acc, curr) => {
 			return acc.concat('&health=', curr);
 		}, '');
-		return `https://api.edamam.com/search?app_id=${app_id}&app_key=${app_key}&q=${q}${health}`;
+		return `https://api.edamam.com/search?app_id=${app_id}&app_key=${app_key}&q=${q}${health}&to=${HIT_COUNT}`;
 	}
 };
 
