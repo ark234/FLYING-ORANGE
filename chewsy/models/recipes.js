@@ -26,7 +26,7 @@ const generateUrl = (query, healthArr) => {
 // middleware that takes in user search form inputs and makes axios request to retrieve 10 recipes
 recipesModel.getRecipes = (req, res, next) => {
 	console.log('in recipesModel.getRecipes!');
-  console.log('req.body', req.body);
+	console.log('req.body', req.body);
 	const q = req.body.q;
 	const health = req.body.health || null;
 	const url = generateUrl(q, health);
@@ -45,6 +45,15 @@ recipesModel.getRecipes = (req, res, next) => {
 			console.log('error making axios call in recipesModel.getRecipes. error:', error);
 			next(error);
 		});
+};
+
+// middleware that looks up detailed recipe information
+recipesModel.getMoreInfo = (req, res, next) => {
+	console.log('in recipesModel.getMoreInfo!');
+	console.log('req.body:', req.body);
+	const r = req.body.r;
+	const url = `https://api.edamam.com/search?app_id=${app_id}&app_key=${app_key}&r=${r}`;
+	console.log('url:', url);
 };
 
 module.exports = recipesModel;
