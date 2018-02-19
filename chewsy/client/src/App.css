@@ -1,4 +1,4 @@
-.App {
+/*.App {
   text-align: center;
 }
 
@@ -25,4 +25,42 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+*/
+
+/*Styling HomeSearchForm.js*/
+
+.homePage{
+  background: red;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.apiQueryForm{
+  background: blue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 75vw;
+}
+.checkBoxContainer{
+  background: green;
+  width: 30vw;
+  display: flex;
+  flex-wrap: wrap;
+}
+.textInputContainer{
+  display: flex;
+  justify-content: center;
+  align-items: space-around;
+  background: orange;
+  width: 90%;
+}
+.submitButton{
+  font-size: 100px;
+  padding:20px
+}
+.checkBox{
+  border: 
 }

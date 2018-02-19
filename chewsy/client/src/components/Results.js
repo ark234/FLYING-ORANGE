@@ -27,7 +27,6 @@ class ShowResults extends Component {
     const results = this.props.results || [];
     const resultList = results.hits.map( recipeObject =>{
         const recipeInfo = recipeObject.recipe;
-        // const url = `/moreInfo/${recipeInfo.uri}`;
 
       return(
           <div key = {recipeInfo.uri}
