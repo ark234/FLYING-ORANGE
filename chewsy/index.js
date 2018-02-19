@@ -1,21 +1,50 @@
+/////////////////////////////////////////////////
+//                                             //
+//    Project CHEWSY                           //
+//    Flying Oranges Team at GA, New York      //
+//    February, 2018                           //
+//                                             //
+//    Instructors:                             //
+//        Tims Gardner                         //
+//        Drake Tally                          //
+//        Dominic Farquharson                  //
+//                                             //
+/////////////////////////////////////////////////
+//                                             //
+//    This file is from chewsy directory...    //
+//                                             //
+/////////////////////////////////////////////////
+
 // Import dependencies
 const express = require('express');
-const cors = require('cors');
+
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mustache = require('mustache-express');
 const dotenv = require('dotenv').config();
+const cors = require('cors');
+
+/////////////////////////////////////////////////
+// Added this as a reminder: we are not using it:
+// const session = require('express-session');
+// const cookieParser = require('cookie-parser');
+/////////////////////////////////////////////////
+// Passport stuff would have been called from
+// this index.js file...
+// const auth = require('./services/auth.js');
+/////////////////////////////////////////////////
+
 const PORT = process.env.PORT || 8080;
+
+console.log('process.env.LAI_API_KEY: ', process.env.LAI_API_KEY);
+console.log('process.env.LAI_API_ID: ', process.env.LAI_API_ID);
+console.log('process.env.PORT: ', process.env.PORT);
 
 // Configure app
 const app = express();
 
 // Setup cors to allow front end
 app.use(cors());
-
-// Body Parser setup
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
 // Set up morgan
 app.use(morgan('dev'));
@@ -50,6 +79,16 @@ app.use('/users', usersRouter);
 app.get('/', (req, res) => {
 	res.redirect('/recipes');
 });
+
+/////////////////////////////////////////////////
+// Perhaps: => (?)...
+// Redirect from the current index.js to:
+// "/users/profile" is not relative, but 
+// hard-coded...
+// app.get('/', (req, res, next) => {
+//   res.redirect('/users/profile');
+// })
+/////////////////////////////////////////////////
 
 // Set up error handling middleware
 app.use((err, req, res, next) => {

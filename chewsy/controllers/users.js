@@ -20,8 +20,20 @@ const router = require('express').Router();
 
 const usersModel = require('../models/users.js');
 
-console.log('Loading controllers/users...');
+/////////////////////////////////////////////////
+// As a reminder: we are not using passport here
+// const passport = require('passport');
+// const auth = require('../services/auth');
+/////////////////////////////////////////////////
+// This has not been done in index.js... 
+// Do we need it here?
+// 
+// router.get('/', (req, res, next) => {
+//     res.redirect('users/profile');
+// });
+/////////////////////////////////////////////////
 
+console.log('Loading controllers/users...');
 
 // TODO: define GET request for '/' to retrieve all users...
 router.get('/', usersModel.getAllUsers, (req, res, next) => {
@@ -46,11 +58,19 @@ router.get("/:id", usersModel.getUser, (req, res) => {
 // TODO: define POST request for '/' to create user...
 router.post('/', usersModel.create, (req, res, next) => {
 
+  // This route is supposed to handle sign up for
+  // a new user...
+  // This route is supposed to handle login as
+  // well.
+  // Expected that entered email and password would
+  // be compared against DB table "users" and "counter"
+  // increased to 1 to indicate active session...
+  
   console.log('In router.post, usersModel.create...');
     
     console.log(res.locals.newUserId);
 
-    res.json(res.locals.newCheeseId);
+    res.json(res.locals.newUserId);
 });
 
 // TODO: define PUT request for '/:id' to update user...
@@ -63,7 +83,7 @@ router.put('/:id', usersModel.update, (req, res) => {
 });
 
 // TODO: define DELETE request for '/:id' to delete user...
-router.delete('/:id', cheesesModel.destroy, (req, res) => {
+router.delete('/:id', usersModel.destroy, (req, res) => {
 
   console.log('In router.delete, usersModel.destroy...');
   
