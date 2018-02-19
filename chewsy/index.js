@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////
 //                                             //
 //    Project CHEWSY                           //
-//    Flying Oranges Team at GA, New York      //
+//    Flying Orange Team at GA, New York       //
 //    February, 2018                           //
 //                                             //
 //    Instructors:                             //
@@ -73,12 +73,7 @@ app.use('/recipes', recipesRouter);
 
 // Hook up users router
 const usersRouter = require('./controllers/users.js');
-app.use('/users', usersRouter);
-
-// Redirect default route
-app.get('/', (req, res) => {
-	res.redirect('/recipes');
-});
+// app.use('/users', usersRouter);
 
 /////////////////////////////////////////////////
 // Perhaps: => (?)...

@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////
 //                                             //
 //    Project CHEWSY                           //
-//    Flying Oranges Team at GA, New York      //
+//    Flying Orange Team at GA, New York       //
 //    February, 2018                           //
 //                                             //
 //    Instructors:                             //
