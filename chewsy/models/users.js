@@ -55,11 +55,10 @@ usersModel.updateLogin = (req, res, next) => {
   const passwDigest = bcrypt.hashSync(req.body.password_digest, 10);
 
   db
-    .one('UPDATE users SET counter=$1 WHERE id=$2 AND email=$3 AND password_digest=$4 RETURNING id;', 
+    .one('UPDATE users SET counter=$1 WHERE email=$2 AND password_digest=$3 RETURNING id;', 
     [
 
       1,
-      req.params.id,
       email,
       passwDigest
 

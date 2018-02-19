@@ -60,12 +60,24 @@ router.post('/', usersModel.create, (req, res, next) => {
 
   // This route is supposed to handle sign up for
   // a new user...
-  // This route is supposed to handle login as
-  // well.
+
+  console.log('In router.post, usersModel.create...');
+    
+    console.log(res.locals.newUserId);
+
+    res.json(res.locals.newUserId);
+});
+
+router.post('/', usersModel.updateLogin, (req, res, next) => {
+
+  // This route is supposed to handle login for
+  // a user...
+
   // Expected that entered email and password would
-  // be compared against DB table "users" and "counter"
-  // increased to 1 to indicate active session...
-  
+  // be compared against DB table "users", and then
+  // "counter" increased to 1 to indicate active 
+  // session...
+
   console.log('In router.post, usersModel.create...');
     
     console.log(res.locals.newUserId);
