@@ -9,15 +9,20 @@ class ShowResults extends Component {
     }
     
 	}
-  componentDidMount(){
-    this.setState({queryResults:this.props.results});
-  }
+  
 	render() {
-    
-    console.log(this.state.queryResults);
+    const results = this.props.results;
+    const resultList = results.hits.map( recipeObj =>{
+      return(
+          <div key = {recipeObj.recipe.uri}>
+          <h2>{recipeObj.recipe.label}</h2>
+          </div>
+        )
+    });
+    console.log(results);
 		return (
           <div>
-          
+          {resultList}
           </div>
       )
 	}
