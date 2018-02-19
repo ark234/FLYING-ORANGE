@@ -51,7 +51,7 @@ recipesModel.getRecipes = (req, res, next) => {
 recipesModel.getMoreInfo = (req, res, next) => {
 	console.log('in recipesModel.getMoreInfo!');
 	console.log('req.body:', req.body);
-	const r = req.body.r;
+	const r = req.body.uri;
 	const url = `https://api.edamam.com/search?app_id=${app_id}&app_key=${app_key}&r=${r}`;
 	console.log('url:', url);
 };
