@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import logo from "../orange.png";
+
 
 class SearchFeild extends Component {
 	constructor(props) {
@@ -63,7 +65,7 @@ class SearchFeild extends Component {
 		return <h6>Please enter an ingredent in Search Bar</h6>;
 	}
 	handleLoad() {
-		return <img src="../images/orange.png" />;
+		return <img src={logo} width='100px' height='100px'/>;
 	}
 
 	componentDidMount() {
