@@ -26,8 +26,9 @@ class App extends Component {
 	}
 
 	getMoreInfoData(responseData){
-		this.setState({moreInfo:responseData});
 
+		this.setState({moreInfo:responseData});
+	console.log(this.state)
 	}
 
 	errorForResponse() {
@@ -71,7 +72,9 @@ class App extends Component {
 						exact
 						path="/moreInfo/:id"
 						render={props => {
-							return <RecipeInfo />;
+							return (
+								<RecipeInfo recipeDatum={this.state.moreInfo}/>
+								)
 						}}
 					/>
 				</Switch>

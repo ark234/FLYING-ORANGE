@@ -22,13 +22,13 @@ class ShowResults extends Component {
 
   render() {
     const results = this.props.results;
-    const resultsList = results.hits.map(recipeObject => {
+    const resultsList = results.hits.map((recipeObject, index) => {
       const recipeInfo = recipeObject.recipe;
 
       return (
         <div key={recipeInfo.uri} onClick={() => {
-          this.props.moreInfo(recipeObject);
-          this.props.history.push('/moreInfo');
+          this.props.moreInfo(recipeInfo);
+          this.props.history.push(`/moreInfo/${index+1}`);
         }}>
           <h2>{recipeInfo.label}</h2>
           <h6>{recipeInfo.healthLabels}</h6>
