@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './orange.png';
+import logo from './images/orange.png';
 import './App.css';
 import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 import FixedNav from './components/FixedNav';
