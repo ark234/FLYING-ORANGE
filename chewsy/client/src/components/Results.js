@@ -26,11 +26,10 @@ class ShowResults extends Component {
 			const recipeInfo = recipeObject.recipe;
 
 			return (
-				<div className="recipeResultsContainer">
+				<div key={recipeInfo.uri} className="recipeResultsContainer">
 					<div className="recipe-card">
 						<h3 className="viewRecipe">View</h3>
 						<div
-							key={recipeInfo.uri}
 							onClick={() => {
 								this.props.moreInfo(recipeInfo);
 								this.props.history.push('/moreInfo');
