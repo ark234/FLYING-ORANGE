@@ -71,7 +71,9 @@ recipesModel.getRecipes = (req, res, next) => {
 recipesModel.getMoreInfo = (req, res, next) => {
 	console.log('in recipesModel.getMoreInfo!');
 	console.log('req.body:', JSON.stringify(req.body));
-	const url = req.body.uri;
+	const r = req.body.uri.replace('owl#r', 'owl%23r');
+	console.log('This is r: ', r);
+	const url = `https://api.edamam.com/search?app_id=${app_id}&app_key=${app_key}&r=${r}`;
 	console.log('url:', url);
 
 	axios
