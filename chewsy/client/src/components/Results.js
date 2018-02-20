@@ -1,6 +1,8 @@
-import React, { Component } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+
+// import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import axios from 'axios';
+
 
 class ShowResults extends Component {
   constructor(props) {
@@ -22,6 +24,7 @@ class ShowResults extends Component {
   
 
 
+
   render() {
     const results = this.props.results;
         const resultsList = results.hits.map(recipeObject => {
@@ -40,7 +43,8 @@ class ShowResults extends Component {
         })
 
     return (<div>{resultsList}</div>);
-  }
+}
+
 }
 
 export default ShowResults;

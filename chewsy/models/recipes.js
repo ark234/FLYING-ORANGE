@@ -1,3 +1,20 @@
+/////////////////////////////////////////////////
+//                                             //
+//    Project CHEWSY                           //
+//    Flying Orange Team at GA, New York       //
+//    February, 2018                           //
+//                                             //
+//    Instructors:                             //
+//        Tims Gardner                         //
+//        Drake Tally                          //
+//        Dominic Farquharson                  //
+//                                             //
+/////////////////////////////////////////////////
+//                                             //
+// This file is from models forlder...         //
+//                                             //
+/////////////////////////////////////////////////
+
 const db = require('../db/index.js');
 const axios = require('axios');
 const dotenv = require('dotenv').config();
@@ -42,6 +59,26 @@ recipesModel.getRecipes = (req, res, next) => {
 		.then(response => {
 			res.locals.recipesData = response.data;
 			console.log('axios call success! response data:', response.data);
+			next();
+		})
+		.catch(error => {
+			console.log('error making axios call in recipesModel.getRecipes. error:', error);
+			next(error);
+		});
+};
+
+// middleware that looks up detailed recipe information
+recipesModel.getMoreInfo = (req, res, next) => {
+	console.log('in recipesModel.getMoreInfo!');
+	console.log('req.body:', JSON.stringify(req.body));
+	const url = req.body.uri;
+	console.log('url:', url);
+
+	axios
+		.get(url)
+		.then(response => {
+			res.locals.moreInfoData = response.data;
+			console.log('axios call success! response data:', JSON.stringify(response.data));
 			next();
 		})
 		.catch(error => {

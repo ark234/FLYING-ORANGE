@@ -17,7 +17,9 @@ class App extends Component {
 		this.loading = this.loading.bind(this);
 	}
 
+
 	getResponseData(responseData) {
+
 		console.log("grabbing data", responseData);
 		this.setState({ recipeData: responseData, isLoaded: true});
 	}
