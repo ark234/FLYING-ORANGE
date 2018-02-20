@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import { Link } from "react-router-dom";
-import logo from '../orange.png';
+import logo from "../orange.png";
 
 import axios from "axios";
 
@@ -38,37 +38,33 @@ class HomeSearchForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.setState({searching:true})
     this.postApiParams(this.state);
     console.log(this.state);
   }
   postApiParams(info) {
+    this.props.isLoaded();
     axios({
       url: "http://localhost:8080/recipes",
       method: "post",
       data: info
-    }).then(response => {
-      this.props.getResponseData(response.data);
-      this.props.history.push("/results");
-      this.setState({searching:false});
-      console.log(response);
     })
-    .catch(error => {
-      console.log('NO response', error);
-      this.setState({error: true, searching: false});
-    });
-  }
-  handleError(){
-    return(
-      <h6>Please enter an ingredent in Search Bar</h6>
-      )
-  }
-  handleLoad(){
-    return(
-      <img src='../images/orange.png' />
-      )
-  }
+      .then(response => {
+        this.props.getResponseData(response.data);
+        this.props.history.push("/results");
 
+        console.log(response);
+      })
+      .catch(error => {
+        console.log("NO response", error);
+        this.props.errorForResponse();
+      });
+  }
+  handleError() {
+    return <h6>Please enter an ingredent in Search Bar</h6>;
+  }
+  handleLoad() {
+    return <img src="../images/orange.png" />;
+  }
 
   componentDidMount() {
     this.healthArray = new Set();
@@ -96,39 +92,40 @@ class HomeSearchForm extends Component {
     const checkBoxes = allergens.map((allergen, i) => {
       return (
         <div key={i}>
-          <label>{allergen}:
-          <input
-            className="checkBox"
-            onChange={this.handleChangeCheckbox}
-            type="checkbox"
-            name="health"
-            value={allergen}
-            id={allergen}
-          />
+          <label>
+            {allergen}:
+            <input
+              className="checkBox"
+              onChange={this.handleChangeCheckbox}
+              type="checkbox"
+              name="health"
+              value={allergen}
+              id={allergen}
+            />
           </label>
         </div>
       );
     });
-    const form = ()=>{
-      return(
-          <form onSubmit={this.handleSubmit} className="apiQueryForm">
-                      <div className="textInputContainer">
-                      <h2>Cravings</h2>
+    const form = () => {
+      return (
+        <form onSubmit={this.handleSubmit} className="apiQueryForm">
+          <div className="textInputContainer">
+            <h2>Cravings</h2>
 
-                      <input type="text" name="q" onChange={this.handleChange} />
-                      <input 
-                      type="submit" 
-                      className="submitButton"
-                      value="click here to search" />
-                      </div>
-                      <div className="checkBoxContainer">
-                        <h2>Allergens</h2>
-                        {checkBoxes}
-                      </div>
-                      
-                    </form>
-        )
-    }
+            <input type="text" name="q" onChange={this.handleChange} />
+            <input
+              type="submit"
+              className="submitButton"
+              value="click here to search"
+            />
+          </div>
+          <div className="checkBoxContainer">
+            <h2>Allergens</h2>
+            {checkBoxes}
+          </div>
+        </form>
+      );
+    };
 
     return (
       <div>
@@ -138,9 +135,8 @@ class HomeSearchForm extends Component {
         </div>
         <div className="homePage">
           {form()}
-          {this.state.searching? this.handleLoad(): null}
-          {this.state.error? this.handleError():null}
-
+          {this.props.loadingFlag === false ? this.handleLoad() : null }
+          {this.props.errorFlag ? this.handleError() : null}
         </div>
       </div>
     );

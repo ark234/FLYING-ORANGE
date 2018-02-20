@@ -1,23 +1,31 @@
-import React, { Component } from 'react';
-import logo from './orange.png';
-import './App.css';
-import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
-import FixedNav from './components/FixedNav';
-import HomeSearchForm from './components/HomeSearchForm';
-import RecipeInfo from './components/RecipeInfo';
-import Results from './components/Results';
+import React, { Component } from "react";
+import logo from "./orange.png";
+import "./App.css";
+import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+import FixedNav from "./components/FixedNav";
+import HomeSearchForm from "./components/HomeSearchForm";
+import RecipeInfo from "./components/RecipeInfo";
+import Results from "./components/Results";
 
 class App extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = { recipeData: [], isLoaded: false };
+		this.state = { recipeData: null, isLoaded: null };
 		this.getResponseData = this.getResponseData.bind(this);
+		this.errorForResponse = this.errorForResponse.bind(this);
+		this.loading = this.loading.bind(this);
 	}
 
 	getResponseData(responseData) {
-		console.log('grabbing data', responseData);
-		this.setState({recipeData:responseData});
+		console.log("grabbing data", responseData);
+		this.setState({ recipeData: responseData, isLoaded: true});
+	}
+	errorForResponse() {
+		this.setState({ error: true });
+	}
+	loading(){
+		this.setState({isLoaded:false});
 	}
 
 	render() {
@@ -28,20 +36,24 @@ class App extends Component {
 						exact
 						path="/"
 						render={props => {
-							return <HomeSearchForm 
-							{...props} 
-							getResponseData={this.getResponseData}/>;
+							return (
+								<HomeSearchForm
+									{...props}
+									getResponseData={this.getResponseData}
+									errorForResponse={this.errorForResponse}
+									errorFlag={this.state.error}
+									loadingFlag={this.state.isLoaded}
+									isLoaded={this.loading}
+								/>
+							);
 						}}
 					/>
 					<Route
 						exact
 						path="/results"
 						render={props => {
-							return (<Results 
-									{...props} 
-									results = {this.state.recipeData}
-									/>);
-									}}
+							return <Results {...props} results={this.state.recipeData} />;
+						}}
 					/>
 					<Route
 						exact
