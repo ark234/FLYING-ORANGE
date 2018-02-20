@@ -42,6 +42,8 @@ usersModel.getAllUsers = (req, res, next) => {
 		});
 };
 
+// TODO: NEED TO REWRITE THIS METHOD FOR LOGIN. PERHAPS SEND A BOOL VAL
+// THAT CAN BE PERSISTED IN SESSION STORAGE
 usersModel.updateLogin = (req, res, next) => {
 	console.log('In usersModel.updateLogin...');
 
@@ -69,7 +71,7 @@ usersModel.updateLogin = (req, res, next) => {
 		});
 };
 
-// TODO: add method for creating user...
+// method for creating user...
 
 usersModel.create = (req, res, next) => {
 	console.log('In usersModel.create...');
