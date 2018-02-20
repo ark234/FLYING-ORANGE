@@ -70,7 +70,9 @@ this.showGuestOptions = this.showGuestOptions.bind(this);
 	userOptions(){
 		return(
 			<div>
-			<input type='button' value= 'User Profile' />
+			<input type='button' value= 'User Preference' />
+			<input type='button' value= 'saved Recipies' />
+			<input type='button' value= 'account settings' />
 			<input type='button' value= 'Log Out' />
 			</div>
 			)
