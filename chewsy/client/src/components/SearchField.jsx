@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import logo from "../orange.png";
-
+import logo from '../images/orange.png';
 
 class SearchFeild extends Component {
 	constructor(props) {
@@ -66,6 +65,7 @@ class SearchFeild extends Component {
 	}
 	handleLoad() {
 		return <img src={logo} width='100px' height='100px'/>;
+
 	}
 
 	componentDidMount() {

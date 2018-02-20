@@ -31,45 +31,149 @@
 
 /*Styling HomeSearchForm.js*/
 
-.homePage{
+/*.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+*/
+
+/*Styling HomeSearchForm.js*/
+
+.homePage {
   background: red;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.apiQueryForm{
+.apiQueryForm {
   background: blue;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 75vw;
 }
-.checkBoxContainer{
+.checkBoxContainer {
   background: green;
   width: 30vw;
   display: flex;
   flex-wrap: wrap;
 }
-.textInputContainer{
+.textInputContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   background: orange;
   width: 90%;
 }
-.textInput{
+.textInput {
   width: 70%;
   height: 40px;
- margin-left: 20px;
- margin-right: 20px
+  margin-left: 20px;
+  margin-right: 20px;
 }
-.submitButton{
+.submitButton {
   font-size: 100px;
-  padding:20px
+  padding: 20px;
 }
-.checkBox{
-  margin:5px;
+.checkBox {
+  margin: 5px;
 }
 
+/*Results Page*/
 
+.recipeResultsContainer {
+  display: flex;
+  /*flex: 1 20%;*/
+  width: 28%;
+  /*  justify-content: center;
+*/
+  align-content: center;
+  margin: 10px;
+  background-color: rgb(19, 19, 19);
+}
+
+.recipeResultsContainer:hover {
+  transform: scale(1.07);
+  opacity: 0.5;
+  transition: 1s;
+}
+.recipe-card {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  width: 275px;
+  border: 2px solid black;
+  background-color: white;
+}
+.recipeResultsImg {
+  padding: 0;
+  margin-top: 40;
+  border: 0;
+  width: 275px;
+  height: ;
+}
+.recipeName {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.healthLabels {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.servings {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.calories {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.test {
+  display: flex;
+  width: 100vw;
+  flex-wrap: wrap;
+  background-color: rgb(19, 19, 19);
+}
+.viewRecipe {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+}
+.viewRecipe:hover {
+  visibility: visible;
+  opacity: 1;
+}
+
+.checkBox {
+  margin: 5px;
+}
