@@ -114,7 +114,7 @@ constructor(props){
           <div className="textInputContainer">
             <h2>Cravings</h2>
 
-            <input type="text" name="q" onChange={this.handleChange} />
+            <input className='textInput' type="text" name="q" onChange={this.handleChange} />
             <input
               type="submit"
               className="submitButton"
