@@ -35,6 +35,6 @@ class ShowResults extends Component {
 
     return <div>{resultsList}</div>;
   }
-}
+
 
 export default ShowResults;
