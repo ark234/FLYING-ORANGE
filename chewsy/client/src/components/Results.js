@@ -12,7 +12,7 @@ class ShowResults extends Component {
 		axios({
 			url: 'http://localhost:8080/recipes/moreInfo',
 			method: 'post',
-			data: uri
+			data: { uri }
 		}).then(response => {
 			console.log('POST FOR MORE INFO', response);
 			this.props.history.push('/moreInfo');
