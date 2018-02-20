@@ -15,7 +15,6 @@
 //                                             //
 /////////////////////////////////////////////////
 
-
 const db = require('../db/index.js');
 const axios = require('axios');
 const dotenv = require('dotenv').config();
@@ -70,15 +69,10 @@ recipesModel.getRecipes = (req, res, next) => {
 
 // middleware that looks up detailed recipe information
 recipesModel.getMoreInfo = (req, res, next) => {
-
 	console.log('in recipesModel.getMoreInfo!');
 	console.log('req.body:', JSON.stringify(req.body));
-	// const r = req.body.uri.replace('owl#r', 'owl%23r');
-	// console.log('This is r: ', r);
-	// const url = `https://api.edamam.com/search?app_id=${app_id}&app_key=${app_key}&r=${r}`;
-	const url = req.body.url;
+	const url = req.body.uri;
 	console.log('url:', url);
-
 
 	axios
 		.get(url)
@@ -91,7 +85,6 @@ recipesModel.getMoreInfo = (req, res, next) => {
 			console.log('error making axios call in recipesModel.getRecipes. error:', error);
 			next(error);
 		});
-
 };
 
 module.exports = recipesModel;
