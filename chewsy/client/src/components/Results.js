@@ -8,6 +8,7 @@ class ShowResults extends Component {
 		this.state = {};
 		this.moreInfo = this.moreInfo.bind(this);
 	}
+
 	moreInfo(uri) {
 		axios({
 			url: 'http://localhost:8080/recipes/moreInfo',
@@ -21,11 +22,17 @@ class ShowResults extends Component {
 
 	render() {
 		const results = this.props.results;
-		const resultsList = results.hits.map(recipeObject => {
+		const resultsList = results.hits.map((recipeObject, index) => {
 			const recipeInfo = recipeObject.recipe;
 
 			return (
-				<div key={recipeInfo.uri} onClick={() => this.moreInfo(recipeInfo.uri)}>
+				<div
+					key={recipeInfo.uri}
+					onClick={() => {
+						this.props.moreInfo(recipeInfo);
+						this.props.history.push(`/moreInfo/${index + 1}`);
+					}}
+				>
 					<h2>{recipeInfo.label}</h2>
 					<h6>{recipeInfo.healthLabels}</h6>
 					<img src={recipeInfo.image} width="100px" height="100px" />

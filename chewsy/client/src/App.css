@@ -53,14 +53,21 @@
 .textInputContainer{
   display: flex;
   justify-content: center;
-  align-items: space-around;
+  align-items: center;
   background: orange;
   width: 90%;
+}
+.textInput{
+  width: 70%;
+  height: 40px;
+ margin-left: 20px;
+ margin-right: 20px
 }
 .submitButton{
   font-size: 100px;
   padding:20px
 }
 .checkBox{
-  border: 
+  margin:5px;
 }
+

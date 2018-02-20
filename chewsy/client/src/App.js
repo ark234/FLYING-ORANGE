@@ -11,16 +11,24 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = { recipeData: null, isLoaded: null };
+		this.state = { recipeData: null, isLoaded: null , moreInfo:[]};
 		this.getResponseData = this.getResponseData.bind(this);
 		this.errorForResponse = this.errorForResponse.bind(this);
 		this.loading = this.loading.bind(this);
+		this.getMoreInfoData = this.getMoreInfoData.bind(this);
 	}
 
 	getResponseData(responseData) {
 		console.log('grabbing data', responseData);
 		this.setState({ recipeData: responseData, isLoaded: true });
 	}
+
+	getMoreInfoData(responseData){
+
+		this.setState({moreInfo:responseData});
+	console.log(this.state)
+	}
+
 	errorForResponse() {
 		this.setState({ error: true });
 	}
@@ -52,14 +60,19 @@ class App extends Component {
 						exact
 						path="/results"
 						render={props => {
-							return <Results {...props} results={this.state.recipeData} />;
+							return (<Results {...props} 
+							results={this.state.recipeData} 
+							moreInfo={this.getMoreInfoData}
+							/>)
 						}}
 					/>
 					<Route
 						exact
 						path="/moreInfo/:id"
 						render={props => {
-							return <RecipeInfo />;
+							return (
+								<RecipeInfo recipeDatum={this.state.moreInfo}/>
+								)
 						}}
 					/>
 				</Switch>
