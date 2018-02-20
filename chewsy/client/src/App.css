@@ -163,9 +163,6 @@
   flex-wrap: wrap;
   background-color: rgb(19, 19, 19);
 }
-.results-header {
-  font-size: 100px;
-}
 .viewRecipe {
   visibility: hidden;
   opacity: 0;
@@ -174,4 +171,8 @@
 .viewRecipe:hover {
   visibility: visible;
   opacity: 1;
+}
+
+.checkBox {
+  margin: 5px;
 }
