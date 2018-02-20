@@ -6,13 +6,28 @@ class FixedNav extends Component {
 		super(props);
 	}
 
+	guestOptions(){
+		return(
+			<div>
+			<button onClick= {()=>this.props.toggleLogin()} >Log In</button>
+      <button onClick={()=> this.props.toggleSignUp()} >Sign Up</button>
+			</div>
+			)
+
+	}
+	userOptions(){
+		return(
+			<div>
+			<input type='button' value= 'User Profile' />
+			</div>
+			)
+	}
 	render() {
 		return (
-			<form>
-				<h3>Dietary Restrictions</h3>
-				<h3>Search Recipe</h3>
-				<button>Go</button>
-			</form>
+			<div className='nav'>
+			{this.userOptions()}
+			{this.guestOptions()}
+			</div>
 		);
 	}
 }

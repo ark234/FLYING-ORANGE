@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import { Link } from "react-router-dom";
 import logo from "../orange.png";
-
+import Nav from "./FixedNav";
 import axios from "axios";
 
 import SearchField from './SearchField';
@@ -19,10 +19,6 @@ class HomeSearchForm extends Component {
 
     return (
       <div>
-        <div>
-          <button>Log In</button>
-          <button>Sign Up</button>
-        </div>
         <div className="homePage">
           
           <SearchField
@@ -32,6 +28,12 @@ class HomeSearchForm extends Component {
           getResponseData={this.props.getResponseData}
           errorFlag={this.props.errorFlag} 
           loadingFlag={this.props.loadingFlag}/>
+
+          <Nav 
+          toggleLogin={this.props.toggleLogin}
+          toggleSignUp={this.props.toggleSignUp}
+          />
+
         </div>
       </div>
     );
