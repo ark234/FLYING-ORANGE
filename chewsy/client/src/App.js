@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import logo from './orange.png';
-import './App.css';
-import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
-import FixedNav from './components/FixedNav';
-import HomeSearchForm from './components/HomeSearchForm';
-import RecipeInfo from './components/RecipeInfo';
-import Results from './components/Results';
+import React, { Component } from "react";
+import logo from "./orange.png";
+import "./App.css";
+import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+import FixedNav from "./components/FixedNav";
+import HomeSearchForm from "./components/HomeSearchForm";
+import RecipeInfo from "./components/RecipeInfo";
+import Results from "./components/Results";
 
 class App extends Component {
 	constructor(props) {
@@ -15,9 +15,11 @@ class App extends Component {
 		this.getResponseData = this.getResponseData.bind(this);
 	}
 
+
 	getResponseData(responseData) {
 		console.log('grabbing data', responseData);
 		this.setState({recipeData:responseData});
+
 	}
 
 	render() {

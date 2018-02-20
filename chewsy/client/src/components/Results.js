@@ -1,3 +1,4 @@
+// import { Link } from "react-router-dom";
 import React, { Component } from 'react';
 import axios from 'axios';
 
@@ -33,6 +34,8 @@ class ShowResults extends Component {
            onClick = {()=> this.moreInfo(recipeInfo.uri) }>
           <h2>{recipeInfo.label}</h2>
           <h6>{recipeInfo.healthLabels}</h6>
+                                        
+                                        
           <img src={recipeInfo.image} 
           width='100px'
           height='100px'
@@ -48,6 +51,7 @@ class ShowResults extends Component {
           </div>
       )
 	}
+
 }
 
 export default ShowResults;
