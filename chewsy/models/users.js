@@ -93,7 +93,7 @@ usersModel.create = (req, res, next) => {
 
 	db
 		.one(
-			'INSERT INTO uesers (email, password_digest, counter, profiles_table) VALUES ($1, $2, $3, $4) RETURNING id;',
+			'INSERT INTO users (email, password_digest, counter, profiles_table) VALUES ($1, $2, $3, $4) RETURNING id;',
 			[req.body.email, passwDigest, 1, profTable]
 		)
 		.then(userId => {
