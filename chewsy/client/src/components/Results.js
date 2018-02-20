@@ -19,13 +19,17 @@ class ShowResults extends Component {
     });
   }
 
+
   render() {
     const results = this.props.results;
     const resultsList = results.hits.map(recipeObject => {
       const recipeInfo = recipeObject.recipe;
 
       return (
-        <div key={recipeInfo.uri} onClick={() => this.moreInfo(recipeInfo.uri)}>
+        <div key={recipeInfo.uri} onClick={() => {
+          this.props.moreInfo(recipeObject);
+          this.props.history.push('/moreInfo');
+        }}>
           <h2>{recipeInfo.label}</h2>
           <h6>{recipeInfo.healthLabels}</h6>
           <img src={recipeInfo.image} width="100px" height="100px" />
