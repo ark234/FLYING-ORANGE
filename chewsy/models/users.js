@@ -44,8 +44,8 @@ usersModel.getAllUsers = (req, res, next) => {
 
 // TODO: NEED TO REWRITE THIS METHOD FOR LOGIN. PERHAPS SEND A BOOL VAL
 // THAT CAN BE PERSISTED IN SESSION STORAGE
-usersModel.updateLogin = (req, res, next) => {
-	console.log('In usersModel.updateLogin...');
+usersModel.login = (req, res, next) => {
+	console.log('In usersModel.login...');
 
 	console.log('req.body:', req.body);
 

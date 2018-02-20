@@ -51,7 +51,7 @@ router.get('/:id', usersModel.getUser, (req, res) => {
 	res.json(res.locals.user);
 });
 
-// TODO: define POST request for '/' to create user...
+// POST to '/users/register' to create user...
 router.post('/register', usersModel.create, (req, res, next) => {
 	// This route is supposed to handle sign up for
 	// a new user...
@@ -63,19 +63,10 @@ router.post('/register', usersModel.create, (req, res, next) => {
 	res.json(res.locals.newUserId);
 });
 
-router.post('/login', usersModel.updateLogin, (req, res, next) => {
-	// This route is supposed to handle login for
-	// a user...
-
-	// Expected that entered email and password would
-	// be compared against DB table "users", and then
-	// "counter" increased to 1 to indicate active
-	// session...
-
-	console.log('In router.post, usersModel.create...');
-
-	console.log(res.locals.newUserId);
-
+// POST to '/users/login' to login...
+router.post('/login', usersModel.login, (req, res, next) => {
+	console.log('POSTing to /users/login.');
+	console.log('New User ID:', res.locals.newUserId);
 	res.json(res.locals.newUserId);
 });
 
