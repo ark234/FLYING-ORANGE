@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import logo from './images/orange.png';
 import './App.css';
 import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
@@ -6,6 +7,8 @@ import FixedNav from './components/FixedNav';
 import HomeSearchForm from './components/HomeSearchForm';
 import RecipeInfo from './components/RecipeInfo';
 import Results from './components/Results';
+import Register from './components/Register';
+import Login from './components/Login';
 import TokenService from './services/TokenService';
 
 class App extends Component {
@@ -141,6 +144,7 @@ class App extends Component {
 							return (
 								<Results
 									{...props}
+									toggleSignUp={this.toggleSignUp}
 									results={this.state.recipeData}
 									moreInfo={this.getMoreInfoData}
 									getResponseData={this.getResponseData}

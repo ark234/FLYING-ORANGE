@@ -5,7 +5,6 @@ import '../App.css';
 
 import Header from './Header';
 
-
 class ShowResults extends Component {
 	constructor(props) {
 		super(props);
@@ -58,13 +57,15 @@ class ShowResults extends Component {
 		return (
 			<div>
 				<div className="search-bar">
-
-        <Header routeToResults={this.routeToResults}
-            isLoaded={this.props.isLoaded}
-            errorForResponse={this.props.errorForResponse}
-            getResponseData={this.props.getResponseData}
-            errorFlag={this.props.errorFlag}
-            loadingFlag={this.props.loadingFlag}/>
+					<Header
+						routeToResults={this.routeToResults}
+						isLoaded={this.props.isLoaded}
+						errorForResponse={this.props.errorForResponse}
+						getResponseData={this.props.getResponseData}
+						errorFlag={this.props.errorFlag}
+						loadingFlag={this.props.loadingFlag}
+						toggleSignUp={this.props.toggleSignUp}
+					/>
 				</div>
 				<div className="results-header">
 					Found {results.count} matching results for {results.q}
