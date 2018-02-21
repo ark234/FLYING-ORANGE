@@ -173,7 +173,14 @@
   visibility: visible;
   opacity: 1;
 }
-
 .checkBox {
   margin: 5px;
+}
+.modal{
+  position: absolute;
+  z-index: 3;
+  width: 99vw;
+  height: 99vh;
+  background: black;
+  opacity: .97;
 }

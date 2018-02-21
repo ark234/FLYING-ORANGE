@@ -68,6 +68,8 @@ class App extends Component {
 									errorFlag={this.state.error}
 									loadingFlag={this.state.isLoaded}
 									isLoaded={this.loading}
+									loginClicked={this.state.loginClicked}
+									signUpClicked={this.state.signUpClicked}
 								/>
 							);
 						}}
