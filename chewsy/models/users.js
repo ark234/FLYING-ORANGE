@@ -42,37 +42,49 @@ usersModel.getAllUsers = (req, res, next) => {
 		});
 };
 
-// TODO: NEED TO REWRITE THIS METHOD FOR LOGIN. PERHAPS SEND A BOOL VAL
-// THAT CAN BE PERSISTED IN SESSION STORAGE
+usersModel.findByEmail = function(email) {
+	return db.one('SELECT * FROM users WHERE email = $1;', [email]);
+};
+
+// method for login...
 usersModel.login = (req, res, next) => {
 	console.log('In usersModel.login...');
+	const user = req.body;
+	console.log('user:', user);
+	// do the normal dance comparing password / password_digest
+	usersModel
+		.findByEmail(user.email)
+		.then(data => {
+			const isAuthed = bcrypt.compareSync(user.password, data.password_digest);
+			if (!isAuthed) {
+				next();
+			}
 
-	console.log('req.body:', req.body);
+			// put userData into res.locals
+			const { password_digest, ...userData } = data;
+			res.locals.user = userData;
 
-	let { email, password_digest } = req.body;
+			const tokenData = {
+				id: data.id,
+				email: data.email
+			};
 
-	const passwDigest = bcrypt.hashSync(req.body.password_digest, 10);
-
-	db
-		.one('UPDATE users SET counter=$1 WHERE email=$2 AND password_digest=$3 RETURNING id;', [
-			1,
-			email,
-			passwDigest
-		])
-		.then(userId => {
-			res.locals.userId = userId;
-			next();
+			// and pass it into makeToken
+			TokenService.makeToken(tokenData)
+				.then(token => {
+					res.locals.token = token; // set the token on res.locals
+					next();
+				})
+				.catch(err => {
+					next();
+				});
 		})
-		.catch(error => {
-			// There supposed to be an arror for non-unique email...
-
-			console.log('Error: in usersModel.update. Details: ', error);
-			next(error);
+		.catch(err => {
+			next();
 		});
 };
 
 // method for creating user...
-
 usersModel.create = (req, res, next) => {
 	console.log('In usersModel.create...');
 	const user = req.body;
@@ -109,8 +121,8 @@ usersModel.create = (req, res, next) => {
 		});
 };
 
-usersModel.getUser = (req, res, next) => {
-	console.log('in usersModel.getUser...');
+usersModel.getUserById = (req, res, next) => {
+	console.log('in usersModel.getUserById...');
 
 	const id = req.params.id;
 	console.log(`User's id is: ${id}...`);

@@ -27,7 +27,7 @@ router.get('/', usersModel.getAllUsers, (req, res, next) => {
 });
 
 // TODO: define GET request for '/:id' to retrieve user...
-router.get('/:id', usersModel.getUser, (req, res) => {
+router.get('/:id', usersModel.getUserById, (req, res) => {
 	console.log('In router.get, usersModel.getUser...');
 	// const user = res.locals;
 	// console.log('User data: ', user);
@@ -50,8 +50,7 @@ router.post('/login', usersModel.login, (req, res) => {
 	if (!res.locals.user) {
 		res.status(401).json({ err: 'Login Failed' });
 	} else {
-		const { password_digest, ...user } = res.locals.user;
-		res.json({ token: res.locals.token, user });
+		res.json({ token: res.locals.token, user: res.locals.user });
 	}
 });
 
