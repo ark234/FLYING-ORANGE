@@ -2,13 +2,20 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import '../App.css';
+import SearchField from './SearchField';
 
 class ShowResults extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
 		this.moreInfo = this.moreInfo.bind(this);
+		this.routeToResults = this.routeToResults.bind(this);
 	}
+
+	routeToResults() {
+		this.props.history.push('/results');
+	}
+
 	moreInfo(uri) {
 		axios({
 			url: 'http://localhost:8080/recipes/moreInfo',
@@ -48,6 +55,16 @@ class ShowResults extends Component {
 
 		return (
 			<div>
+				<div className="search-bar">
+					<SearchField
+						routeToResults={this.routeToResults}
+						isLoaded={this.props.isLoaded}
+						errorForResponse={this.props.errorForResponse}
+						getResponseData={this.props.getResponseData}
+						errorFlag={this.props.errorFlag}
+						loadingFlag={this.props.loadingFlag}
+					/>
+				</div>
 				<div className="results-header">
 					Found {results.count} matching results for {results.q}
 				</div>

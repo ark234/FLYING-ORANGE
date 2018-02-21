@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import logo from './images/orange.png';
-import './App.css';
-import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
-import FixedNav from './components/FixedNav';
-import HomeSearchForm from './components/HomeSearchForm';
-import RecipeInfo from './components/RecipeInfo';
-import Results from './components/Results';
+import React, { Component } from "react";
+import logo from "./images/orange.png";
+import "./App.css";
+import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+import FixedNav from "./components/FixedNav";
+import HomeSearchForm from "./components/HomeSearchForm";
+import RecipeInfo from "./components/RecipeInfo";
+import Results from "./components/Results";
 
 class App extends Component {
 	constructor(props) {
@@ -34,7 +34,7 @@ class App extends Component {
 	}
 
 	getResponseData(responseData) {
-		console.log('grabbing data', responseData);
+		console.log("grabbing data", responseData);
 		this.setState({ recipeData: responseData, isLoaded: true });
 	}
 
@@ -80,11 +80,16 @@ class App extends Component {
 						render={props => {
 							return (
 
-								<Results {...props} 
-							toggleLogin={this.toggleLogin}	
-							results={this.state.recipeData} 
-							moreInfo={this.getMoreInfoData}
-							/>
+								<Results
+									{...props}
+									results={this.state.recipeData}
+									moreInfo={this.getMoreInfoData}
+									getResponseData={this.getResponseData}
+									errorForResponse={this.errorForResponse}
+									errorFlag={this.state.error}
+									loadingFlag={this.state.isLoaded}
+									isLoaded={this.loading}
+								/>
 							)
 						}}
 					/>
