@@ -1,3 +1,26 @@
+/////////////////////////////////////////////////
+//                                             //
+//    Project CHEWSY                           //
+//    Flying Orange Team at GA, New York       //
+//    February, 2018                           //
+//                                             //
+//    Instructors:                             //
+//        Tims Gardner                         //
+//        Drake Tally                          //
+//        Dominic Farquharson                  //
+//                                             //
+/////////////////////////////////////////////////
+//                                             //
+// This file is from models forlder...         //
+//                                             //
+/////////////////////////////////////////////////
+// Anatoliy added /recipes/save Route... 022018//
+// I am not sure whether we need that file -   //
+// RecipeSave.js... But certainly, we need     //
+// that route...                               //
+/////////////////////////////////////////////////
+
+
 import React, { Component } from "react";
 import logo from "./images/orange.png";
 import "./App.css";
@@ -5,6 +28,7 @@ import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 import FixedNav from "./components/FixedNav";
 import HomeSearchForm from "./components/HomeSearchForm";
 import RecipeInfo from "./components/RecipeInfo";
+import RecipeSave from "./components/RecipeSave";
 import Results from "./components/Results";
 
 class App extends Component {
@@ -12,6 +36,9 @@ class App extends Component {
 		super(props);
 
 		this.state = { recipeData: null, isLoaded: null , moreInfo:[], signUpClicked: false, loginClicked: false};
+		// recipeData are from getResponseData - entire set from query;
+		// moreInfo - is particular item in the set - related to 
+		// RecipeInfo.js...
 
 		this.getResponseData = this.getResponseData.bind(this);
 		this.errorForResponse = this.errorForResponse.bind(this);
@@ -106,6 +133,24 @@ class App extends Component {
 								)
 						}}
 					/>
+				{
+					// What would be a proper outcome from this?
+					// We will save the recipe in DB table and 
+					// then - which route we are to follow?
+					// Need to know which function to pass down
+					// the route /recipes/save...
+					
+				}
+					<Route
+						exact
+						path="/recipes/save"
+						render={props => {
+							return (
+								<RecipeSave recipeDatum={this.state.moreInfo}/>
+							);
+						}}
+					/>
+				
 				</Switch>
 			</BrowserRouter>
 		);

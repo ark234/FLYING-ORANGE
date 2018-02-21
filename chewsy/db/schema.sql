@@ -143,10 +143,13 @@ DROP TABLE IF EXISTS recipes_user CASCADE;
 CREATE TABLE recipes_user (
   id              BIGSERIAL PRIMARY KEY,
   user_id         INTEGER REFERENCES users (id),
-  recipe_label    VARCHAR(128),
-  recipe_img      VARCHAR(255), 
-  recipe_text     VARCHAR(255),
-  recipe_link     VARCHAR(255)
+  recipe_uri      VARCHAR(255) UNIQUE,
+  recipe_url      VARCHAR(255),
+  recipe_img_url  VARCHAR(255), 
+  recipe_label    VARCHAR(255),
+  recipe_hlth_lbl VARCHAR(255),
+  recipe_comment  VARCHAR(511),
+  recipe_rating   INTEGER
 
 );
 
