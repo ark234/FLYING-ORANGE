@@ -20,6 +20,7 @@ class App extends Component {
 		this.toggleSignUp = this.toggleSignUp.bind(this);
 		this.toggleLogin = this.toggleLogin.bind(this);
 	}
+
 	toggleLogin(){
 		this.setState(prevState =>{
 			prevState.loginClicked = !prevState.loginClicked;

@@ -26,6 +26,8 @@ this.showGuestOptions = this.showGuestOptions.bind(this);
 			prevState.showNavMenu = !prevState.showNavMenu;
 			return prevState;
 		});
+		this.setState({guestMenuClicked:false, showGuestMenu: false, showUserMenu:false, userMenuClicked:false});
+
 	}
 	showUserNav(){
 		this.setState(prevState =>{
