@@ -152,6 +152,10 @@ class App extends Component {
 									errorFlag={this.state.error}
 									loadingFlag={this.state.isLoaded}
 									isLoaded={this.loading}
+									loginClicked={this.state.loginClicked}
+			            signUpClicked={this.state.signUpClicked}
+			            toggleLogin={this.toggleLogin}
+			            toggleSignUp={this.toggleSignUp}
 								/>
 							);
 						}}
@@ -161,7 +165,11 @@ class App extends Component {
 						path="/moreInfo"
 						render={props => {
 							return (
-								<RecipeInfo toggleLogin={this.toggleLogin} recipeDatum={this.state.moreInfo} />
+								<RecipeInfo 
+								toggleLogin={this.toggleLogin} 
+								recipeDatum={this.state.moreInfo}
+								results={this.state.recipeData}
+									moreInfo={this.getMoreInfoData} />
 							);
 						}}
 					/>
