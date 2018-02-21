@@ -40,7 +40,7 @@ CREATE TABLE users (
 );
 
 -----------------------------------------------------------
--- PROFILES table is connected to USERS table by user_id 
+-- PREFERENCES table is connected to USERS table by user_id 
 -- field making sure there is only one profile per user id;
 -- a record is comprised of boolean fields to reflect
 -- user's allergies and limitations;
@@ -48,11 +48,11 @@ CREATE TABLE users (
 -- check-mark all relevant health-labels...
 -----------------------------------------------------------
 
-DROP TABLE IF EXISTS profiles CASCADE;
+DROP TABLE IF EXISTS preferences CASCADE;
 
-CREATE TABLE profiles (
+CREATE TABLE preferences (
   id              BIGSERIAL PRIMARY KEY,
-  user_id         INTEGER REFERENCES users (id),
+  user_id         INTEGER REFERENCES UNIQUE users (id),
   health_table    VARCHAR(32),
   balanced        BOOLEAN DEFAULT FALSE, 
   high_fiber      BOOLEAN DEFAULT FALSE,

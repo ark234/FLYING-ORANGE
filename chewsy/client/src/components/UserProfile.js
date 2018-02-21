@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SearchField from "./SearchField";
+import axios from './axios';
 
 class UserProfile extends Component {
   constructor(props) {
@@ -7,6 +8,8 @@ class UserProfile extends Component {
     this.state = {};
     this.healthArray = new Set();
     this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.edit = this.edit.bind(this);
   }
   handleChangeCheckbox(event) {
     const value = event.target.value;
@@ -21,6 +24,24 @@ class UserProfile extends Component {
     }
     const healthArray = Array.from(this.healthArray);
     this.setState({ health: healthArray });
+  }
+
+  edit(info, user_id){
+    axios({
+      url: 'localhost:8080/users/preferences',
+      method: 'put',
+      data: {health: info, user_id: user_id }
+    })
+    .then(response =>{
+      console.log('PUT response', response);
+    })
+  }
+ 
+  handleSubmit(e){
+    e.preventDefault();
+    const preferenceArray = Array.from(this.healthArray);
+    this.edit(preferenceArray, user_id);
+
   }
 
   render() {
@@ -64,7 +85,7 @@ class UserProfile extends Component {
       <div>
         <h2>User_Name</h2>
         <div>User Dietary and Allergen Preferences</div>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <div className="checkBoxContainer">
             <h2>Allergens</h2>
             {checkBoxes}

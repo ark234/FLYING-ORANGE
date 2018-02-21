@@ -17,6 +17,19 @@ usersModel.create = (req, res, next) => {
 // TODO: add method for updating user
 usersModel.update = (req, res, next) => {
 	console.log('in usersModel.update!');
+  const array = req.body.health;
+  const arrayMaped = array.map((ele, index )=>{
+    return ( `${ele}=True`)
+  });
+  const arrayJoined = arrayMaped.join(',');
+  const query = `UPDATE preferences SET ${arrayJoined} WHERE user_id=${req.body.user_id};`
+
+  db 
+    .one(query)
+    .then(data=>{
+      console.log('+++THE DATA++++', data);
+      next();
+    })
 };
 
 // TODO: add method for deleting user
