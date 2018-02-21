@@ -1,12 +1,21 @@
 // import { Link } from "react-router-dom";
 import React, { Component } from 'react';
 import axios from 'axios';
+import '../App.css';
+
+import Header from './Header';
+
 
 class ShowResults extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
 		this.moreInfo = this.moreInfo.bind(this);
+		this.routeToResults = this.routeToResults.bind(this);
+	}
+
+	routeToResults() {
+		this.props.history.push('/results');
 	}
 
 	moreInfo(uri) {
@@ -22,25 +31,47 @@ class ShowResults extends Component {
 
 	render() {
 		const results = this.props.results;
-		const resultsList = results.hits.map((recipeObject, index) => {
+		const resultsList = results.hits.map(recipeObject => {
 			const recipeInfo = recipeObject.recipe;
 
 			return (
-				<div
-					key={recipeInfo.uri}
-					onClick={() => {
-						this.props.moreInfo(recipeInfo);
-						this.props.history.push(`/moreInfo/${index + 1}`);
-					}}
-				>
-					<h2>{recipeInfo.label}</h2>
-					<h6>{recipeInfo.healthLabels}</h6>
-					<img src={recipeInfo.image} width="100px" height="100px" />
+				<div key={recipeInfo.uri} className="recipeResultsContainer">
+					<div className="recipe-card">
+						<h3 className="viewRecipe">View</h3>
+						<div
+							onClick={() => {
+								this.props.moreInfo(recipeInfo);
+								this.props.history.push('/moreInfo');
+							}}
+						>
+							<img src={recipeInfo.image} className="recipeResultsImg" />
+							<h2 className="recipeName">{recipeInfo.label}</h2>
+							<h6 className="healthLabels">{recipeInfo.healthLabels}</h6>
+							<h6 className="servings">{recipeInfo.yield} servings</h6>
+							<h6 className="calories">{Math.trunc(recipeInfo.calories)} calories</h6>
+						</div>
+					</div>
 				</div>
 			);
 		});
 
-		return <div>{resultsList}</div>;
+		return (
+			<div>
+				<div className="search-bar">
+
+        <Header routeToResults={this.routeToResults}
+            isLoaded={this.props.isLoaded}
+            errorForResponse={this.props.errorForResponse}
+            getResponseData={this.props.getResponseData}
+            errorFlag={this.props.errorFlag}
+            loadingFlag={this.props.loadingFlag}/>
+				</div>
+				<div className="results-header">
+					Found {results.count} matching results for {results.q}
+				</div>
+				<div className="test">{resultsList}</div>
+			</div>
+		);
 	}
 }
 
