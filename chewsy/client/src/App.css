@@ -1,4 +1,3 @@
-
 /*.App {
   text-align: center;
 }
@@ -175,11 +174,11 @@
 .checkBox {
 	margin: 5px;
 }
-.modal{
-  position: absolute;
-  z-index: 3;
-  width: 99vw;
-  height: 99vh;
-  background: black;
-  opacity: .97;
+.modal {
+	position: absolute;
+	z-index: 3;
+	width: 99vw;
+	height: 99vh;
+	background: orange;
+	opacity: 0.9;
 }
