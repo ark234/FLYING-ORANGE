@@ -146,25 +146,27 @@ Foreign-key constraints:
 
 
 chewsy_db_test=# 
-chewsy_db_test=# \d+ recipes_user
-                                                           Table "public.recipes_user"
-    Column    |          Type          | Collation | Nullable |                 Default                  | Storage  | Stats target | Description 
---------------+------------------------+-----------+----------+------------------------------------------+----------+--------------+-------------
- id           | bigint                 |           | not null | nextval('recipes_user_id_seq'::regclass) | plain    |              | 
- user_id      | integer                |           |          |                                          | plain    |              | 
- recipe_label | character varying(128) |           |          |                                          | extended |              | 
- recipe_img   | character varying(255) |           |          |                                          | extended |              | 
- recipe_text  | character varying(255) |           |          |                                          | extended |              | 
- recipe_link  | character varying(255) |           |          |                                          | extended |              | 
+
+
+chewsy_db=# \d+ recipes_user
+                                                            Table "public.recipes_user"
+     Column      |          Type          | Collation | Nullable |                 Default                  | Storage  | Stats target | Description 
+-----------------+------------------------+-----------+----------+------------------------------------------+----------+--------------+-------------
+ id              | bigint                 |           | not null | nextval('recipes_user_id_seq'::regclass) | plain    |              | 
+ user_id         | integer                |           |          |                                          | plain    |              | 
+ recipe_uri      | character varying(255) |           |          |                                          | extended |              | 
+ recipe_img_url  | character varying(255) |           |          |                                          | extended |              | 
+ recipe_name     | character varying(255) |           |          |                                          | extended |              | 
+ recipe_hlth_lbl | character varying(255) |           |          |                                          | extended |              | 
+ recipe_comment  | character varying(511) |           |          |                                          | extended |              | 
+ recipe_rating   | integer                |           |          |                                          | plain    |              | 
 Indexes:
     "recipes_user_pkey" PRIMARY KEY, btree (id)
+    "recipes_user_recipe_uri_key" UNIQUE CONSTRAINT, btree (recipe_uri)
 Foreign-key constraints:
     "recipes_user_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id)
 
-chewsy_db_test=# 
-
-
-
+chewsy_db=#
 
 
 
@@ -301,3 +303,37 @@ chewsy_db_test=# SELECT * FROM label_ingred_ref;
 (55 rows)
 
 chewsy_db_test=#
+
+chewsy_db=# INSERT INTO users (email, password_digest, counter, profiles_table ) 
+chewsy_db-# VALUES
+chewsy_db-# ('alavinda@hotmail.com', 'ABCDEFabcdefABCDEFabcdefABCDEFab', 0, 'profiles') 
+chewsy_db-# RETURNING id;
+ id 
+----
+  1
+(1 row)
+
+INSERT 0 1
+chewsy_db=# SELECT * FROM users;
+ id |        email         |         password_digest          | counter |        signedup_on         | profiles_table 
+----+----------------------+----------------------------------+---------+----------------------------+----------------
+  1 | alavinda@hotmail.com | ABCDEFabcdefABCDEFabcdefABCDEFab |       0 | 2018-02-20 23:24:14.781538 | profiles
+(1 row)
+
+chewsy_db=#
+
+
+chewsy_db=# INSERT INTO recipes_user (user_id, recipe_uri, recipe_url, recipe_img_url, recipe_label, recipe_hlth_lbl, recipe_comment, recipe_rating) VALUES (1, 'http://www.edamam.com/ontologies/edamam.owl#recipe_3921adf30bb0c9736b9ac30f447f8a63', 'http://www.saveur.com/article/Recipes/Roast-Beef', 'https://www.edamam.com/web-img/98a/98aa5d5cc0d88b28c2b9221a099b1a14.jpg', 'Roast Beef', 'Sugar-Conscious, Peanut-Free, Tree-Nut-Free, Alcohol-Free', '***', 5) RETURNING id;
+ id 
+----
+  2
+(1 row)
+
+INSERT 0 1
+chewsy_db=# SELECT * FROM recipes_user;
+ id | user_id |                                     recipe_uri                                      |                    recipe_url                    |                             recipe_img_url                              | recipe_label |                      recipe_hlth_lbl                      | recipe_comment | recipe_rating 
+----+---------+-------------------------------------------------------------------------------------+--------------------------------------------------+-------------------------------------------------------------------------+--------------+-----------------------------------------------------------+----------------+---------------
+  2 |       1 | http://www.edamam.com/ontologies/edamam.owl#recipe_3921adf30bb0c9736b9ac30f447f8a63 | http://www.saveur.com/article/Recipes/Roast-Beef | https://www.edamam.com/web-img/98a/98aa5d5cc0d88b28c2b9221a099b1a14.jpg | Roast Beef   | Sugar-Conscious, Peanut-Free, Tree-Nut-Free, Alcohol-Free | ***            |             5
+(1 row)
+
+chewsy_db=#
