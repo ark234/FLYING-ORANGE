@@ -14,6 +14,8 @@
 // This file is from models forlder...         //
 //                                             //
 /////////////////////////////////////////////////
+// Anatoliy added recipesModel.create... 022018//
+/////////////////////////////////////////////////
 
 const db = require('../db/index.js');
 const axios = require('axios');
@@ -69,12 +71,15 @@ recipesModel.getRecipes = (req, res, next) => {
 
 // middleware that looks up detailed recipe information
 recipesModel.getMoreInfo = (req, res, next) => {
+
 	console.log('in recipesModel.getMoreInfo!');
 	console.log('req.body:', JSON.stringify(req.body));
 	const r = req.body.uri.replace('owl#r', 'owl%23r');
 	console.log('This is r: ', r);
 	const url = `https://api.edamam.com/search?app_id=${app_id}&app_key=${app_key}&r=${r}`;
+	// const url = req.body.url;
 	console.log('url:', url);
+
 
 	axios
 		.get(url)
@@ -87,6 +92,38 @@ recipesModel.getMoreInfo = (req, res, next) => {
 			console.log('error making axios call in recipesModel.getRecipes. error:', error);
 			next(error);
 		});
+
+};
+
+// middleware for populating DB "recipes_user" table with chosen recipes...
+
+recipesModel.create = (req, res, next) => {
+
+  db
+    .one(
+      'INSERT INTO recipes_user ( user_id, recipe_uri, recipe_url, recipe_img_url, recipe_label, recipe_hlth_lbl, recipe_comment, recipe_rating) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id;',
+      [
+        req.body.user_id,
+        req.body.recipe_uri,
+        req.body.recipe_url,
+        req.body.recipe_img_url,
+        req.body.recipe_label,
+        req.body.recipe_hlth_lbl,
+        req.body.recipe_comment,
+        req.body.recipe_rating
+      ]
+    )
+    .then(recipeId => {
+      res.locals.newRecipeId = recipeId;
+
+      console.log(res.locals.newRecipeId);
+
+      next();
+    })
+    .catch(error => {
+      console.log('Error: in recipes.create. Details: ', error);
+      next(error);
+    });
 };
 
 module.exports = recipesModel;

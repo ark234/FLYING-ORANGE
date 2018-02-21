@@ -1,17 +1,49 @@
-import React, { Component } from "react";
-import logo from "./images/orange.png";
-import "./App.css";
-import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
-import FixedNav from "./components/FixedNav";
-import HomeSearchForm from "./components/HomeSearchForm";
-import RecipeInfo from "./components/RecipeInfo";
-import Results from "./components/Results";
+/////////////////////////////////////////////////
+//                                             //
+//    Project CHEWSY                           //
+//    Flying Orange Team at GA, New York       //
+//    February, 2018                           //
+//                                             //
+//    Instructors:                             //
+//        Tims Gardner                         //
+//        Drake Tally                          //
+//        Dominic Farquharson                  //
+//                                             //
+/////////////////////////////////////////////////
+//                                             //
+// This file is from models forlder...         //
+//                                             //
+/////////////////////////////////////////////////
+// Anatoliy added /recipes/save Route... 022018//
+// I am not sure whether we need that file -   //
+// RecipeSave.js... But certainly, we need     //
+// that route...                               //
+/////////////////////////////////////////////////
+
+import React, { Component } from 'react';
+import logo from './images/orange.png';
+import './App.css';
+import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
+import FixedNav from './components/FixedNav';
+import HomeSearchForm from './components/HomeSearchForm';
+import RecipeInfo from './components/RecipeInfo';
+import RecipeSave from './components/RecipeSave';
+import Results from './components/Results';
 
 class App extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = { recipeData: null, isLoaded: null , moreInfo:[], signUpClicked: false, loginClicked: false};
+		this.state = {
+			recipeData: null,
+			isLoaded: null,
+			moreInfo: [],
+			signUpClicked: false,
+			loginClicked: false
+		};
+		// recipeData are from getResponseData - entire set from query;
+		// moreInfo - is particular item in the set - related to
+		// RecipeInfo.js...
 
 		this.getResponseData = this.getResponseData.bind(this);
 		this.errorForResponse = this.errorForResponse.bind(this);
@@ -21,21 +53,21 @@ class App extends Component {
 		this.toggleLogin = this.toggleLogin.bind(this);
 	}
 
-	toggleLogin(){
-		this.setState(prevState =>{
+	toggleLogin() {
+		this.setState(prevState => {
 			prevState.loginClicked = !prevState.loginClicked;
 			return prevState;
 		});
 	}
-	toggleSignUp(){
-		this.setState(prevState =>{
+	toggleSignUp() {
+		this.setState(prevState => {
 			prevState.signUpClicked = !prevState.signUpClicked;
-			return prevState
-		})
+			return prevState;
+		});
 	}
 
 	getResponseData(responseData) {
-		console.log("grabbing data", responseData);
+		console.log('grabbing data', responseData);
 		this.setState({ recipeData: responseData, isLoaded: true });
 	}
 
@@ -80,7 +112,6 @@ class App extends Component {
 						path="/results"
 						render={props => {
 							return (
-
 								<Results
 									{...props}
 									results={this.state.recipeData}
@@ -95,7 +126,7 @@ class App extends Component {
 			            toggleLogin={this.toggleLogin}
 			            toggleSignUp={this.toggleSignUp}
 								/>
-							)
+							);
 						}}
 					/>
 					<Route
@@ -103,11 +134,8 @@ class App extends Component {
 						path="/moreInfo"
 						render={props => {
 							return (
-								<RecipeInfo 
-								toggleLogin={this.toggleLogin}
-								recipeDatum={this.state.moreInfo}
-								/>
-								)
+								<RecipeInfo toggleLogin={this.toggleLogin} recipeDatum={this.state.moreInfo} />
+							);
 						}}
 					/>
 				</Switch>

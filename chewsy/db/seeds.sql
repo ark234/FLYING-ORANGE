@@ -93,6 +93,14 @@ VALUES
   ('22', 'peanut-free', 'Expelled peanut oil'),
   ('22', 'peanut-free', 'Extruded peanut oil');
 
+-- INSERT INTO users (email, password_digest, counter, profiles_table ) 
+-- VALUES
+-- ('alavinda@hotmail.com', 'ABCDEFabcdefABCDEFabcdefABCDEFab', 0, 'profiles') 
+-- RETURNING id;
 
 
+-- INSERT INTO recipes_user (user_id, recipe_uri, recipe_url, recipe_img_url, recipe_label, recipe_hlth_lbl, recipe_comment, recipe_rating)
+-- VALUES 
+--  (1, 'http://www.edamam.com/ontologies/edamam.owl#recipe_3921adf30bb0c9736b9ac30f447f8a63', 'http://www.saveur.com/article/Recipes/Roast-Beef', 'https://www.edamam.com/web-img/98a/98aa5d5cc0d88b28c2b9221a099b1a14.jpg', 'Roast Beef', 'Sugar-Conscious, Peanut-Free, Tree-Nut-Free, Alcohol-Free', '***', 5)
+-- RETURNING id;
   

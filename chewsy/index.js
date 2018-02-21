@@ -3,7 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const mustache = require('mustache-express');
 const dotenv = require('dotenv').config();
 const PORT = process.env.PORT || 8080;
 
@@ -19,15 +18,6 @@ app.use(bodyParser.json());
 
 // Set up morgan
 app.use(morgan('dev'));
-
-// Register the engine template
-app.engine('html', mustache());
-// Set default .html file extension for the views
-app.set('view engine', 'html');
-// Set up directory for mustache template files
-app.set('views', __dirname + '/views');
-// Set up directory for static resources
-app.use(express.static(__dirname + '/public'));
 
 // Set up body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
