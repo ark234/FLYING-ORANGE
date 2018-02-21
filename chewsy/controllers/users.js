@@ -16,23 +16,8 @@
 /////////////////////////////////////////////////
 
 const router = require('express').Router();
-
 const usersModel = require('../models/users.js');
-
-/////////////////////////////////////////////////
-// As a reminder: we are not using passport here
-// const passport = require('passport');
-// const auth = require('../services/auth');
-/////////////////////////////////////////////////
-// This has not been done in index.js...
-// Do we need it here?
-//
-// router.get('/', (req, res, next) => {
-//     res.redirect('users/profile');
-// });
-/////////////////////////////////////////////////
-
-console.log('Loading controllers/users...');
+const TokenService = require('../services/TokenService');
 
 // TODO: define GET request for '/' to retrieve all users...
 router.get('/', usersModel.getAllUsers, (req, res, next) => {
@@ -52,22 +37,22 @@ router.get('/:id', usersModel.getUser, (req, res) => {
 });
 
 // POST to '/users/register' to create user...
-router.post('/register', usersModel.create, (req, res, next) => {
-	// This route is supposed to handle sign up for
-	// a new user...
-
+router.post('/register', usersModel.create, (req, res) => {
 	console.log('In router.post, usersModel.create...');
-
-	console.log(res.locals.newUserId);
-
-	res.json(res.locals.newUserId);
+	res.json({ token: res.locals.token, user: res.locals.user });
 });
 
 // POST to '/users/login' to login...
-router.post('/login', usersModel.login, (req, res, next) => {
+// if the user didn't get created thrown an error
+// else include the user and token in the response
+router.post('/login', usersModel.login, (req, res) => {
 	console.log('POSTing to /users/login.');
-	console.log('New User ID:', res.locals.newUserId);
-	res.json(res.locals.newUserId);
+	if (!res.locals.user) {
+		res.status(401).json({ err: 'Login Failed' });
+	} else {
+		const { password_digest, ...user } = res.locals.user;
+		res.json({ token: res.locals.token, user });
+	}
 });
 
 // TODO: define PUT request for '/:id' to update user...

@@ -1,6 +1,6 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const TokenService = require('./TokenService');
-const User = require('../models/User');
+const User = require('../models/users');
 
 // boilerplate stuff
 // just remember to always call next

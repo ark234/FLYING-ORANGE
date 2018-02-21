@@ -75,40 +75,37 @@ usersModel.login = (req, res, next) => {
 
 usersModel.create = (req, res, next) => {
 	console.log('In usersModel.create...');
-
-	// This method is supposed to handle sign up for
-	// a new user...
+	const user = req.body;
 
 	// This is where we obtain the hash of the user's password...
-	const passwDigest = bcrypt.hashSync(req.body.password_digest, 10);
-
-	// The req.body.counter should be set to 1 as an indicaton
-	// of active session... No re-login here...
-
-	// Making sure that req.body.signedup_on is a valid
-	// timestamp...
-	const signOn = moment().unix();
-
-	// The req.body.profiles_table field gets
-	// proper current value of "profiles"...
-	const profTable = 'profiles';
+	const passwordDigest = bcrypt.hashSync(user.password, 10);
 
 	db
-		.one(
-			'INSERT INTO users (email, password_digest, counter, profiles_table) VALUES ($1, $2, $3, $4) RETURNING id;',
-			[req.body.email, passwDigest, 1, profTable]
-		)
-		.then(userId => {
-			res.locals.newUserId = userId;
-			console.log('pg-promise result data:', res.locals.newUserId);
+		.one('INSERT INTO users (email, password_digest) VALUES ($1, $2) RETURNING *;', [
+			user.email,
+			passwordDigest
+		])
+		.then(data => {
+			// remove the password_digest since it's sensitive
+			const { password_digest, ...userData } = data;
+			res.locals.user = userData;
+			const tokenData = {
+				id: userData.id,
+				email: userData.email
+			};
 
-			next();
+			// pass some bit of data into makeToken
+			TokenService.makeToken(tokenData)
+				.then(token => {
+					console.log(token);
+					res.locals.token = token; // pass the token into res.locals
+					next(); // calling next()
+				})
+				.catch(next); // call next with error object
 		})
-		.catch(error => {
-			// There supposed to be an error in case the email
-			// is not unique...
-			console.log('Error: in usersModel.create. Details: ', error);
-			next(error);
+		.catch(err => {
+			console.log(`User Create failed: ${err}`);
+			next();
 		});
 };
 
