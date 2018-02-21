@@ -17,209 +17,162 @@
 // Anatoliy ... 												 022118//
 /////////////////////////////////////////////////
 
-
-import React, { Component } from "react";
+import React, { Component } from 'react';
 // import { Link } from "react-router-dom";
 import axios from 'axios';
 
 class RecipeInfo extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {};
+	}
 
-		this.state={}
-
-    this.chngHandler = this.chngHandler.bind(this);
-    this.sbmtHandler = this.sbmtHandler.bind(this);
-  }
-
-
-  // componentDidMount() {
-  // }
-
-  chngHandler(e) {
-
-    e.preventDefault();
-
-    const key = e.target.name;
-    const value = e.target.value;
-
-    this.setState(prevState => {
-      prevState[key] = value;
-      return prevState;
-    });
-  }
-
-  sbmtHandler(e) {
-
-    e.preventDefault();
-
-    const recipeDatum = this.props.recipeDatum;
-
-    // That id should come from auth module/function...
-    const id = 1;
-
-    // Here we are repeating the same structure because
-    // in "render()" function we cannot call this.setState...
-    // Seems ugly, but works for now...
-
-	  const svDtm = {
-										user_id: id,
-										recipe_uri: recipeDatum.uri,
-										recipe_url: recipeDatum.url,
-										recipe_img_url: recipeDatum.image,
-										recipe_label: recipeDatum.label,
-										recipe_hlth_lbl: recipeDatum.healthlabels,
-										recipe_comment: "*",
-										recipe_rating: 5,
-	  							};
-
-	  // Let us keep this for a while for testing purpose...
-	  // var svDtm = {
-			// 						user_id: id,
-			// 						// recipe_uri: recipeDatum.uri,
-			// 						recipe_uri: "http://www.edamam.com/ontologies/edamam.owl#recipe_3921adf30bb0c9736b9ac30f447f8a63",
-			// 						// recipe_url: recipeDatum.url,
-			// 						recipe_url: "http://www.saveur.com/article/Recipes/Roast-Beef",
-			// 						// recipe_img_url: recipeDatum.image,
-			// 						recipe_img_url: "https://www.edamam.com/web-img/98a/98aa5d5cc0d88b28c2b9221a099b1a14.jpg",
-			// 						// recipe_label: recipeDatum.label,
-			// 						recipe_label: "Roast Beef",
-			// 						// recipe_hlth_lbl: recipeDatum.healthlabels,
-			// 						recipe_hlth_lbl: [
-			// 											            "Sugar-Conscious",
-			// 											            "Peanut-Free",
-			// 											            "Tree-Nut-Free",
-			// 											            "Alcohol-Free"
-			// 											        ],
-			// 						recipe_comment: "*",
-			// 						recipe_rating: 5,
-			// 					};
-
-    this.setState(prevState => {
-      prevState = svDtm;
-      return prevState;
-    });
-
-    // We might need special treatment for data: this.state
-    // in order to provide the material for saving in DB via
-    // req.body...
-    // Perhaps wrapping it in params might do the trick:
-    // {params {...}}
-    axios({
-      url: "http://localhost:8080/recipes/save",
-      method: "POST",
-      data: this.state
-      // data: this.state
-      // url: "http://localhost:8080/api/recipes/save",
-      // In Postman I have tested ...8080/recipes/save...
-      // dropping the "api" part...
-
-
-    }).then(response => {
-      console.log("post successful, response.data:", response.data);
-
-      // callback function to refresh the view inserted here...
-      // we do not have such function ===this.props.queryRecipes();
-      // Is /recipe/save is the right place to go?
-      this.props.history.push("/recipes/save");
-    });
-  }
+	// add back to line 55ish
+	// {recipeInfo.totalNutrients.FAT.label.map(function(name) {
+	// 	const nutrientName = name;
+	// 	return <li>{nutrientName}</li>;
+	// })}
 
 	render() {
+		//recipeInfo = data.hits.recipe
+		//const recipeName = data.hits.recipe.index.label;
 
-	  const recipeDatum = this.props.recipeDatum;
-	  console.log(recipeDatum);
+		const recipeInfo = this.props.recipeDatum;
+		const index = this.props.index;
 
-	  // user id has to be passed here in oder to be saved within
-	  // "recipes_user" DB table, field "user_id"...
-	  const id = 1;
+		// const index = this.props.index;
+		// const recipeName = recipeInfo.label;
+		// const recipeImage = recipeInfo.image;
+		// const healthLabels = recipeInfo.healthLabels;
+		// const servings = recipeInfo.yield;
+		// const calories = recipeInfo.calories;
+		// const ingredients = recipeInfo.ingredients;
+		// const viewRecipeLink = recipeInfo.url;
+		// const dietLabels = recipeInfo.dietLabels;
+		// const cautions = recipeInfo.cautions;
+		// const nutrientName = recipeInfo.totalNutrients.index.label;
+		// const nutrientQty = recipeInfo.totalNutrients.index.quantity;
+		// const nutrientUnit = recipeInfo.totalNutrients.index.unit;
+		// const totalDailyName = recipeInfo.totalDaily.index.label;
+		// const totalDailyQty = recipeInfo.totalDaily.index.quantity;
+		// const totalDailyUnit = recipeInfo.totalDaily.index.unit;
 
-	  // Let us keep the testing material within the
-	  // module for a while (commented out)...
-	  // The rendered form below has been tested with
-	  // these data...
-	  const saveDatum = {
-	  										user_id: id,
-	  										recipe_uri: recipeDatum.uri,
-	  										// recipe_uri: "http://www.edamam.com/ontologies/edamam.owl#recipe_3921adf30bb0c9736b9ac30f447f8a63",
-	  										recipe_url: recipeDatum.url,
-	  										// recipe_url: "http://www.saveur.com/article/Recipes/Roast-Beef",
-	  										recipe_img_url: recipeDatum.image,
-	  										// recipe_img_url: "https://www.edamam.com/web-img/98a/98aa5d5cc0d88b28c2b9221a099b1a14.jpg",
-	  										recipe_label: recipeDatum.label,
-	  										// recipe_label: "Roast Beef",
-	  										recipe_hlth_lbl: recipeDatum.healthlabels,
-	  										// recipe_hlth_lbl: [
-													// 				            "Sugar-Conscious",
-													// 				            "Peanut-Free",
-													// 				            "Tree-Nut-Free",
-													// 				            "Alcohol-Free"
-													// 				        ],
-	  										recipe_comment: "*",
-	  										recipe_rating: 5,
-	  									};
-
-	  console.log(saveDatum);
-		
-		const inputNames = ["user_id", 
-												"recipe_uri", 
-												"recipe_url",
-												"recipe_img_url", 
-												"recipe_label", 
-												"recipe_hlth_lbl", 
-												"recipe_comment", 
-												"recipe_rating"
-											 ];
-
-		const displNames = ["User ID", 
-												"Recipe Link(uri)", 
-												"Recipe Source Link(url)", 
-												"Recipe Image Link",
-												"Recipe Name", 
-												"Recipe Health Labels", 
-												"Recipe Commentaries", 
-												"Recipe Rating"];
-
-    const inputs = inputNames.map((name, key) => {
-      return (
-        <div key={key}>
-          <label htmlFor={name}>{displNames[key]}</label><br />
-          <input
-          	id={name}
-            type="text"
-            name={name}
-            size="70"
-            onChange={this.chngHandler}
-            value={saveDatum[name]}
-            // value={this.state[name]}
-            // We do not expect user to make alterations on this form.
-            // So, this.chngHandler might proove to be not very 
-            // useful for saving input via this.state[]...
-            // Is it possible to make it fire up on sbmtHandler, but
-            // before it, and for the all fields?
-          />
-        </div>
-      );
-    });
+		// const ingredients = recipeInfo.ingredients;
+		console.log(recipeInfo.totalNutrients.CA.label);
 
 		return (
 			<div>
-				<br />
-				<h1>Recipe To Be Saved</h1>
-				<br />
-				<form onSubmit={this.sbmtHandler}>
-          {inputs}
-          <br />
-          <input type="submit" value="Save Recipe" />
-          <br />
-        </form>
-				
+				<h1>{recipeInfo.label}</h1>
+				<img src={recipeInfo.image} />
+				<h2>Health Labels:{recipeInfo.healthLabels}</h2>
+				<h2>{recipeInfo.yield} Servings</h2>
+				<h2>{Math.trunc(recipeInfo.calories)} calories</h2>
+				<h2>Diet Labels:{recipeInfo.dietLabels}</h2>
+				<h2>Cautions:{recipeInfo.cautions}</h2>
+				<h2>Nutrients:</h2>
+				<h3>{recipeInfo.totalNutrients.ENERC_KCAL.label}</h3>
+				<h3>
+					{Math.trunc(recipeInfo.totalNutrients.ENERC_KCAL.quantity)}{' '}
+					{recipeInfo.totalNutrients.ENERC_KCAL.unit}
+				</h3>
+
+				<h3>{recipeInfo.totalNutrients.FAT.label}</h3>
+				<h3>
+					{Math.trunc(recipeInfo.totalNutrients.FAT.quantity)} {recipeInfo.totalNutrients.FAT.unit}
+				</h3>
+
+				<h3>{recipeInfo.totalNutrients.CHOCDF.label}</h3>
+				<h3>
+					{Math.trunc(recipeInfo.totalNutrients.CHOCDF.quantity)}{' '}
+					{recipeInfo.totalNutrients.CHOCDF.unit}
+				</h3>
+
+				<h3>{recipeInfo.totalNutrients.SUGAR.label}</h3>
+				<h3>
+					{Math.trunc(recipeInfo.totalNutrients.SUGAR.quantity)}{' '}
+					{recipeInfo.totalNutrients.SUGAR.unit}
+				</h3>
+
+				<h3>{recipeInfo.totalNutrients.PROCNT.label}</h3>
+				<h3>
+					{Math.trunc(recipeInfo.totalNutrients.PROCNT.quantity)}{' '}
+					{recipeInfo.totalNutrients.PROCNT.unit}
+				</h3>
+
+				<h3>{recipeInfo.totalNutrients.CHOLE.label}</h3>
+				<h3>
+					{Math.trunc(recipeInfo.totalNutrients.CHOLE.quantity)}{' '}
+					{recipeInfo.totalNutrients.CHOLE.unit}
+				</h3>
+
+				<h3>{recipeInfo.totalNutrients.NA.label}</h3>
+				<h3>
+					{Math.trunc(recipeInfo.totalNutrients.NA.quantity)} {recipeInfo.totalNutrients.NA.unit}
+				</h3>
+
+				<h3>{recipeInfo.totalNutrients.CA.label}</h3>
+				<h3>
+					{Math.trunc(recipeInfo.totalNutrients.CA.quantity)} {recipeInfo.totalNutrients.CA.unit}
+				</h3>
+				<ul />
+				<h2>Total Daily Value % </h2>
+				<h3>{recipeInfo.totalDaily.ENERC_KCAL.label}</h3>
+				<h3>
+					{Math.trunc(recipeInfo.totalDaily.ENERC_KCAL.quantity)}
+					{recipeInfo.totalDaily.ENERC_KCAL.unit}
+				</h3>
+
+				<h3>{recipeInfo.totalDaily.FAT.label}</h3>
+				<h3>
+					{Math.trunc(recipeInfo.totalDaily.FAT.quantity)}
+					{recipeInfo.totalDaily.FAT.unit}
+				</h3>
+
+				<h3>{recipeInfo.totalDaily.CHOCDF.label}</h3>
+				<h3>
+					{Math.trunc(recipeInfo.totalDaily.CHOCDF.quantity)}
+					{recipeInfo.totalDaily.CHOCDF.unit}
+				</h3>
+
+				<h3>{recipeInfo.totalDaily.PROCNT.label}</h3>
+				<h3>
+					{Math.trunc(recipeInfo.totalDaily.PROCNT.quantity)}
+					{recipeInfo.totalDaily.PROCNT.unit}
+				</h3>
+
+				<h3>{recipeInfo.totalDaily.CHOLE.label}</h3>
+				<h3>
+					{Math.trunc(recipeInfo.totalDaily.CHOLE.quantity)}
+					{recipeInfo.totalDaily.CHOLE.unit}
+				</h3>
+
+				<h3>{recipeInfo.totalDaily.NA.label}</h3>
+				<h3>
+					{Math.trunc(recipeInfo.totalDaily.NA.quantity)}
+					{recipeInfo.totalDaily.NA.unit}
+				</h3>
+
+				<h3>{recipeInfo.totalDaily.CA.label}</h3>
+				<h3>
+					{Math.trunc(recipeInfo.totalDaily.CA.quantity)}
+					{recipeInfo.totalDaily.CA.unit}
+				</h3>
+				<h3 />
+				<h2>Ingredients:</h2>
+				<ul>
+					{recipeInfo.ingredientLines.map(function(ingredient) {
+						const ingredientName = ingredient;
+						return <li>{ingredientName}</li>;
+					})}
+				</ul>
+
 				<div>
-					<br />
-						<a href={saveDatum.recipe_url} alt="Link to Source">Follow Recipe Link</a>
-					<br />
+					<button>Save Recipe</button>
+					<button>
+						View Recipe
+						<a href={recipeInfo.url} />
+					</button>
 				</div>
-				
 			</div>
 		);
 	}
