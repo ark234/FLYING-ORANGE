@@ -39,6 +39,9 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// this will parse the incoming token as a middleware
+app.use(tokenService.receiveToken);
+
 // Start server
 app.listen(PORT, () => {
 	console.log('Server started on port', PORT);
