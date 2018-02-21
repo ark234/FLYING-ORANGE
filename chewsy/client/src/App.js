@@ -122,9 +122,9 @@ class App extends Component {
 									loadingFlag={this.state.isLoaded}
 									isLoaded={this.loading}
 									loginClicked={this.state.loginClicked}
-			            signUpClicked={this.state.signUpClicked}
-			            toggleLogin={this.toggleLogin}
-			            toggleSignUp={this.toggleSignUp}
+									signUpClicked={this.state.signUpClicked}
+									toggleLogin={this.toggleLogin}
+									toggleSignUp={this.toggleSignUp}
 								/>
 							);
 						}}
@@ -134,11 +134,12 @@ class App extends Component {
 						path="/moreInfo"
 						render={props => {
 							return (
-								<RecipeInfo 
-								toggleLogin={this.toggleLogin} 
-								recipeDatum={this.state.moreInfo}
-								results={this.state.recipeData}
-									moreInfo={this.getMoreInfoData} />
+								<RecipeInfo
+									toggleLogin={this.toggleLogin}
+									recipeDatum={this.state.moreInfo}
+									results={this.state.recipeData}
+									moreInfo={this.getMoreInfoData}
+								/>
 							);
 						}}
 					/>

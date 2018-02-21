@@ -2,10 +2,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import '../App.css';
-import Login from "./Login";
-import Register from "./Register";
+import Login from './Login';
+import Register from './Register';
 import Header from './Header';
-
 
 class ShowResults extends Component {
 	constructor(props) {
@@ -58,26 +57,23 @@ class ShowResults extends Component {
 
 		return (
 			<div>
-      {this.props.loginClicked ? (
-            <Login toggleLogin={this.props.toggleLogin} />
-          ) : null}
-          {this.props.signUpClicked ? (
-            <Register toggleSignUp={this.props.toggleSignUp} />
-          ) : null}
+				{this.props.loginClicked ? <Login toggleLogin={this.props.toggleLogin} /> : null}
+				{this.props.signUpClicked ? <Register toggleSignUp={this.props.toggleSignUp} /> : null}
 				<div className="search-bar">
-
-        <Header routeToResults={this.routeToResults}
-            isLoaded={this.props.isLoaded}
-            errorForResponse={this.props.errorForResponse}
-            getResponseData={this.props.getResponseData}
-            errorFlag={this.props.errorFlag}
-            loadingFlag={this.props.loadingFlag}
-            loginClicked={this.props.loginClicked}
-            signUpClicked={this.props.signUpClicked}
-            toggleLogin={this.props.toggleLogin}
-            toggleSignUp={this.props.toggleSignUp}/>
+					<Header
+						routeToResults={this.routeToResults}
+						isLoaded={this.props.isLoaded}
+						errorForResponse={this.props.errorForResponse}
+						getResponseData={this.props.getResponseData}
+						errorFlag={this.props.errorFlag}
+						loadingFlag={this.props.loadingFlag}
+						loginClicked={this.props.loginClicked}
+						signUpClicked={this.props.signUpClicked}
+						toggleLogin={this.props.toggleLogin}
+						toggleSignUp={this.props.toggleSignUp}
+					/>
 				</div>
-        
+
 				<div className="results-header">
 					Found {results.count} matching results for {results.q}
 				</div>
