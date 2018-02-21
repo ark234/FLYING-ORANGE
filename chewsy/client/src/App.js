@@ -134,7 +134,11 @@ class App extends Component {
 						path="/moreInfo"
 						render={props => {
 							return (
-								<RecipeInfo toggleLogin={this.toggleLogin} recipeDatum={this.state.moreInfo} />
+								<RecipeInfo 
+								toggleLogin={this.toggleLogin} 
+								recipeDatum={this.state.moreInfo}
+								results={this.state.recipeData}
+									moreInfo={this.getMoreInfoData} />
 							);
 						}}
 					/>
