@@ -2,7 +2,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import '../App.css';
-import SearchField from './SearchField';
+
+import Header from './Header';
+
 
 class ShowResults extends Component {
 	constructor(props) {
@@ -56,14 +58,13 @@ class ShowResults extends Component {
 		return (
 			<div>
 				<div className="search-bar">
-					<SearchField
-						routeToResults={this.routeToResults}
-						isLoaded={this.props.isLoaded}
-						errorForResponse={this.props.errorForResponse}
-						getResponseData={this.props.getResponseData}
-						errorFlag={this.props.errorFlag}
-						loadingFlag={this.props.loadingFlag}
-					/>
+
+        <Header routeToResults={this.routeToResults}
+            isLoaded={this.props.isLoaded}
+            errorForResponse={this.props.errorForResponse}
+            getResponseData={this.props.getResponseData}
+            errorFlag={this.props.errorFlag}
+            loadingFlag={this.props.loadingFlag}/>
 				</div>
 				<div className="results-header">
 					Found {results.count} matching results for {results.q}
