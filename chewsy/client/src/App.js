@@ -20,24 +20,29 @@
 // that route...                               //
 /////////////////////////////////////////////////
 
-
-import React, { Component } from "react";
-import logo from "./images/orange.png";
-import "./App.css";
-import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
-import FixedNav from "./components/FixedNav";
-import HomeSearchForm from "./components/HomeSearchForm";
-import RecipeInfo from "./components/RecipeInfo";
-import RecipeSave from "./components/RecipeSave";
-import Results from "./components/Results";
+import React, { Component } from 'react';
+import logo from './images/orange.png';
+import './App.css';
+import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
+import FixedNav from './components/FixedNav';
+import HomeSearchForm from './components/HomeSearchForm';
+import RecipeInfo from './components/RecipeInfo';
+import RecipeSave from './components/RecipeSave';
+import Results from './components/Results';
 
 class App extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = { recipeData: null, isLoaded: null , moreInfo:[], signUpClicked: false, loginClicked: false};
+		this.state = {
+			recipeData: null,
+			isLoaded: null,
+			moreInfo: [],
+			signUpClicked: false,
+			loginClicked: false
+		};
 		// recipeData are from getResponseData - entire set from query;
-		// moreInfo - is particular item in the set - related to 
+		// moreInfo - is particular item in the set - related to
 		// RecipeInfo.js...
 
 		this.getResponseData = this.getResponseData.bind(this);
@@ -48,21 +53,21 @@ class App extends Component {
 		this.toggleLogin = this.toggleLogin.bind(this);
 	}
 
-	toggleLogin(){
-		this.setState(prevState =>{
+	toggleLogin() {
+		this.setState(prevState => {
 			prevState.loginClicked = !prevState.loginClicked;
 			return prevState;
 		});
 	}
-	toggleSignUp(){
-		this.setState(prevState =>{
+	toggleSignUp() {
+		this.setState(prevState => {
 			prevState.signUpClicked = !prevState.signUpClicked;
-			return prevState
-		})
+			return prevState;
+		});
 	}
 
 	getResponseData(responseData) {
-		console.log("grabbing data", responseData);
+		console.log('grabbing data', responseData);
 		this.setState({ recipeData: responseData, isLoaded: true });
 	}
 
@@ -107,7 +112,6 @@ class App extends Component {
 						path="/results"
 						render={props => {
 							return (
-
 								<Results
 									{...props}
 									results={this.state.recipeData}
@@ -118,7 +122,7 @@ class App extends Component {
 									loadingFlag={this.state.isLoaded}
 									isLoaded={this.loading}
 								/>
-							)
+							);
 						}}
 					/>
 					<Route
@@ -126,31 +130,10 @@ class App extends Component {
 						path="/moreInfo"
 						render={props => {
 							return (
-								<RecipeInfo 
-								toggleLogin={this.toggleLogin}
-								recipeDatum={this.state.moreInfo}
-								/>
-								)
-						}}
-					/>
-				{
-					// What would be a proper outcome from this?
-					// We will save the recipe in DB table and 
-					// then - which route we are to follow?
-					// Need to know which function to pass down
-					// the route /recipes/save...
-					
-				}
-					<Route
-						exact
-						path="/recipes/save"
-						render={props => {
-							return (
-								<RecipeSave recipeDatum={this.state.moreInfo}/>
+								<RecipeInfo toggleLogin={this.toggleLogin} recipeDatum={this.state.moreInfo} />
 							);
 						}}
 					/>
-				
 				</Switch>
 			</BrowserRouter>
 		);
