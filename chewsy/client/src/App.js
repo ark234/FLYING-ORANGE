@@ -11,7 +11,13 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = { recipeData: null, isLoaded: null , moreInfo:[], signUpClicked: false, loginClicked: false};
+		this.state = {
+			recipeData: null,
+			isLoaded: null,
+			moreInfo: [],
+			signUpClicked: false,
+			loginClicked: false
+		};
 
 		this.getResponseData = this.getResponseData.bind(this);
 		this.errorForResponse = this.errorForResponse.bind(this);
@@ -21,17 +27,17 @@ class App extends Component {
 		this.toggleLogin = this.toggleLogin.bind(this);
 	}
 
-	toggleLogin(){
-		this.setState(prevState =>{
+	toggleLogin() {
+		this.setState(prevState => {
 			prevState.loginClicked = !prevState.loginClicked;
 			return prevState;
 		});
 	}
-	toggleSignUp(){
-		this.setState(prevState =>{
+	toggleSignUp() {
+		this.setState(prevState => {
 			prevState.signUpClicked = !prevState.signUpClicked;
-			return prevState
-		})
+			return prevState;
+		});
 	}
 
 	getResponseData(responseData) {
@@ -80,7 +86,6 @@ class App extends Component {
 						path="/results"
 						render={props => {
 							return (
-
 								<Results
 									{...props}
 									results={this.state.recipeData}
@@ -91,7 +96,7 @@ class App extends Component {
 									loadingFlag={this.state.isLoaded}
 									isLoaded={this.loading}
 								/>
-							)
+							);
 						}}
 					/>
 					<Route
@@ -99,11 +104,13 @@ class App extends Component {
 						path="/moreInfo"
 						render={props => {
 							return (
-								<RecipeInfo 
-								toggleLogin={this.toggleLogin}
-								recipeDatum={this.state.moreInfo}
+								<RecipeInfo
+									toggleLogin={this.toggleLogin}
+									recipeDatum={this.state.moreInfo}
+									results={this.state.recipeData}
+									moreInfo={this.getMoreInfoData}
 								/>
-								)
+							);
 						}}
 					/>
 				</Switch>
