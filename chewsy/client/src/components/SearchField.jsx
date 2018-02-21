@@ -64,7 +64,8 @@ class SearchFeild extends Component {
 		return <h6>Please enter an ingredent in Search Bar</h6>;
 	}
 	handleLoad() {
-		return <img src={logo} />;
+		return <img src={logo} width='100px' height='100px'/>;
+
 	}
 
 	componentDidMount() {
