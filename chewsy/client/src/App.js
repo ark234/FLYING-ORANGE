@@ -29,6 +29,10 @@ import HomeSearchForm from './components/HomeSearchForm';
 import RecipeInfo from './components/RecipeInfo';
 import RecipeSave from './components/RecipeSave';
 import Results from './components/Results';
+import Header from './components/Header';
+import Login from "./components/Login";
+import Register from './components/Register';
+
 
 class App extends Component {
 	constructor(props) {
@@ -86,14 +90,8 @@ class App extends Component {
 	render() {
 		return (
 			<BrowserRouter>
-				<Switch>
-					<Route
-						exact
-						path="/"
-						render={props => {
-							return (
-								<HomeSearchForm
-									{...props}
+			<div>
+								<Header
 									toggleSignUp={this.toggleSignUp}
 									toggleLogin={this.toggleLogin}
 									getResponseData={this.getResponseData}
@@ -103,6 +101,17 @@ class App extends Component {
 									isLoaded={this.loading}
 									loginClicked={this.state.loginClicked}
 									signUpClicked={this.state.signUpClicked}
+									/>
+			{this.loginClicked ? <Login toggleLogin={this.toggleLogin} /> : null}
+				{this.signUpClicked ? <Register toggleSignUp={this.toggleSignUp} /> : null}
+				<Switch>
+					<Route
+						exact
+						path="/"
+						render={props => {
+							return (
+								<HomeSearchForm
+									
 								/>
 							);
 						}}
@@ -116,15 +125,6 @@ class App extends Component {
 									{...props}
 									results={this.state.recipeData}
 									moreInfo={this.getMoreInfoData}
-									getResponseData={this.getResponseData}
-									errorForResponse={this.errorForResponse}
-									errorFlag={this.state.error}
-									loadingFlag={this.state.isLoaded}
-									isLoaded={this.loading}
-									loginClicked={this.state.loginClicked}
-									signUpClicked={this.state.signUpClicked}
-									toggleLogin={this.toggleLogin}
-									toggleSignUp={this.toggleSignUp}
 								/>
 							);
 						}}
@@ -135,7 +135,6 @@ class App extends Component {
 						render={props => {
 							return (
 								<RecipeInfo
-									toggleLogin={this.toggleLogin}
 									recipeDatum={this.state.moreInfo}
 									results={this.state.recipeData}
 									moreInfo={this.getMoreInfoData}
@@ -144,6 +143,7 @@ class App extends Component {
 						}}
 					/>
 				</Switch>
+				</div>
 			</BrowserRouter>
 		);
 	}

@@ -1,9 +1,44 @@
 const db = require('../db/index.js');
 const axios = require('axios');
 const moment = require('moment');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const usersModel = {};
-
+const allergyNames = [
+  'balanced       ',
+  'high_fiber     ',
+  'high_protein   ',
+  'low_carb       ',
+  'low_fat        ',
+  'low_sodium     ',
+  'alcohol_free   ',
+  'celery_free    ',
+  'crustacean_free',
+  'dairy_free     ',
+  'egg_free       ',
+  'fish_free      ',
+  'gluten_free    ',
+  'kidney_friendly',
+  'kosher         ',
+  'low_potassium  ',
+  'lupine_free    ',
+  'mustard_free   ',
+  'no_oil_added   ',
+  'low_sugar      ',
+  'paleo          ',
+  'peanut_free    ',
+  'pescatarian    ',
+  'pork_free      ',
+  'red_meat_free  ',
+  'sesame_free    ',
+  'shellfish_free ',
+  'soy_free       ',
+  'sugar_conscious',
+  'tree_nut_free  ',
+  'vegan          ',
+  'vegetarian     ',
+  'wheat_free     '
+].map(name => name.trim());
+const pgp = require('pg-promise')();
 // TODO: add method for retrieving user
 usersModel.getUser = (req, res, next) => {
 	console.log('in usersModel.getUser!');
@@ -16,31 +51,27 @@ usersModel.create = (req, res, next) => {
 
 // TODO: add method for updating user
 usersModel.updatePreferences = (req, res, next) => {
-	console.log('in usersModel.update!', req.body);
+	console.log('in usersModel.update! req.body:', req.body);
 
-  const array = req.body.health;
-  console.log(array);
+  // const array = req.body.health;
+  // console.log(array);
 
-  const userId = Number(req.body.user_id);
+  const userId = req.body.user_id;
 
-  const $array = [];
-  const arrayVals = [userId];
-  const arrayWhiteSpace = array.map(ele => ' ' +ele);
-  const arrayMaped = array.map((ele, index )=>{
-    $array.push(" $" + (index + 2));
-    arrayVals.push(true);
-    
-    return ` ${ele} = $${index+2}`;
+  const valueArray = allergyNames.map(name => {
+   return req.body.health.includes(name); 
   });
 
-
-  const arrayValsString = arrayVals.toString();console.log( arrayValsString);
-  const arrayJoined = arrayMaped.join(',');
-  const query = `INSERT INTO preferences ( user_id ,${arrayWhiteSpace}) VALUES ($1, ${$array}) ON CONFLICT (user_id) DO UPDATE SET ${arrayJoined};`;
-  console.log(query);
-  console.log('THIS IS THE ARRAY INSERT', arrayVals.length);
+  const query = 'UPDATE preferences SET (${allergies:name})=(${values:csv}) WHERE user_id=${userId} RETURNING *';
+  
+  const finalQuery = pgp.as.format(query, 
+  {allergies: allergyNames, // array of strings
+  userId: userId, // number
+  values: valueArray // array of booleans
+});
+  
   db 
-    .none(query,  arrayVals )
+    .one(finalQuery)
     .then(data=>{
       console.log('+++THE DATA++++', data);
       next();

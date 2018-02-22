@@ -3,9 +3,9 @@ import React, { Component } from "react";
 import logo from "../images/orange.png";
 import Nav from "./FixedNav";
 import axios from "axios";
-import SearchField from "./SearchField";
-import Login from "./Login";
+
 import Register from "./Register";
+import Header from "./Header";
 
 class HomeSearchForm extends Component {
   constructor(props) {
@@ -21,25 +21,7 @@ class HomeSearchForm extends Component {
     return (
       <div>
         <div className="homePage">
-          <SearchField
-            routeToResults={this.routeToResults}
-            isLoaded={this.props.isLoaded}
-            errorForResponse={this.props.errorForResponse}
-            getResponseData={this.props.getResponseData}
-            errorFlag={this.props.errorFlag}
-            loadingFlag={this.props.loadingFlag}
-          />
 
-          <Nav
-            toggleLogin={this.props.toggleLogin}
-            toggleSignUp={this.props.toggleSignUp}
-          />
-          {this.props.loginClicked ? (
-            <Login toggleLogin={this.props.toggleLogin} />
-          ) : null}
-          {this.props.signUpClicked ? (
-            <Register toggleSignUp={this.props.toggleSignUp} />
-          ) : null}
         </div>
       </div>
     );
