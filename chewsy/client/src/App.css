@@ -1,3 +1,5 @@
+/*HOME SEARCH FIELD */
+
 .homePage {
   background: red;
   height: 100vh;
@@ -152,6 +154,9 @@
   padding: 0.5rem;
   color: black;
   background: white;
+  position: absolute;
+  right: 500px;
+  top: 100px;
 }
 table {
   border-collapse: collapse;
@@ -265,4 +270,16 @@ b {
 .flex-it {
   background-color: red;
   width: 100%;
+}
+.style-this {
+  display: flex;
+  margin: 10px;
+  width: 250px;
+  flex-direction: column;
+}
+.info-buttons {
+  float: left;
+}
+.info-title {
+  text-align: center;
 }
