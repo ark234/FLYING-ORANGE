@@ -10,23 +10,11 @@ class ShowResults extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
-		this.moreInfo = this.moreInfo.bind(this);
 		this.routeToResults = this.routeToResults.bind(this);
 	}
 
 	routeToResults() {
 		this.props.history.push('/results');
-	}
-
-	moreInfo(uri) {
-		axios({
-			url: 'http://localhost:8080/recipes/moreInfo',
-			method: 'post',
-			data: { uri }
-		}).then(response => {
-			console.log('POST FOR MORE INFO', response);
-			this.props.history.push('/moreInfo');
-		});
 	}
 
 	render() {
