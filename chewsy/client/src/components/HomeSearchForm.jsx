@@ -11,11 +11,8 @@ class HomeSearchForm extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.routeToResults = this.routeToResults.bind(this);
   }
-  routeToResults() {
-    this.props.history.push("/results");
-  }
+
 
   render() {
     return (

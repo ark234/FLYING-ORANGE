@@ -10,7 +10,6 @@ class ShowResults extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
-		this.moreInfo = this.moreInfo.bind(this);
 		this.routeToResults = this.routeToResults.bind(this);
 	}
 
@@ -18,19 +17,9 @@ class ShowResults extends Component {
 		this.props.history.push('/results');
 	}
 
-	moreInfo(uri) {
-		axios({
-			url: 'http://localhost:8080/recipes/moreInfo',
-			method: 'post',
-			data: { uri }
-		}).then(response => {
-			console.log('POST FOR MORE INFO', response);
-			this.props.history.push('/moreInfo');
-		});
-	}
-
 	render() {
 		const results = this.props.results;
+
 		const resultsList = results.hits.map(recipeObject => {
 			const recipeInfo = recipeObject.recipe;
 
@@ -56,16 +45,16 @@ class ShowResults extends Component {
 		});
 
 		return (
-			<div>
-				<div className="search-bar">
-					
-				</div>
-
-				<div className="results-header">
-					Found {results.count} matching results for {results.q}
-				</div>
-				<div className="test">{resultsList}</div>
-			</div>
+			this.props.results===null? null : (<div>
+              <div className="search-bar">
+                
+              </div>
+      
+              <div className="results-header">
+                Found {results.count} matching results for {results.q}
+              </div>
+              <div className="test">{resultsList }</div>
+            </div>)
 		);
 	}
 }
