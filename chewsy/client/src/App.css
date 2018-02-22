@@ -214,6 +214,8 @@
   float: left;
   width: 280px;
   padding: 0.5rem;
+  color: black;
+  background: white;
 }
 table {
   border-collapse: collapse;
@@ -247,7 +249,6 @@ th,
 td {
   font-weight: normal;
   text-align: left;
-  padding: 0.25rem 0;
   border-top: 1px solid black;
   white-space: nowrap;
 }
@@ -302,6 +303,9 @@ td {
     }
   }
 }
+b {
+  text-align: left;
+}
 
 .text-center {
   text-align: center;
@@ -311,4 +315,18 @@ td {
 }
 .thin-end {
   border-bottom: 1px solid black;
+}
+
+/*RECIPE INFORMATION PAGE: */
+.information {
+  font-family: "Fjalla One", sans-serif;
+  background-color: rgb(41, 41, 41);
+  color: white;
+}
+.info-image {
+  width: 400px;
+}
+.flex-it {
+  background-color: red;
+  width: 100%;
 }

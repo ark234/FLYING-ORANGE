@@ -41,171 +41,183 @@ class RecipeInfo extends Component {
 		console.log("recipe url", recipeInfo.url);
 
 		return (
-			<div>
+			<div class="information">
 				<h1>{recipeInfo.label}</h1>
-				<img src={recipeInfo.image} />
-				<h2>Health Labels:{recipeInfo.healthLabels}</h2>
-				<h2>{recipeInfo.yield} Servings</h2>
-				<h2>{Math.trunc(recipeInfo.calories)} calories</h2>
-				<h2>Diet Labels:{recipeInfo.dietLabels}</h2>
-				<h2>Cautions:{recipeInfo.cautions}</h2>
 
-				<h2>Ingredients:</h2>
-				<ul>
-					{recipeInfo.ingredientLines.map(function(ingredient) {
-						const ingredientName = ingredient;
-						return <li>{ingredientName}</li>;
-					})}
-				</ul>
-				<div class="nutrition-label">
-					<section class="performance-facts">
-						<header class="performance-facts__header">
-							<h1 class="performance-facts__title">Nutrition Facts</h1>
-							<p class="p-class">Serving Size 1/2 cup (about 82g)</p>
-							<p class="p-class">Serving Per Recipe {recipeInfo.yield}</p>
-						</header>
+				<h2>
+					{recipeInfo.yield} Servings {Math.trunc(recipeInfo.calories)} calories
+				</h2>
+				<div class="nest-it">
+					<div class="flex-it">
+						<img class="info-image" src={recipeInfo.image} />
 
-						<table class="performance-facts__table">
-							<thead>
-								<tr>
-									<th colspan="3" class="small-info">
-										Amount Per Recipe
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th colspan="2">
-										<b>Calories </b>
-										{Math.trunc(recipeInfo.calories)}
-									</th>
-									<td>Calories from Fat 130</td>
-								</tr>
-								<tr class="thick-row">
-									<td colspan="3" class="small-info">
-										<b>% Daily Value*</b>
-									</td>
-								</tr>
-								<tr>
-									<th colspan="2">
-										<b>Total Fat </b>
-										{Math.trunc(recipeInfo.totalNutrients.FAT.quantity)}
-										{recipeInfo.totalNutrients.FAT.unit}
-									</th>
-									<td>
-										<b>{Math.trunc(recipeInfo.totalDaily.FAT.quantity)}%</b>
-									</td>
-								</tr>
-								<tr>
-									<td class="blank-cell" />
-									<th>
-										Saturated Fat{" "}
-										{Math.trunc(recipeInfo.totalNutrients.FASAT.quantity)}
-										{recipeInfo.totalNutrients.FAT.unit}
-									</th>
-									<td>
-										<b>{Math.trunc(recipeInfo.totalDaily.FASAT.quantity)}%</b>
-									</td>
-								</tr>
-								<tr>
-									<td class="blank-cell" />
-									<th>Trans Fat </th>
-									<td />
-								</tr>
-								<tr>
-									<th colspan="2">
-										<b>Cholesterol </b>
-										{Math.trunc(recipeInfo.totalNutrients.CHOLE.quantity)}
-										{recipeInfo.totalNutrients.CHOLE.unit}
-									</th>
-									<td>
-										<b>{Math.trunc(recipeInfo.totalDaily.CHOLE.quantity)}%</b>
-									</td>
-								</tr>
-								<tr>
-									<th colspan="2">
-										<b>Sodium </b>
-										{Math.trunc(recipeInfo.totalNutrients.NA.quantity)}
-										{recipeInfo.totalNutrients.NA.unit}
-									</th>
-									<td>
-										<b>{Math.trunc(recipeInfo.totalDaily.NA.quantity)}%</b>
-									</td>
-								</tr>
-								<tr>
-									<th colspan="2">
-										<b>Total Carbohydrate </b>
-										{Math.trunc(recipeInfo.totalNutrients.CHOCDF.quantity)}
-										{recipeInfo.totalNutrients.CHOCDF.unit}
-									</th>
-									<td>
-										<b>{Math.trunc(recipeInfo.totalDaily.CHOCDF.quantity)}%</b>
-									</td>
-								</tr>
-								<tr>
-									<td class="blank-cell" />
-									<th>
-										Dietary Fiber{" "}
-										{Math.trunc(recipeInfo.totalNutrients.FIBTG.quantity)}
-										{recipeInfo.totalNutrients.FIBTG.unit}
-									</th>
-									<td>
-										<b>{Math.trunc(recipeInfo.totalDaily.FIBTG.quantity)}%</b>
-									</td>
-								</tr>
-								<tr>
-									<td class="blank-cell" />
-									<th>
-										Sugars{" "}
-										{Math.trunc(recipeInfo.totalNutrients.SUGAR.quantity)}
-										{recipeInfo.totalNutrients.SUGAR.unit}
-									</th>
-									<td />
-								</tr>
-								<tr class="thick-end">
-									<th colspan="2">
-										<b>Protein </b>
-										{Math.trunc(recipeInfo.totalNutrients.PROCNT.quantity)}
-										{recipeInfo.totalNutrients.PROCNT.unit}
-									</th>
-									<td />
-								</tr>
-							</tbody>
-						</table>
+						<div>
+							<button onSubmit={this.handleSubmit.bind(this)}>
+								Save Recipe
+							</button>
+							<button>
+								<a href={recipeInfo.url}>View Recipe</a>
+							</button>
+						</div>
+						<h2>Health Labels:{recipeInfo.healthLabels}</h2>
+						<h2>Diet Labels:{recipeInfo.dietLabels}</h2>
+						<h2>Cautions:{recipeInfo.cautions}</h2>
 
-						<table class="performance-facts__table--grid">
-							<tbody>
-								<tr>
-									<td colspan="2">
-										Vitamin A{" "}
-										{Math.trunc(recipeInfo.totalDaily.VITA_RAE.quantity)}%
-									</td>
-									<td>
-										Vitamin C {Math.trunc(recipeInfo.totalDaily.VITC.quantity)}%
-									</td>
-								</tr>
-								<tr class="thin-end">
-									<td colspan="2">
-										Calcium {Math.trunc(recipeInfo.totalNutrients.CA.quantity)}%
-									</td>
-									<td>Iron {Math.trunc(recipeInfo.totalDaily.FE.quantity)}%</td>
-								</tr>
-							</tbody>
-						</table>
+						<h2>Ingredients:</h2>
+						<ul>
+							{recipeInfo.ingredientLines.map(function(ingredient) {
+								const ingredientName = ingredient;
+								return <li>{ingredientName}</li>;
+							})}
+						</ul>
+						<div class="performance-facts">
+							<header class="performance-facts__header">
+								<h1 class="performance-facts__title">Nutrition Facts</h1>
+								<p class="p-class">{recipeInfo.label}</p>
+								<p class="p-class">Serving Per Recipe {recipeInfo.yield}</p>
+							</header>
 
-						<p class="small-info">
-							* Percent Daily Values are based on a 2,000 calorie diet. Your
-							daily values may be higher or lower depending on your calorie
-							needs:
-						</p>
-					</section>
-				</div>
+							<table class="performance-facts__table">
+								<thead>
+									<tr>
+										<th colspan="3" class="small-info">
+											Amount Per Recipe
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th colspan="2">
+											<b>Calories </b>
+											{Math.trunc(recipeInfo.calories)}
+										</th>
+										<td>Calories from Fat 130</td>
+									</tr>
+									<tr class="thick-row">
+										<td colspan="3" class="small-info">
+											<b>% Daily Value*</b>
+										</td>
+									</tr>
+									<tr>
+										<th colspan="2">
+											<b>Total Fat </b>
+											{Math.trunc(recipeInfo.totalNutrients.FAT.quantity)}
+											{recipeInfo.totalNutrients.FAT.unit}
+										</th>
+										<td>
+											<b>{Math.trunc(recipeInfo.totalDaily.FAT.quantity)}%</b>
+										</td>
+									</tr>
+									<tr>
+										<td class="blank-cell" />
+										<th>
+											Saturated Fat{" "}
+											{Math.trunc(recipeInfo.totalNutrients.FASAT.quantity)}
+											{recipeInfo.totalNutrients.FAT.unit}
+										</th>
+										<td>
+											<b>{Math.trunc(recipeInfo.totalDaily.FASAT.quantity)}%</b>
+										</td>
+									</tr>
+									<tr>
+										<td class="blank-cell" />
+										<th>Trans Fat </th>
+										<td />
+									</tr>
+									<tr>
+										<th colspan="2">
+											<b>Cholesterol </b>
+											{Math.trunc(recipeInfo.totalNutrients.CHOLE.quantity)}
+											{recipeInfo.totalNutrients.CHOLE.unit}
+										</th>
+										<td>
+											<b>{Math.trunc(recipeInfo.totalDaily.CHOLE.quantity)}%</b>
+										</td>
+									</tr>
+									<tr>
+										<th colspan="2">
+											<b>Sodium </b>
+											{Math.trunc(recipeInfo.totalNutrients.NA.quantity)}
+											{recipeInfo.totalNutrients.NA.unit}
+										</th>
+										<td>
+											<b>{Math.trunc(recipeInfo.totalDaily.NA.quantity)}%</b>
+										</td>
+									</tr>
+									<tr>
+										<th colspan="2">
+											<b>Total Carbohydrate </b>
+											{Math.trunc(recipeInfo.totalNutrients.CHOCDF.quantity)}
+											{recipeInfo.totalNutrients.CHOCDF.unit}
+										</th>
+										<td>
+											<b>
+												{Math.trunc(recipeInfo.totalDaily.CHOCDF.quantity)}%
+											</b>
+										</td>
+									</tr>
+									<tr>
+										<td class="blank-cell" />
+										<th>
+											Dietary Fiber{" "}
+											{Math.trunc(recipeInfo.totalNutrients.FIBTG.quantity)}
+											{recipeInfo.totalNutrients.FIBTG.unit}
+										</th>
+										<td>
+											<b>{Math.trunc(recipeInfo.totalDaily.FIBTG.quantity)}%</b>
+										</td>
+									</tr>
+									<tr>
+										<td class="blank-cell" />
+										<th>
+											Sugars{" "}
+											{Math.trunc(recipeInfo.totalNutrients.SUGAR.quantity)}
+											{recipeInfo.totalNutrients.SUGAR.unit}
+										</th>
+										<td />
+									</tr>
+									<tr class="thick-end">
+										<th colspan="2">
+											<b>Protein </b>
+											{Math.trunc(recipeInfo.totalNutrients.PROCNT.quantity)}
+											{recipeInfo.totalNutrients.PROCNT.unit}
+										</th>
+										<td />
+									</tr>
+								</tbody>
+							</table>
 
-				<div>
-					<button onSubmit={this.handleSubmit.bind(this)}>Save Recipe</button>
-					<button>
-						<a href={recipeInfo.url}>View Recipe</a>
-					</button>
+							<table class="performance-facts__table--grid">
+								<tbody>
+									<tr>
+										<td colspan="2">
+											Vitamin A{" "}
+											{Math.trunc(recipeInfo.totalDaily.VITA_RAE.quantity)}%
+										</td>
+										<td>
+											Vitamin C{" "}
+											{Math.trunc(recipeInfo.totalDaily.VITC.quantity)}%
+										</td>
+									</tr>
+									<tr class="thin-end">
+										<td colspan="2">
+											Calcium{" "}
+											{Math.trunc(recipeInfo.totalNutrients.CA.quantity)}%
+										</td>
+										<td>
+											Iron {Math.trunc(recipeInfo.totalDaily.FE.quantity)}%
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<p class="small-info">
+								* Percent Daily Values are based on a 2,000 calorie diet. Your
+								daily values may be higher or lower depending on your calorie
+								needs:
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		);
