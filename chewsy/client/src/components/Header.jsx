@@ -20,19 +20,14 @@ render(){
     signUpClicked={this.props.signUpClicked}
     />
     <SearchField 
-    routeToResults={this.props.routeToResults}
-    isLoaded={this.props.isLoaded}
-        errorForResponse={this.props.errorForResponse}
-            getResponseData={this.props.getResponseData}
-            errorFlag={this.props.errorFlag}
-            loadingFlag={this.props.loadingFlag}/>
+      routeToResults={this.props.routeToResults}
+      isLoaded={this.props.isLoaded}
+      errorForResponse={this.props.errorForResponse}
+      getResponseData={this.props.getResponseData}
+      errorFlag={this.props.errorFlag}
+      loadingFlag={this.props.loadingFlag}/>
 
-            {this.props.loginClicked ? (
-            <Login toggleLogin={this.props.toggleLogin} />
-          ) : null}
-          {this.props.signUpClicked ? (
-            <Register toggleSignUp={this.props.toggleSignUp} />
-          ) : null}
+            
     </div>
     )
 }

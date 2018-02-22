@@ -1,23 +1,30 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
+import UserForm from './UserForm';
 
-class Login extends Component{
-  constructor(props){
-    super(props);
-    this.state = {};
-  }
-  render(){
+export default class Login extends Component {
+	constructor(props) {
+		super(props);
+		this.onSubmit = this.onSubmit.bind(this);
+	}
 
-    return(
-      <div onClick={()=>this.props.toggleLogin()} className='modal'>
+	onSubmit(data) {
+		console.log(`handling submit: ${data}`);
+		this.props.submit(data);
+	}
 
-      Login
-      </div>
-      )
-  }
-
+	render() {
+		return (
+			<div className="modal">
+				<p>I'm a login</p>
+				<UserForm submit={this.onSubmit} />
+				<p>
+					<Link to="/">
+						<button>Back Home</button>
+					</Link>
+				</p>
+				<button onClick={this.props.authClick}>Weird Button</button>
+			</div>
+		);
+	}
 }
-
-
-
-export default Login;

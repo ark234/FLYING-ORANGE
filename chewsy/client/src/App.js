@@ -35,7 +35,7 @@ import Results from './components/Results';
 import Header from './components/Header';
 import Login from "./components/Login";
 import Register from './components/Register';
-
+import TokenService from './services/TokenService';
 
 class App extends Component {
 	constructor(props) {
@@ -49,6 +49,8 @@ class App extends Component {
 			signUpClicked: false,
 			loginClicked: false,
 			recipesUser: [],
+			userData: {},
+			prefData: {},
 			userId: 1 // hard-coded for testing...
 		};
 
@@ -73,6 +75,10 @@ class App extends Component {
 		this.getSavedRecipe = this.getSavedRecipe.bind(this);
 		 this.routeToResults = this.routeToResults.bind(this);
 		 this.renderResults = this.renderResults.bind(this);
+		this.register = this.register.bind(this);
+		this.login = this.login.bind(this);
+		this.logout = this.logout.bind(this);
+		this.authClick = this.authClick.bind(this);
 	}
 
 	getSavedRecipe(uri) {
@@ -85,6 +91,67 @@ class App extends Component {
 			this.setState({ savedRecipe: response.data });
 			this.props.history.push('/moreInfo');
 		});
+	}
+
+	// api call for creating a new user
+	// note that TokenService.save with the token is called
+	// may also want to setState with the user data and
+	// whether or not the user is logged in
+	register(data) {
+		axios('http://localhost:8080/users/register', {
+			method: 'POST',
+			data
+		})
+			.then(resp => {
+				console.log('response token:', resp.data.token);
+				TokenService.save(resp.data.token);
+				console.log('user ====>', resp.data.user);
+				this.setState({ userData: resp.data.user });
+				console.log('prefs ====>', resp.data.prefs);
+				this.setState({ prefData: resp.data.prefs });
+
+				// this.props.history.push('/');
+			})
+			.catch(err => console.log(`err: ${err}`));
+	}
+
+	// same as above except route is login
+	// as above, we are saving the token locally using
+	// the TokenService
+	login(data) {
+		axios('http://localhost:8080/users/login', {
+			method: 'POST',
+			data
+		})
+			.then(resp => {
+				console.log('response token:', resp.data.token);
+				TokenService.save(resp.data.token);
+				console.log('====>', resp.data.user);
+				this.setState({ userData: resp.data.user });
+				console.log('prefs ====>', resp.data.prefs);
+				this.setState({ prefData: resp.data.prefs });
+			})
+			.catch(err => console.log(`err: ${err}`));
+	}
+
+	// calling a restricted route on the server
+	// the important part is setting the Authorization header
+	// with the token retrieved from the TokenService
+	authClick(ev) {
+		ev.preventDefault();
+		axios('http://localhost:8080/restricted', {
+			headers: {
+				Authorization: `Bearer ${TokenService.read()}`
+			}
+		})
+			.then(resp => console.log(resp))
+			.catch(err => console.log(err));
+	}
+
+	// just delete the token
+	logout(ev) {
+		ev.preventDefault();
+		TokenService.destroy();
 	}
 
 	toggleLogin() {
@@ -173,6 +240,7 @@ class App extends Component {
 							return (
 								<Results
 									{...props}
+									toggleSignUp={this.toggleSignUp}
 									results={this.state.recipeData}
 									moreInfo={this.getMoreInfoData}
 								/>
@@ -212,6 +280,23 @@ class App extends Component {
 					{
 						/////////////////////////////////////////////////////LAI
 					}
+					<Route
+						exact
+						path="/register"
+						component={props => <Register {...props} submit={this.register} />}
+					/>
+					<Route
+						exact
+						path="/login"
+						component={props => (
+							<Login
+								{...props}
+								submit={this.login}
+								authClick={this.authClick}
+								logout={this.logout}
+							/>
+						)}
+					/>
 				</Switch>
 				</div>
 			</BrowserRouter>

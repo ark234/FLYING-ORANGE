@@ -23,8 +23,7 @@
 \c chewsy_db
 -----------------------------------------------------------
 -- USERS table is to keep user's requisites during sign-up
--- profiles_table field is currrently references only one 
--- table - PROFILES...
+-- profiles_table field is currrently 
 -----------------------------------------------------------
 DROP TABLE IF EXISTS users CASCADE;
 
