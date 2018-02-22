@@ -20,6 +20,7 @@
 /////////////////////////////////////////////////
 
 import React, { Component } from 'react';
+import axios from 'axios';
 import logo from './images/orange.png';
 import './App.css';
 import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
@@ -38,12 +39,13 @@ class App extends Component {
 
 		this.state = {
 			recipeData: null,
+			savedRecipe: null,
 			isLoaded: null,
 			moreInfo: [],
 			signUpClicked: false,
 			loginClicked: false,
 			recipesUser: [],
-			userId: 1		// hard-coded for testing...
+			userId: 1 // hard-coded for testing...
 		};
 
 		///////////////////////////////////////////////////////////////LAI
@@ -62,8 +64,21 @@ class App extends Component {
 		this.toggleSignUp = this.toggleSignUp.bind(this);
 		this.toggleLogin = this.toggleLogin.bind(this);
 		/////////////////////////////////////////////////////////////LAI
-		this.getRecipesUserData = this.getRecipesUserData.bind(this); 
+		this.getRecipesUserData = this.getRecipesUserData.bind(this);
 		/////////////////////////////////////////////////////////////LAI
+		this.getSavedRecipe = this.getSavedRecipe.bind(this);
+	}
+
+	getSavedRecipe(uri) {
+		axios({
+			url: 'http://localhost:8080/recipes/moreInfo',
+			method: 'post',
+			data: { uri }
+		}).then(response => {
+			console.log('SAVED RECIPE DATA===>', response.data);
+			this.setState({ savedRecipe: response.data });
+			this.props.history.push('/moreInfo');
+		});
 	}
 
 	toggleLogin() {
@@ -89,12 +104,12 @@ class App extends Component {
 		console.log(this.state);
 	}
 
-/////////////////////////////////////////////////LAI
+	/////////////////////////////////////////////////LAI
 	getRecipesUserData(responseData) {
 		this.setState({ recipesUser: responseData });
 		console.log(this.state);
 	}
-/////////////////////////////////////////////////LAI
+	/////////////////////////////////////////////////LAI
 
 	errorForResponse() {
 		this.setState({ error: true });
@@ -164,24 +179,24 @@ class App extends Component {
 						}}
 					/>
 					{
-					/////////////////////////////////////////////////////LAI
+						/////////////////////////////////////////////////////LAI
 					}
 					<Route
-							exact
-							path="/users/:id/savedRecipes"
-							render={props => {
-								return (
-									<SavedRecipes
-										{...props}
-										userId={this.state.userId}
-										recipesUser={this.state.recipesUser}
-										getRecipesUserData={this.getRecipesUserData}
-									/>
-								);
-							}}
+						exact
+						path="/users/:id/savedRecipes"
+						render={props => {
+							return (
+								<SavedRecipes
+									{...props}
+									userId={this.state.userId}
+									recipesUser={this.state.recipesUser}
+									getRecipesUserData={this.getRecipesUserData}
+								/>
+							);
+						}}
 					/>
 					{
-					/////////////////////////////////////////////////////LAI
+						/////////////////////////////////////////////////////LAI
 					}
 				</Switch>
 			</BrowserRouter>
