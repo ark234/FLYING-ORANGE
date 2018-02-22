@@ -73,7 +73,8 @@ class SavedRecipes extends Component {
 				this.props.getRecipesUserData(response.data);
 			})
 			.catch(error => {
-				debugger;
+				console.log('error getting saved recipes');
+				console.log('error response:', error.response);
 			});
 	}
 
