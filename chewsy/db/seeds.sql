@@ -159,6 +159,19 @@ VALUES
   ('30', 'tree-nut-free', 'Walnut hull extract'),
   ('30', 'tree-nut-free', 'Beer nuts');
 
- 
-  
+INSERT INTO users (email, password_digest ) 
+VALUES
+('flastname-1@coldmail.com', 'ABCDEFabcdefABCDEFabcdefABCDEFab'), 
+('flastname-2@warmmail.com', 'FFFFFFabcdefABCDEFabcdefABCDEFab'),
+('flastname-3@lukemail.com', 'FFFFFFccccccABCDEFabcdefABCDEFab')
+RETURNING id;
+
+
+INSERT INTO recipes_user (user_id, recipe_uri, recipe_url, recipe_img_url, recipe_label, recipe_hlth_lbl, recipe_comment, recipe_rating)
+VALUES 
+ (1, 'http://www.edamam.com/ontologies/edamam.owl#recipe_3921adf30bb0c9736b9ac30f447f8a63', 'http://www.saveur.com/article/Recipes/Roast-Beef', 'https://www.edamam.com/web-img/98a/98aa5d5cc0d88b28c2b9221a099b1a14.jpg', 'Roast Beef', 'Sugar-Conscious, Peanut-Free, Tree-Nut-Free, Alcohol-Free', '***', 5),
+ (1, 'http://www.edamam.com/ontologies/edamam.owl#recipe_3da1169eb633a5e4607890ebf7dee89f', 'http://www.seriouseats.com/recipes/2012/08/grilled-butterflied-chicken-recipe.html', 'https://www.edamam.com/web-img/7a2/7a2f41a7891e8a8f8a087a96930c6463.jpg', 'Grilled Butterflied Chicken Recipe', 'Sugar-Conscious, Peanut-Free, Tree-Nut-Free, Alcohol-Free', '=====', 7),
+ (3, 'http://www.edamam.com/ontologies/edamam.owl#recipe_3921adf30bb0c9736b9ac30f447f8a63', 'http://www.saveur.com/article/Recipes/Roast-Beef', 'https://www.edamam.com/web-img/98a/98aa5d5cc0d88b28c2b9221a099b1a14.jpg', 'Roast Beef', 'Sugar-Conscious, Peanut-Free, Tree-Nut-Free, Alcohol-Free', '***', 5),
+ (1, 'http://www.edamam.com/ontologies/edamam.owl#recipe_8275bb28647abcedef0baaf2dcf34f8b', 'http://norecipes.com/recipe/chicken-paprikash/', 'https://www.edamam.com/web-img/e12/e12b8c5581226d7639168f41d126f2ff.jpg', 'Chicken Paprikash', 'Peanut-Free, Tree-Nut-Free, Alcohol-Free', '++++++++++', 8)
+RETURNING id;
   

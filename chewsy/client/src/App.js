@@ -1,3 +1,24 @@
+/////////////////////////////////////////////////
+//                                             //
+//    Project CHEWSY                           //
+//    Flying Orange Team at GA, New York       //
+//    February, 2018                           //
+//                                             //
+//    Instructors:                             //
+//        Tims Gardner                         //
+//        Drake Tally                          //
+//        Dominic Farquharson                  //
+//                                             //
+/////////////////////////////////////////////////
+//                                             //
+// This file is from client/src forlder...     //
+//                                             //
+/////////////////////////////////////////////////
+// LAI: /recipes/save Route...           022018//
+// LAI: /users/:id/savedRecipes...       022118//
+//                                             //
+/////////////////////////////////////////////////
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import logo from './images/orange.png';
@@ -6,6 +27,10 @@ import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 import FixedNav from './components/FixedNav';
 import HomeSearchForm from './components/HomeSearchForm';
 import RecipeInfo from './components/RecipeInfo';
+import RecipeSave from './components/RecipeSave';
+//////////////////////////////////////////////////LAI
+import SavedRecipes from './components/SavedRecipes';
+//////////////////////////////////////////////////LAI
 import Results from './components/Results';
 import Register from './components/Register';
 import Login from './components/Login';
@@ -17,13 +42,25 @@ class App extends Component {
 
 		this.state = {
 			recipeData: null,
+			savedRecipe: null,
 			isLoaded: null,
 			moreInfo: [],
 			signUpClicked: false,
 			loginClicked: false,
+			recipesUser: [],
 			userData: {},
-			prefData: {}
+			prefData: {},
+			userId: 1 // hard-coded for testing...
 		};
+
+		///////////////////////////////////////////////////////////////LAI
+		// recipeData are from getResponseData - entire set from query;
+		// moreInfo - is particular item in the set - related to
+		// RecipeInfo.js...
+		// recipesUser are from getRecipesUserData all records by user
+		// from DB table "recipes_user"...
+		// We are not saving user name in the DB "users" table...
+		///////////////////////////////////////////////////////////////LAI
 
 		this.getResponseData = this.getResponseData.bind(this);
 		this.errorForResponse = this.errorForResponse.bind(this);
@@ -31,9 +68,25 @@ class App extends Component {
 		this.getMoreInfoData = this.getMoreInfoData.bind(this);
 		this.toggleSignUp = this.toggleSignUp.bind(this);
 		this.toggleLogin = this.toggleLogin.bind(this);
+		/////////////////////////////////////////////////////////////LAI
+		this.getRecipesUserData = this.getRecipesUserData.bind(this);
+		/////////////////////////////////////////////////////////////LAI
+		this.getSavedRecipe = this.getSavedRecipe.bind(this);
 		this.register = this.register.bind(this);
 		this.login = this.login.bind(this);
 		this.logout = this.logout.bind(this);
+	}
+
+	getSavedRecipe(uri) {
+		axios({
+			url: 'http://localhost:8080/recipes/moreInfo',
+			method: 'post',
+			data: { uri }
+		}).then(response => {
+			console.log('SAVED RECIPE DATA===>', response.data);
+			this.setState({ savedRecipe: response.data });
+			this.props.history.push('/moreInfo');
+		});
 	}
 
 	// api call for creating a new user
@@ -120,6 +173,13 @@ class App extends Component {
 		console.log(this.state);
 	}
 
+	/////////////////////////////////////////////////LAI
+	getRecipesUserData(responseData) {
+		this.setState({ recipesUser: responseData });
+		console.log(this.state);
+	}
+	/////////////////////////////////////////////////LAI
+
 	errorForResponse() {
 		this.setState({ error: true });
 	}
@@ -190,6 +250,26 @@ class App extends Component {
 							);
 						}}
 					/>
+					{
+						/////////////////////////////////////////////////////LAI
+					}
+					<Route
+						exact
+						path="/users/:id/savedRecipes"
+						render={props => {
+							return (
+								<SavedRecipes
+									{...props}
+									userId={this.state.userId}
+									recipesUser={this.state.recipesUser}
+									getRecipesUserData={this.getRecipesUserData}
+								/>
+							);
+						}}
+					/>
+					{
+						/////////////////////////////////////////////////////LAI
+					}
 					<Route
 						exact
 						path="/register"

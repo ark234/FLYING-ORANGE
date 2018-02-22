@@ -20,7 +20,7 @@
 -- psql -d chewsy_db_test -f seeds.sql
 -----------------------------------------------------------
 -- \c chewsy_db_test
--- \c chewsy_db
+\c chewsy_db
 -----------------------------------------------------------
 -- USERS table is to keep user's requisites during sign-up
 -- profiles_table field is currrently 
@@ -129,15 +129,14 @@ CREATE TABLE label_ingred_ref (
 DROP TABLE IF EXISTS recipes_user CASCADE;
 
 CREATE TABLE recipes_user (
-  id              BIGSERIAL PRIMARY KEY,
-  user_id         INTEGER REFERENCES users (id),
-  recipe_uri      VARCHAR(255) UNIQUE,
-  recipe_url      VARCHAR(255),
-  recipe_img_url  VARCHAR(255), 
-  recipe_label    VARCHAR(255),
+  id BIGSERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users (id),
+  recipe_uri VARCHAR(255),
+  recipe_url VARCHAR(255),
+  recipe_img_url VARCHAR(255),
+  recipe_label VARCHAR(255),
   recipe_hlth_lbl VARCHAR(255),
-  recipe_comment  VARCHAR(511),
-  recipe_rating   INTEGER
-
+  recipe_comment VARCHAR(511),
+  recipe_rating INTEGER
 );
 
