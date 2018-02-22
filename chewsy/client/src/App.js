@@ -210,7 +210,7 @@ class App extends Component {
 		return (
 			<BrowserRouter>
 			<div>
-								<Header
+								<Header 
 									toggleSignUp={this.toggleSignUp}
 									toggleLogin={this.toggleLogin}
 									getResponseData={this.getResponseData}
@@ -220,6 +220,7 @@ class App extends Component {
 									isLoaded={this.loading}
 									loginClicked={this.state.loginClicked}
 									signUpClicked={this.state.signUpClicked}
+									routeToResults={this.routeToResults}
 									/>
 			{this.loginClicked ? <Login toggleLogin={this.toggleLogin} /> : null}
 				{this.signUpClicked ? <Register toggleSignUp={this.toggleSignUp} /> : null}
