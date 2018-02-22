@@ -1,6 +1,26 @@
+/////////////////////////////////////////////////
+//                                             //
+//    Project CHEWSY                           //
+//    Flying Orange Team at GA, New York       //
+//    February, 2018                           //
+//                                             //
+//    Instructors:                             //
+//        Tims Gardner                         //
+//        Drake Tally                          //
+//        Dominic Farquharson                  //
+//                                             //
+/////////////////////////////////////////////////
+//                                             //
+// This file is from components forlder...     //
+//                                             //
+/////////////////////////////////////////////////
+//                                             //
+/////////////////////////////////////////////////
+
 import React, { Component } from "react";
 import axios from "axios";
 import "../App.css";
+import TokenService from "../services/TokenService";
 
 class SavedRecipes extends Component {
 	constructor(props) {
@@ -34,37 +54,30 @@ class SavedRecipes extends Component {
 	}
 
 	queryRecipesUser() {
-		const idUser = this.props.userid;
+		const idUser = this.props.userId;
 
 		axios({
-			url: "http://localhost:8080/users/:id/savedRecipes",
+			url: `http://localhost:8080/users/${idUser}/savedRecipes`,
 			method: "get",
-			data: { idUser }
-		}).then(response => {
-			console.log(
-				"In SavedRecipes.queryRecipesUser: server responded. response.data: ",
-				response.data
-			);
-			this.setState({
-				recipesUser: response.data,
-				userId: idUser
-			});
-			this.props.getRecipesUserData(response.data);
-		});
-	}
-
-	deleteRecipe(id) {
-		const URL = "http://localhost:8080/users/:idUser/savedRecipes/:idRec";
-		axios({
-			url: `${URL}/${id}`,
-			method: "DELETE"
+			headers: {
+				Authorization: `Bearer ${TokenService.read()}`
+			}
 		})
-			.then(resp => {
-				this.setState(prevState => ({
-					recipes: prevState.recipes.filter(recipes => recipes.id !== id)
-				}));
+			.then(response => {
+				console.log(
+					"In SavedRecipes.queryRecipesUser: server responded. response.data: ",
+					response.data
+				);
+				this.setState({
+					recipesUser: response.data,
+					userId: idUser
+				});
+				this.props.getRecipesUserData(response.data);
 			})
-			.catch(err => `err: ${err}`);
+			.catch(error => {
+				console.log("error getting saved recipes");
+				console.log("error response:", error.response);
+			});
 	}
 
 	render() {
@@ -82,9 +95,10 @@ class SavedRecipes extends Component {
 
 		return (
 			<div className="recipeResultsContainer">
-				<h3 className="viewRecipe">User Name: {this.state.userId} </h3>
-				<div className="theList">{recipesUserList}</div>
-				<button onClick={this.deleteRecipe.bind(this)} />
+				<div className="recipes-user">
+					<h3 className="viewRecipe">User Name: {this.state.userId} </h3>
+					<div className="theList">{recipesUserList}</div>
+				</div>
 			</div>
 		);
 	}
