@@ -1,22 +1,30 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
+import UserForm from './UserForm';
 
-class Register extends Component{
-  constructor(props){
-    super(props);
-    this.state = {};
-  }
-  render(){
+export default class Register extends Component {
+	constructor(props) {
+		super(props);
+		this.onSubmit = this.onSubmit.bind(this);
+	}
 
-    return(
-      <div onClick={()=>this.props.toggleSignUp()}className='modal'>
-      Register
-      </div>
-      )
-  }
+	onSubmit(data) {
+		this.props.submit(data);
+	}
 
+	render() {
+		// take note how the onSubmit method is passed down to the UserForm
+		// as a prop
+		return (
+			<div className="modal">
+				I'm a register
+				<UserForm submit={this.onSubmit} />
+				<p>
+					<Link to="/">
+						<button>Back Home</button>
+					</Link>
+				</p>
+			</div>
+		);
+	}
 }
-
-
-
-export default Register;

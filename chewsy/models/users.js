@@ -18,7 +18,7 @@
 const db = require('../db/index.js');
 const axios = require('axios');
 const moment = require('moment');
-
+const TokenService = require('../services/TokenService');
 // We'll also need bcrypt to authenticate users
 // without storing their passoword _anywhere_...
 const bcrypt = require('bcryptjs');
@@ -42,15 +42,20 @@ usersModel.getAllUsers = (req, res, next) => {
 		});
 };
 
-usersModel.findByEmail = function(email) {
+// helper method used in login
+usersModel.findByEmail = email => {
 	return db.one('SELECT * FROM users WHERE email = $1;', [email]);
+};
+// helper method used in login
+usersModel.getPrefs = userId => {
+	return db.one('SELECT * FROM profiles WHERE user_id = $1;', [userId]);
 };
 
 // method for login...
 usersModel.login = (req, res, next) => {
 	console.log('In usersModel.login...');
 	const user = req.body;
-	console.log('user:', user);
+	// console.log('user:', user);
 	// do the normal dance comparing password / password_digest
 	usersModel
 		.findByEmail(user.email)
@@ -60,24 +65,29 @@ usersModel.login = (req, res, next) => {
 				next();
 			}
 
-			// put userData into res.locals
+			// remove password from response object
 			const { password_digest, ...userData } = data;
-			res.locals.user = userData;
 
-			const tokenData = {
-				id: data.id,
-				email: data.email
-			};
+			usersModel.getPrefs(userData.id).then(prefData => {
+				res.locals.user = userData;
+				res.locals.prefs = prefData;
 
-			// and pass it into makeToken
-			TokenService.makeToken(tokenData)
-				.then(token => {
-					res.locals.token = token; // set the token on res.locals
-					next();
-				})
-				.catch(err => {
-					next();
-				});
+				const tokenData = {
+					id: data.id,
+					email: data.email,
+					prefData
+				};
+
+				// and pass it into makeToken
+				TokenService.makeToken(tokenData)
+					.then(token => {
+						res.locals.token = token; // set the token on res.locals
+						next();
+					})
+					.catch(err => {
+						next();
+					});
+			});
 		})
 		.catch(err => {
 			next();
@@ -98,22 +108,31 @@ usersModel.create = (req, res, next) => {
 			passwordDigest
 		])
 		.then(data => {
-			// remove the password_digest since it's sensitive
-			const { password_digest, ...userData } = data;
-			res.locals.user = userData;
-			const tokenData = {
-				id: userData.id,
-				email: userData.email
-			};
+			// insert entry into profiles table with default values for new user
+			db
+				.one('INSERT INTO profiles (user_id) VALUES ($1) RETURNING *;', [data.id])
+				.then(prefData => {
+					// remove the password_digest since it's sensitive
+					const { password_digest, ...userData } = data;
+					res.locals.user = userData;
+					res.locals.prefs = prefData;
+					// console.log('PREF DATA====>', prefData);
+					const tokenData = {
+						id: userData.id,
+						email: userData.email,
+						prefData
+					};
 
-			// pass some bit of data into makeToken
-			TokenService.makeToken(tokenData)
-				.then(token => {
-					console.log(token);
-					res.locals.token = token; // pass the token into res.locals
-					next(); // calling next()
+					// pass some bit of data into makeToken
+					TokenService.makeToken(tokenData)
+						.then(token => {
+							// console.log(token);
+							res.locals.token = token; // pass the token into res.locals
+							next(); // calling next()
+						})
+						.catch(next); // call next with error object
 				})
-				.catch(next); // call next with error object
+				.catch(err => console.log('error inserting into preferences table:', err));
 		})
 		.catch(err => {
 			console.log(`User Create failed: ${err}`);
@@ -136,38 +155,6 @@ usersModel.getUserById = (req, res, next) => {
 		// .catch(err => console.log(error));
 		.catch(error => {
 			console.log('Error: in usersModel.getUser. Details: ', error);
-			next(error);
-		});
-};
-
-// TODO: add method for updating user...
-
-usersModel.update = (req, res, next) => {
-	console.log('in usersModel.update...');
-
-	console.log('req.body:', req.body);
-
-	// We should not allow to update anything except:
-	// "profiles_table" field...
-	// Even changing the email is problematic...
-	// If a counter indicates an active session, there
-	// supposed to be forced logout/login with the new
-	// credentials... Delete user would be a better way...
-	let { email, password_digest, counter, signedup_on, profiles_table } = req.body;
-
-	db
-		.one('UPDATE users SET profiles_table=$1 WHERE id=$2 RETURNING id;', [
-			profiles_table,
-			req.params.id
-		])
-		.then(userId => {
-			res.locals.userId = userId;
-			next();
-		})
-		.catch(error => {
-			// There supposed to be an arror for non-unique email...
-
-			console.log('Error: in usersModel.update. Details: ', error);
 			next(error);
 		});
 };

@@ -38,8 +38,10 @@ router.get('/:id', usersModel.getUserById, (req, res) => {
 
 // POST to '/users/register' to create user...
 router.post('/register', usersModel.create, (req, res) => {
-	console.log('In router.post, usersModel.create...');
-	res.json({ token: res.locals.token, user: res.locals.user });
+	console.log('registration success! user:', res.locals.user);
+	console.log('user preferences:', res.locals.presfs);
+	console.log('token:', res.locals.token);
+	res.json({ token: res.locals.token, user: res.locals.user, prefs: res.locals.prefs });
 });
 
 // POST to '/users/login' to login...
@@ -50,16 +52,11 @@ router.post('/login', usersModel.login, (req, res) => {
 	if (!res.locals.user) {
 		res.status(401).json({ err: 'Login Failed' });
 	} else {
-		res.json({ token: res.locals.token, user: res.locals.user });
+		console.log('login success! user:', res.locals.user);
+		console.log('user preferences:', res.locals.prefs);
+		console.log('token:', res.locals.token);
+		res.json({ token: res.locals.token, user: res.locals.user, prefs: res.locals.prefs });
 	}
-});
-
-// TODO: define PUT request for '/:id' to update user...
-router.put('/:id', usersModel.update, (req, res) => {
-	console.log('In router.put, usersModel.update...');
-
-	console.log('res.locals: ', res.locals);
-	res.json(res.locals.userId);
 });
 
 // TODO: define DELETE request for '/:id' to delete user...

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import navImage from '../images/threeLines.png';
 class FixedNav extends Component {
 	constructor(props) {
@@ -60,8 +60,16 @@ class FixedNav extends Component {
 	guestOptions() {
 		return (
 			<div>
-				<button onClick={() => this.props.toggleLogin()}>Log In</button>
-				<button onClick={() => this.props.toggleSignUp()}>Sign Up</button>
+				{/* <button onClick={() => this.props.toggleLogin()}>Log In</button>
+				<button onClick={() => this.props.toggleSignUp()}>Sign Up</button> */}
+
+				<Link to="/register">
+					<button>Register</button>
+				</Link>
+				<br />
+				<Link to="/login">
+					<button>Login</button>
+				</Link>
 			</div>
 		);
 	}

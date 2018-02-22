@@ -20,7 +20,9 @@ class App extends Component {
 			isLoaded: null,
 			moreInfo: [],
 			signUpClicked: false,
-			loginClicked: false
+			loginClicked: false,
+			userData: {},
+			prefData: {}
 		};
 
 		this.getResponseData = this.getResponseData.bind(this);
@@ -39,12 +41,19 @@ class App extends Component {
 	// may also want to setState with the user data and
 	// whether or not the user is logged in
 	register(data) {
-		axios('http://localhost:3000/users/register', {
+		axios('http://localhost:8080/users/register', {
 			method: 'POST',
 			data
 		})
 			.then(resp => {
+				console.log('response token:', resp.data.token);
 				TokenService.save(resp.data.token);
+				console.log('user ====>', resp.data.user);
+				this.setState({ userData: resp.data.user });
+				console.log('prefs ====>', resp.data.prefs);
+				this.setState({ prefData: resp.data.prefs });
+
+				// this.props.history.push('/');
 			})
 			.catch(err => console.log(`err: ${err}`));
 	}
@@ -53,12 +62,17 @@ class App extends Component {
 	// as above, we are saving the token locally using
 	// the TokenService
 	login(data) {
-		axios('http://localhost:3000/users/login', {
+		axios('http://localhost:8080/users/login', {
 			method: 'POST',
 			data
 		})
 			.then(resp => {
+				console.log('response token:', resp.data.token);
 				TokenService.save(resp.data.token);
+				console.log('====>', resp.data.user);
+				this.setState({ userData: resp.data.user });
+				console.log('prefs ====>', resp.data.prefs);
+				this.setState({ prefData: resp.data.prefs });
 			})
 			.catch(err => console.log(`err: ${err}`));
 	}
@@ -156,6 +170,8 @@ class App extends Component {
 									signUpClicked={this.state.signUpClicked}
 									toggleLogin={this.toggleLogin}
 									toggleSignUp={this.toggleSignUp}
+									submitR={this.register}
+									submitL={this.login}
 								/>
 							);
 						}}
@@ -177,12 +193,12 @@ class App extends Component {
 					<Route
 						exact
 						path="/register"
-						component={props => <Register {...props} submit={this.register.bind(this)} />}
+						component={props => <Register {...props} submit={this.register} />}
 					/>
 					<Route
 						exact
 						path="/login"
-						component={props => <Login {...props} submit={this.login.bind(this)} />}
+						component={props => <Login {...props} submit={this.login} />}
 					/>
 				</Switch>
 			</BrowserRouter>
