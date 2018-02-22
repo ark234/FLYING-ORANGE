@@ -52,7 +52,7 @@ DROP TABLE IF EXISTS preferences CASCADE;
 
 CREATE TABLE preferences (
   id              BIGSERIAL PRIMARY KEY,
-  user_id         INTEGER REFERENCES UNIQUE users (id),
+  user_id         INTEGER REFERENCES  users (id) UNIQUE,
   health_table    VARCHAR(32),
   balanced        BOOLEAN DEFAULT FALSE, 
   high_fiber      BOOLEAN DEFAULT FALSE,
