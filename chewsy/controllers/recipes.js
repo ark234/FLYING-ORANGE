@@ -15,11 +15,18 @@
 //                                             //
 /////////////////////////////////////////////////
 // Anatoliy added recipesModel.create... 022018//
+// Anatoliy added recipesDBModel.getAllRecipes... 022118//
 /////////////////////////////////////////////////
 
 // Import dependencies
 const router = require('express').Router();
 const recipesModel = require('../models/recipes.js');
+const recipesDBModel = require('../models/dbrecipes.js');
+
+// route for retrieving all recipes saved by user in DB...
+router.get('/', recipesDBModel.getAllRecipes, (req, res, next) => {
+  res.json(res.locals.allRecipesDB);
+});
 
 // route for retrieving recipes
 router.post('/', recipesModel.getRecipes, (req, res, next) => {

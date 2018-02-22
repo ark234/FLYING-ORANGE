@@ -2,31 +2,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import '../App.css';
-
+import Login from './Login';
+import Register from './Register';
 import Header from './Header';
-
 
 class ShowResults extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
-		this.moreInfo = this.moreInfo.bind(this);
 		this.routeToResults = this.routeToResults.bind(this);
 	}
 
 	routeToResults() {
 		this.props.history.push('/results');
-	}
-
-	moreInfo(uri) {
-		axios({
-			url: 'http://localhost:8080/recipes/moreInfo',
-			method: 'post',
-			data: { uri }
-		}).then(response => {
-			console.log('POST FOR MORE INFO', response);
-			this.props.history.push('/moreInfo');
-		});
 	}
 
 	render() {
@@ -57,15 +45,23 @@ class ShowResults extends Component {
 
 		return (
 			<div>
+				{this.props.loginClicked ? <Login toggleLogin={this.props.toggleLogin} /> : null}
+				{this.props.signUpClicked ? <Register toggleSignUp={this.props.toggleSignUp} /> : null}
 				<div className="search-bar">
-
-        <Header routeToResults={this.routeToResults}
-            isLoaded={this.props.isLoaded}
-            errorForResponse={this.props.errorForResponse}
-            getResponseData={this.props.getResponseData}
-            errorFlag={this.props.errorFlag}
-            loadingFlag={this.props.loadingFlag}/>
+					<Header
+						routeToResults={this.routeToResults}
+						isLoaded={this.props.isLoaded}
+						errorForResponse={this.props.errorForResponse}
+						getResponseData={this.props.getResponseData}
+						errorFlag={this.props.errorFlag}
+						loadingFlag={this.props.loadingFlag}
+						loginClicked={this.props.loginClicked}
+						signUpClicked={this.props.signUpClicked}
+						toggleLogin={this.props.toggleLogin}
+						toggleSignUp={this.props.toggleSignUp}
+					/>
 				</div>
+
 				<div className="results-header">
 					Found {results.count} matching results for {results.q}
 				</div>
