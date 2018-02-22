@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class RecipeInfo extends Component {
 	constructor(props) {
@@ -13,7 +13,7 @@ class RecipeInfo extends Component {
 			recipe_img_url: recipeInfo.image,
 			recipe_label: recipeInfo.label,
 			recipe_hlth_lbl: recipeInfo.healthlabels,
-			recipe_comment: "*",
+			recipe_comment: '*',
 			recipe_rating: 5
 		};
 		this.saveRecipe = this.saveRecipe.bind(this);
@@ -21,40 +21,38 @@ class RecipeInfo extends Component {
 
 	saveRecipe() {
 		axios({
-			url: "http://localhost:8080/recipes/save",
-			method: "POST",
+			url: 'http://localhost:8080/recipes/save',
+			method: 'POST',
 			data: this.state
 		}).then(response => {
-			console.log("post successful, response.data:", response.data);
+			console.log('post successful, response.data:', response.data);
 		});
 	}
 
 	handleSubmit(ev) {
 		ev.preventDefault();
 		this.saveRecipe();
-		this.props.history.push("/recipes/save");
+		this.props.history.push('/recipes/save');
 	}
 	render() {
 		const recipeInfo = this.props.recipeDatum;
 		const index = this.props.index;
 
-		console.log("recipe url", recipeInfo.url);
+		console.log('recipe url', recipeInfo.url);
 
 		return (
-			<div class="information">
+			<div className="information">
 				<h1>{recipeInfo.label}</h1>
 
 				<h2>
 					{recipeInfo.yield} Servings {Math.trunc(recipeInfo.calories)} calories
 				</h2>
-				<div class="nest-it">
-					<div class="flex-it">
-						<img class="info-image" src={recipeInfo.image} />
+				<div className="nest-it">
+					<div className="flex-it">
+						<img className="info-image" src={recipeInfo.image} />
 
 						<div>
-							<button onSubmit={this.handleSubmit.bind(this)}>
-								Save Recipe
-							</button>
+							<button onSubmit={this.handleSubmit.bind(this)}>Save Recipe</button>
 							<button>
 								<a href={recipeInfo.url}>View Recipe</a>
 							</button>
@@ -70,36 +68,36 @@ class RecipeInfo extends Component {
 								return <li>{ingredientName}</li>;
 							})}
 						</ul>
-						<div class="performance-facts">
-							<header class="performance-facts__header">
-								<h1 class="performance-facts__title">Nutrition Facts</h1>
-								<p class="p-class">{recipeInfo.label}</p>
-								<p class="p-class">Serving Per Recipe {recipeInfo.yield}</p>
+						<div className="performance-facts">
+							<header className="performance-facts__header">
+								<h1 className="performance-facts__title">Nutrition Facts</h1>
+								<p className="p-class">{recipeInfo.label}</p>
+								<p className="p-class">Serving Per Recipe {recipeInfo.yield}</p>
 							</header>
 
-							<table class="performance-facts__table">
+							<table className="performance-facts__table">
 								<thead>
 									<tr>
-										<th colspan="3" class="small-info">
+										<th colSpan="3" className="small-info">
 											Amount Per Recipe
 										</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<th colspan="2">
+										<th colSpan="2">
 											<b>Calories </b>
 											{Math.trunc(recipeInfo.calories)}
 										</th>
 										<td>Calories from Fat 130</td>
 									</tr>
-									<tr class="thick-row">
-										<td colspan="3" class="small-info">
+									<tr className="thick-row">
+										<td colSpan="3" className="small-info">
 											<b>% Daily Value*</b>
 										</td>
 									</tr>
 									<tr>
-										<th colspan="2">
+										<th colSpan="2">
 											<b>Total Fat </b>
 											{Math.trunc(recipeInfo.totalNutrients.FAT.quantity)}
 											{recipeInfo.totalNutrients.FAT.unit}
@@ -109,10 +107,9 @@ class RecipeInfo extends Component {
 										</td>
 									</tr>
 									<tr>
-										<td class="blank-cell" />
+										<td className="blank-cell" />
 										<th>
-											Saturated Fat{" "}
-											{Math.trunc(recipeInfo.totalNutrients.FASAT.quantity)}
+											Saturated Fat {Math.trunc(recipeInfo.totalNutrients.FASAT.quantity)}
 											{recipeInfo.totalNutrients.FAT.unit}
 										</th>
 										<td>
@@ -120,12 +117,12 @@ class RecipeInfo extends Component {
 										</td>
 									</tr>
 									<tr>
-										<td class="blank-cell" />
+										<td className="blank-cell" />
 										<th>Trans Fat </th>
 										<td />
 									</tr>
 									<tr>
-										<th colspan="2">
+										<th colSpan="2">
 											<b>Cholesterol </b>
 											{Math.trunc(recipeInfo.totalNutrients.CHOLE.quantity)}
 											{recipeInfo.totalNutrients.CHOLE.unit}
@@ -135,7 +132,7 @@ class RecipeInfo extends Component {
 										</td>
 									</tr>
 									<tr>
-										<th colspan="2">
+										<th colSpan="2">
 											<b>Sodium </b>
 											{Math.trunc(recipeInfo.totalNutrients.NA.quantity)}
 											{recipeInfo.totalNutrients.NA.unit}
@@ -145,22 +142,19 @@ class RecipeInfo extends Component {
 										</td>
 									</tr>
 									<tr>
-										<th colspan="2">
+										<th colSpan="2">
 											<b>Total Carbohydrate </b>
 											{Math.trunc(recipeInfo.totalNutrients.CHOCDF.quantity)}
 											{recipeInfo.totalNutrients.CHOCDF.unit}
 										</th>
 										<td>
-											<b>
-												{Math.trunc(recipeInfo.totalDaily.CHOCDF.quantity)}%
-											</b>
+											<b>{Math.trunc(recipeInfo.totalDaily.CHOCDF.quantity)}%</b>
 										</td>
 									</tr>
 									<tr>
-										<td class="blank-cell" />
+										<td className="blank-cell" />
 										<th>
-											Dietary Fiber{" "}
-											{Math.trunc(recipeInfo.totalNutrients.FIBTG.quantity)}
+											Dietary Fiber {Math.trunc(recipeInfo.totalNutrients.FIBTG.quantity)}
 											{recipeInfo.totalNutrients.FIBTG.unit}
 										</th>
 										<td>
@@ -168,16 +162,15 @@ class RecipeInfo extends Component {
 										</td>
 									</tr>
 									<tr>
-										<td class="blank-cell" />
+										<td className="blank-cell" />
 										<th>
-											Sugars{" "}
-											{Math.trunc(recipeInfo.totalNutrients.SUGAR.quantity)}
+											Sugars {Math.trunc(recipeInfo.totalNutrients.SUGAR.quantity)}
 											{recipeInfo.totalNutrients.SUGAR.unit}
 										</th>
 										<td />
 									</tr>
-									<tr class="thick-end">
-										<th colspan="2">
+									<tr className="thick-end">
+										<th colSpan="2">
 											<b>Protein </b>
 											{Math.trunc(recipeInfo.totalNutrients.PROCNT.quantity)}
 											{recipeInfo.totalNutrients.PROCNT.unit}
@@ -187,34 +180,26 @@ class RecipeInfo extends Component {
 								</tbody>
 							</table>
 
-							<table class="performance-facts__table--grid">
+							<table className="performance-facts__table--grid">
 								<tbody>
 									<tr>
-										<td colspan="2">
-											Vitamin A{" "}
-											{Math.trunc(recipeInfo.totalDaily.VITA_RAE.quantity)}%
+										<td colSpan="2">
+											Vitamin A {Math.trunc(recipeInfo.totalDaily.VITA_RAE.quantity)}%
 										</td>
-										<td>
-											Vitamin C{" "}
-											{Math.trunc(recipeInfo.totalDaily.VITC.quantity)}%
-										</td>
+										<td>Vitamin C {Math.trunc(recipeInfo.totalDaily.VITC.quantity)}%</td>
 									</tr>
-									<tr class="thin-end">
-										<td colspan="2">
-											Calcium{" "}
-											{Math.trunc(recipeInfo.totalNutrients.CA.quantity)}%
+									<tr className="thin-end">
+										<td colSpan="2">
+											Calcium {Math.trunc(recipeInfo.totalNutrients.CA.quantity)}%
 										</td>
-										<td>
-											Iron {Math.trunc(recipeInfo.totalDaily.FE.quantity)}%
-										</td>
+										<td>Iron {Math.trunc(recipeInfo.totalDaily.FE.quantity)}%</td>
 									</tr>
 								</tbody>
 							</table>
 
-							<p class="small-info">
-								* Percent Daily Values are based on a 2,000 calorie diet. Your
-								daily values may be higher or lower depending on your calorie
-								needs:
+							<p className="small-info">
+								* Percent Daily Values are based on a 2,000 calorie diet. Your daily values may be
+								higher or lower depending on your calorie needs:
 							</p>
 						</div>
 					</div>
