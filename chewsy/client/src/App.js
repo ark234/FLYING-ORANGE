@@ -75,6 +75,7 @@ class App extends Component {
 		this.register = this.register.bind(this);
 		this.login = this.login.bind(this);
 		this.logout = this.logout.bind(this);
+		this.authClick = this.authClick.bind(this);
 	}
 
 	getSavedRecipe(uri) {
@@ -135,7 +136,7 @@ class App extends Component {
 	// with the token retrieved from the TokenService
 	authClick(ev) {
 		ev.preventDefault();
-		axios('http://localhost:3000/restricted', {
+		axios('http://localhost:8080/restricted', {
 			headers: {
 				Authorization: `Bearer ${TokenService.read()}`
 			}
@@ -278,7 +279,14 @@ class App extends Component {
 					<Route
 						exact
 						path="/login"
-						component={props => <Login {...props} submit={this.login} />}
+						component={props => (
+							<Login
+								{...props}
+								submit={this.login}
+								authClick={this.authClick}
+								logout={this.logout}
+							/>
+						)}
 					/>
 				</Switch>
 			</BrowserRouter>

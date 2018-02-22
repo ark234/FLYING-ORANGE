@@ -39,7 +39,7 @@ router.get('/:id', usersModel.getUserById, (req, res) => {
 // POST to '/users/register' to create user...
 router.post('/register', usersModel.create, (req, res) => {
 	console.log('registration success! user:', res.locals.user);
-	console.log('user preferences:', res.locals.presfs);
+	console.log('user preferences:', res.locals.prefs);
 	console.log('token:', res.locals.token);
 	res.json({ token: res.locals.token, user: res.locals.user, prefs: res.locals.prefs });
 });

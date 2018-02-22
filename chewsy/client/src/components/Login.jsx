@@ -23,6 +23,7 @@ export default class Login extends Component {
 						<button>Back Home</button>
 					</Link>
 				</p>
+				<button onClick={this.props.authClick}>Weird Button</button>
 			</div>
 		);
 	}
