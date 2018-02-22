@@ -34,9 +34,7 @@ CREATE TABLE users (
   id              BIGSERIAL PRIMARY KEY,
   email           VARCHAR NOT NULL UNIQUE,
   password_digest VARCHAR NOT NULL,
-  counter         INTEGER,
-  signedup_on     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  profiles_table  VARCHAR(32)
+  signedup_on     TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -----------------------------------------------------------
@@ -143,7 +141,7 @@ DROP TABLE IF EXISTS recipes_user CASCADE;
 CREATE TABLE recipes_user (
   id              BIGSERIAL PRIMARY KEY,
   user_id         INTEGER REFERENCES users (id),
-  recipe_uri      VARCHAR(255) UNIQUE,
+  recipe_uri      VARCHAR(255),
   recipe_url      VARCHAR(255),
   recipe_img_url  VARCHAR(255), 
   recipe_label    VARCHAR(255),

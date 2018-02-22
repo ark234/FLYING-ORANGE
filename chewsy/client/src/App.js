@@ -11,13 +11,12 @@
 //                                             //
 /////////////////////////////////////////////////
 //                                             //
-// This file is from models forlder...         //
+// This file is from client/src forlder...     //
 //                                             //
 /////////////////////////////////////////////////
-// Anatoliy added /recipes/save Route... 022018//
-// I am not sure whether we need that file -   //
-// RecipeSave.js... But certainly, we need     //
-// that route...                               //
+// LAI: /recipes/save Route...           022018//
+// LAI: /users/:id/savedRecipes...       022118//
+//                                             //
 /////////////////////////////////////////////////
 
 import React, { Component } from 'react';
@@ -28,6 +27,9 @@ import FixedNav from './components/FixedNav';
 import HomeSearchForm from './components/HomeSearchForm';
 import RecipeInfo from './components/RecipeInfo';
 import RecipeSave from './components/RecipeSave';
+//////////////////////////////////////////////////LAI
+import SavedRecipes from './components/SavedRecipes';
+//////////////////////////////////////////////////LAI
 import Results from './components/Results';
 
 class App extends Component {
@@ -39,11 +41,19 @@ class App extends Component {
 			isLoaded: null,
 			moreInfo: [],
 			signUpClicked: false,
-			loginClicked: false
+			loginClicked: false,
+			recipesUser: [],
+			userId: 1		// hard-coded for testing...
 		};
+
+		///////////////////////////////////////////////////////////////LAI
 		// recipeData are from getResponseData - entire set from query;
 		// moreInfo - is particular item in the set - related to
 		// RecipeInfo.js...
+		// recipesUser are from getRecipesUserData all records by user
+		// from DB table "recipes_user"...
+		// We are not saving user name in the DB "users" table...
+		///////////////////////////////////////////////////////////////LAI
 
 		this.getResponseData = this.getResponseData.bind(this);
 		this.errorForResponse = this.errorForResponse.bind(this);
@@ -51,6 +61,9 @@ class App extends Component {
 		this.getMoreInfoData = this.getMoreInfoData.bind(this);
 		this.toggleSignUp = this.toggleSignUp.bind(this);
 		this.toggleLogin = this.toggleLogin.bind(this);
+		/////////////////////////////////////////////////////////////LAI
+		this.getRecipesUserData = this.getRecipesUserData.bind(this); 
+		/////////////////////////////////////////////////////////////LAI
 	}
 
 	toggleLogin() {
@@ -75,6 +88,13 @@ class App extends Component {
 		this.setState({ moreInfo: responseData });
 		console.log(this.state);
 	}
+
+/////////////////////////////////////////////////LAI
+	getRecipesUserData(responseData) {
+		this.setState({ recipesUser: responseData });
+		console.log(this.state);
+	}
+/////////////////////////////////////////////////LAI
 
 	errorForResponse() {
 		this.setState({ error: true });
@@ -134,6 +154,26 @@ class App extends Component {
 							);
 						}}
 					/>
+					{
+					/////////////////////////////////////////////////////LAI
+					}
+					<Route
+							exact
+							path="/users/:id/savedRecipes"
+							render={props => {
+								return (
+									<SavedRecipes
+										{...props}
+										userId={this.state.userId}
+										recipesUser={this.state.recipesUser}
+										getRecipesUserData={this.getRecipesUserData}
+									/>
+								);
+							}}
+					/>
+					{
+					/////////////////////////////////////////////////////LAI
+					}
 				</Switch>
 			</BrowserRouter>
 		);
