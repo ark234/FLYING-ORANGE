@@ -136,6 +136,7 @@ class App extends Component {
 			};
 		this.setState({tokenData: newTokenData});
 	}
+
 	getMoreInfoForRecipe(uri, recIdDB) {
 		console.log('uri: ', uri);
 		console.log('recId: ', recIdDB);
@@ -310,6 +311,7 @@ class App extends Component {
 			<BrowserRouter>
 				<div>
 					<Header
+						{...this.props}
 						toggleSignUp={this.toggleSignUp}
 						toggleLogin={this.toggleLogin}
 						getResponseData={this.getResponseData}

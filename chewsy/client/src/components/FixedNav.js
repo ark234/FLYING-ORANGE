@@ -87,7 +87,7 @@ class FixedNav extends Component {
 			<div>
 				<input type="button" value="User Preference" />
 				<input type="button" value="saved Recipies" />
-				<input type="button" value="account settings" />
+				<input type="button" value="account settings"/>
 				<input type="button" value="Log Out" onClick={() => this.props.logout()} />
 			</div>
 		);
@@ -99,7 +99,7 @@ class FixedNav extends Component {
 			return (
 				<nav className="side-nav">
 					<button>Saved Recipes</button>
-					<button>Account Settings</button>
+					<Link to='/profile'> <button>Account Settings</button></Link>
 					<button onClick={() => this.props.logout()}>Logout</button>
 				</nav>
 			);
