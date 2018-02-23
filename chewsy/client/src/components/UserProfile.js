@@ -118,7 +118,7 @@ class UserProfile extends Component {
         </form>
         <button>View Your Saved Recipes</button>
 
-        <div class="edit-account">
+        <div className="edit-account">
         <form onSubmit={this.handleAccountEdit}>
           <h2>Edit Account Information</h2>
           <label>

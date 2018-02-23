@@ -87,6 +87,18 @@ She has yet to find a faster, more efficient way to find what she needs
 
 Link to your wireframes – sketches of views and interfaces in your application
 Descriptions of any unsolved problems or hurdles your team had to overcome
+# Hurdles:
+
+  ### PLANNING:
+    The quality of any web based project depends on the integrity of the plan made before hand
+  ### DELIGATION 
+    Problems can be created if multiple people work on the same code on the time
+  ### COMMUNICATION
+    Without accurate communication, any task delegated will not be understood and will not be completed accuratly
+  ### GIT COLLABORATION
+    Collaboration using git can be an efficient way to work in a different location than group memebers, however this can have the opposite effect if group memebers are inexperenced with git hub
+
+
 
 
 
