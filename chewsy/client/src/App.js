@@ -127,14 +127,14 @@ class App extends Component {
 			})
 			.catch(err => console.log(err));
 	}
-	editTokenData(info){
+	editTokenData(info) {
 		console.log('in editTokenData. info:', info);
 		const newTokenData = {
-				email: info.email,
-				iat: info.iat,
-				id: info.id
-			};
-		this.setState({tokenData: newTokenData});
+			email: info.email,
+			iat: info.iat,
+			id: info.id
+		};
+		this.setState({ tokenData: newTokenData });
 	}
 	getMoreInfoForRecipe(uri, recIdDB) {
 		console.log('uri: ', uri);
@@ -405,6 +405,7 @@ class App extends Component {
 										recId={this.state.recId}
 										userId={this.state.userId}
 										getMoreInfoForRecipe={this.getMoreInfoForRecipe}
+										tokenData={this.state.tokenData}
 									/>
 								);
 							}}
@@ -432,8 +433,13 @@ class App extends Component {
 						<Route
 							exact
 							path="/profile"
-							component={props => <UserProfile {...props} userId={this.state.tokenData.id}
-							editTokenData={this.editTokenData} />}
+							component={props => (
+								<UserProfile
+									{...props}
+									userId={this.state.tokenData.id}
+									editTokenData={this.editTokenData}
+								/>
+							)}
 						/>
 					</Switch>
 				</div>

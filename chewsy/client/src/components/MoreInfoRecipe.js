@@ -100,7 +100,10 @@ class MoreInfoRecipe extends Component {
 						<h6 className="moreinfo-ingred">{JSON.stringify(mrInf.ingredients)}</h6>
 						<br />
 						<div key={idRec}>
-							<Link to={`/${idUser}/${idRec}`}>To Delete DB record for {mrInf.label}</Link>
+							{/* <Link to={`/${this.props.tokenData.id}/${idRec}`}>
+								To Delete DB record for {mrInf.label}
+							</Link> */}
+							<button>Delete Recipe</button>
 						</div>
 						<br />
 					</div>
@@ -111,8 +114,6 @@ class MoreInfoRecipe extends Component {
 		return (
 			<div>
 				<p>Loading...</p>
-				<p>User ID: {idUser}</p>
-				<p>Record ID: {idRec}</p>
 			</div>
 		);
 	}
