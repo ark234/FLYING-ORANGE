@@ -121,7 +121,7 @@ class SearchFeild extends Component {
 						<input type="submit" className="submitButton" value="search" />
 					</div>
 					<div className="checkBoxContainer">
-						<h2>With My Allergens</h2>
+						<h1>Allergens:</h1>
 						{checkBoxes}
 					</div>
 				</form>

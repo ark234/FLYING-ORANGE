@@ -13,7 +13,8 @@
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  height: 60vh;
+  /*  height: 60vh;
+*/
   background: url(./images/bread.jpeg);
   color: white;
   margin: 0;
@@ -21,10 +22,16 @@
 }
 .checkBoxContainer {
   background: black;
-  width: 30vw;
+  width: 55vw;
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 200px;
+  margin-left: -187px;
 }
+.checkBoxContainer h1 {
+  width: 100%;
+}
+
 .textInputContainer {
   font-family: "Fjalla One", sans-serif;
   justify-content: center;
@@ -35,7 +42,7 @@
 .textInput {
   width: 70%;
   height: 40px;
-  margin-left: 20px;
+  margin-left: 160px;
   margin-right: 20px;
 }
 .submitButton {
@@ -126,17 +133,16 @@
 }
 .checkBox {
   margin: 5px;
+  display: inline;
 }
 .modal {
-
-  top:0;
-	position: absolute;
-	z-index: 3;
-	width: 99vw;
-	height: 99vh;
-	background: orange;
-	opacity: 1;
-
+  top: 0;
+  position: absolute;
+  z-index: 3;
+  width: 99vw;
+  height: 99vh;
+  background: orange;
+  opacity: 1;
 }
 
 /*RECIPE INFORMATION PAGE */
@@ -159,7 +165,7 @@
   background: white;
   position: absolute;
   right: 500px;
-  top: 100px;
+  top: 630px;
 }
 table {
   border-collapse: collapse;
@@ -285,5 +291,32 @@ b {
 }
 .info-title {
   text-align: center;
-
+}
+/*FIXED NAV*/
+.header-nav {
+  /*display: flex;*/
+}
+.logo {
+  font-family: "Lobster", cursive;
+  color: red;
+  text-align: center;
+  justify-content: center;
+  font-size: 100px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.hamburger {
+  position: fixed;
+  z-index: 5;
+}
+.checks {
+  display: inline;
+}
+.allergens {
+  list-style: none;
+  height: 200px;
+}
+.check {
+  /*display: inline;*/
 }
