@@ -255,15 +255,19 @@ usersModel.destroy = (req, res, next) => {
 usersModel.updateAccount = (req, res, next) =>{
   console.log('----------------------------');
   console.log('IN usersModel.updateAccount');
+  console.log('res.locals:', res.locals, req.body);
 
   const password_digest = bcrypt.hashSync(req.body.password, 10);
   const email = req.body.email;
   const user_id = req.body.user_id;
 
+
   db
-    .none('UPDATE users SET email = $1, password_digest= $2 WHERE users.id = $3', [email, password_digest, user_id])
-    .then( response=>{
-      console.log('WE MADE IT');
+    .one('UPDATE users SET email = $1, password_digest= $2 WHERE users.id = $3 RETURNING *', [email, password_digest, user_id])
+    .then( data =>{
+      console.log('WE MADE IT. data:', data);
+      res.locals.updatedAccount = data;
+      next();
     })
     .catch(err => {
       console.log('error encountered in usersModel.updateAccount pg-promise call. error:', err);
