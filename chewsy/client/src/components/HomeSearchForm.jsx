@@ -13,13 +13,10 @@ class HomeSearchForm extends Component {
     this.state = {};
   }
 
-
   render() {
     return (
       <div>
-        <div className="homePage">
-
-        </div>
+        <div className="homePage" />
       </div>
     );
   }
