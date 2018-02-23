@@ -13,6 +13,7 @@ class Header extends Component {
 		return (
 			<div>
 				<Nav
+				{...this.props}
 					toggleLogin={this.props.toggleLogin}
 					toggleSignUp={this.props.toggleSignUp}
 					loginClicked={this.props.loginClicked}

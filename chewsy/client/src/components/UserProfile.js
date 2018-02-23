@@ -11,7 +11,7 @@ class UserProfile extends Component {
     };
     this.healthArray = new Set();
     this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    
     this.handleAccountEdit = this.handleAccountEdit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -54,12 +54,7 @@ class UserProfile extends Component {
     })
   }
  
-  handleSubmit(e){
-    e.preventDefault();
-    const user_id = this.props.userId;
-    const preferenceArray = Array.from(this.healthArray);
-    this.edit(preferenceArray, user_id.id);
-  }
+  
 
   handleAccountEdit(e){
     e.preventDefault();
@@ -109,14 +104,7 @@ class UserProfile extends Component {
 
     return (
       <div>
-        <h2>User_Name</h2>
-        <div>User Dietary and Allergen Preferences</div>
-        <form onSubmit={this.handleSubmit}>
-          <div className="checkBoxContainer">
-            <h2>Allergens</h2>
-          
-          </div>
-        </form>
+      
         <button>View Your Saved Recipes</button>
 
         <div className="edit-account">

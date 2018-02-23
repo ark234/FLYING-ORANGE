@@ -1,42 +1,47 @@
-# Flying-orange
-Nutritional app for any diet
+# Flying-orange - Nutritional app for any diet
 
 
 
-Explanations of the technologies used
 
 #TECHNOLOGIES UTILIZED
 - axios
   Used to facilitate get/put/post/delete requests between client-side react views and express back-end
+
 -bcryptjs
   Used to create password hashes to be stored in our database for future log-ins
+
 -body-parser
   Used to parse request with res.body being sent 
--cookie-parser
 
--cors
+-cookie-parser
+  cookie-parser will parse the Cookie header and populates req.cookies with an object with keys equal to the cookie names
+
 -dotenv
   Used to secure sensitive information in a .env file to keep the secret keys a secret 
+
 -express
   Used to serve data from server to Client based on respective client requests 
--express-session
 
--moment (CALCULATES TIMES-TBD)
+-express-session
+  Used to create session middleware
 
 -morgan
   Used to log all requests to the server as well as log error messages
--mustache-express(NOT USED)
 
 -passport
+  Used to authenticate request
+
 -passport-local
+  Used to authenticate using a username and password
+
 -pg-promise
-  Used to communicate with DataBase and server
+  Used to communicate with DataBase and Back End
+
 -react
-  Used to serve views from the react-app
+  Used to show views from create-react-app
+
 -react-router-dom
   Used to route to specified views depending on the given route 
-
-A couple of paragraphs about the general approach you took
 
 #THE APPROACH
   Chewsy is an app that aids users in finding recipes that fit thier dietary restrictions.
@@ -59,13 +64,13 @@ Installation instructions for any dependencies
 After the dependencies are installed in this directory enter the client directory and run the same command as before:
   ```npm install```
 
-after all the dependencies are installed in both directories, run this command in the client directory
+Next all the dependencies are installed in both directories, run this command in the client directory
 ```npm start```
-this will start the react-app on a local port that the terminal will prompt you on.
+This will start the react-app on a local port that the terminal will prompt you on.
 
-in order to start the server, within the top level directory run the command:
+In order to start the server, within the top level directory run the command:
 ```nodemon -e css, js, sql index.js```
-this will start the express server on the port specified in the top level index.js file
+this will start the express server on the port specified in the top level index.js file and nodemon w
 
 once both servers are running you can use the app on your local ports
 
