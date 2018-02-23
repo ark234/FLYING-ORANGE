@@ -44,6 +44,10 @@ router.post('/register', usersModel.create, (req, res) => {
 	res.json({ token: res.locals.token, user: res.locals.user, prefs: res.locals.prefs });
 });
 
+router.put('/preferences', usersModel.updatePreferences);
+
+router.put('/editAccount', usersModel.updateAccount);
+
 // POST to '/users/login' to login...
 // if the user didn't get created thrown an error
 // else include the user and token in the response

@@ -35,27 +35,29 @@ CREATE TABLE users (
 );
 
 -----------------------------------------------------------
--- PROFILES table is connected to USERS table by user_id 
+-- PREFERENCES table is connected to USERS table by user_id 
 -- field making sure there is only one profile per user id;
 -- a record is comprised of boolean fields to reflect
 -- user's allergies and limitations;
 -- upon signing up, user would be given an opportunity to
 -- check-mark all relevant health-labels...
 -----------------------------------------------------------
-DROP TABLE IF EXISTS profiles CASCADE;
 
-CREATE TABLE profiles (
-  id BIGSERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES users (id),
-  health_table VARCHAR(32),
-  balanced BOOLEAN DEFAULT FALSE,
-  high_fiber BOOLEAN DEFAULT FALSE,
-  high_protein BOOLEAN DEFAULT FALSE,
-  low_carb BOOLEAN DEFAULT FALSE,
-  low_fat BOOLEAN DEFAULT FALSE,
-  low_sodium BOOLEAN DEFAULT FALSE,
-  alcohol_free BOOLEAN DEFAULT FALSE,
-  celery_free BOOLEAN DEFAULT FALSE,
+
+DROP TABLE IF EXISTS preferences CASCADE;
+
+CREATE TABLE preferences (
+  id              BIGSERIAL PRIMARY KEY,
+  user_id         INTEGER REFERENCES  users (id) UNIQUE,
+  health_table    VARCHAR(32),
+  balanced        BOOLEAN DEFAULT FALSE, 
+  high_fiber      BOOLEAN DEFAULT FALSE,
+  high_protein    BOOLEAN DEFAULT FALSE,
+  low_carb        BOOLEAN DEFAULT FALSE,
+  low_fat         BOOLEAN DEFAULT FALSE,
+  low_sodium      BOOLEAN DEFAULT FALSE,
+  alcohol_free    BOOLEAN DEFAULT FALSE,
+  celery_free     BOOLEAN DEFAULT FALSE,
   crustacean_free BOOLEAN DEFAULT FALSE,
   dairy_free BOOLEAN DEFAULT FALSE,
   egg_free BOOLEAN DEFAULT FALSE,

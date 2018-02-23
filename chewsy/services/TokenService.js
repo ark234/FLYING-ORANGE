@@ -26,6 +26,7 @@ class Token {
 
 	// generates a new token
 	makeToken(payload) {
+		console.log('SECRET', SECRET);
 		return new Promise((resolve, reject) =>
 			jwt.sign(payload, SECRET, (err, data) => (err ? reject(err) : resolve(data)))
 		);

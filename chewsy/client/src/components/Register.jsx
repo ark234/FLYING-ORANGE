@@ -16,13 +16,13 @@ export default class Register extends Component {
 		// take note how the onSubmit method is passed down to the UserForm
 		// as a prop
 		return (
-			<div className="modal">
+			<div  className="modal">
 				I'm a register
 				<UserForm submit={this.onSubmit} />
 				<p>
-					<Link to="/">
-						<button>Back Home</button>
-					</Link>
+					
+						<button onClick={()=>this.props.toggleSignUp()}>Back Home</button>
+			
 				</p>
 			</div>
 		);

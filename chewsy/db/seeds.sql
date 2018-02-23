@@ -159,11 +159,13 @@ VALUES
   ('30', 'tree-nut-free', 'Walnut hull extract'),
   ('30', 'tree-nut-free', 'Beer nuts');
 
+
 INSERT INTO users (email, password_digest ) 
 VALUES
 ('flastname-1@coldmail.com', 'ABCDEFabcdefABCDEFabcdefABCDEFab'), 
 ('flastname-2@warmmail.com', 'FFFFFFabcdefABCDEFabcdefABCDEFab'),
 ('flastname-3@lukemail.com', 'FFFFFFccccccABCDEFabcdefABCDEFab')
+
 RETURNING id;
 
 

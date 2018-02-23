@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SearchField from "./SearchField";
+import axios from 'axios';
 
 class UserProfile extends Component {
   constructor(props) {
@@ -7,7 +8,16 @@ class UserProfile extends Component {
     this.state = {};
     this.healthArray = new Set();
     this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.edit = this.edit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
+  handleChange(e){
+    //not sure if e.preventDefault() needs to be called
+    const name = e.target.name;
+    this.setState({[name]:e.target.value});
+  }
+
   handleChangeCheckbox(event) {
     const value = event.target.value;
 
@@ -23,6 +33,42 @@ class UserProfile extends Component {
     this.setState({ health: healthArray });
   }
 
+  edit(info, user_id){
+    axios({
+      url: 'localhost:8080/users/preferences',
+      method: 'put',
+      data: {health: info, user_id: user_id }
+    })
+    .then(response =>{
+      console.log('PUT response', response);
+    })
+  }
+  editAccount(info){
+    axios({
+      url:'localhost:8080/users/editAccount',
+      method:'put',
+      data: info
+    })
+    .then( response =>{
+      console.log('MADE it');
+    })
+  }
+ 
+  handleSubmit(e){
+    e.preventDefault();
+    const user_id = this.props.userId;
+    const preferenceArray = Array.from(this.healthArray);
+    this.edit(preferenceArray, user_id.id);
+  }
+
+  handleAccountEdit(e){
+    e.preventDefault();
+
+  }
+  handleChange(e){
+    const name = e.target.name;
+    this.setState({[name]:e.target.value});
+  }
   render() {
     const allergens = [
       "crustacean-free",
@@ -64,7 +110,7 @@ class UserProfile extends Component {
       <div>
         <h2>User_Name</h2>
         <div>User Dietary and Allergen Preferences</div>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <div className="checkBoxContainer">
             <h2>Allergens</h2>
             {checkBoxes}
@@ -73,10 +119,17 @@ class UserProfile extends Component {
         <button>View Your Saved Recipes</button>
 
         <div class="edit-account">
+        <form onSubmit={this.handleAccountEdit}>
           <h2>Edit Account Information</h2>
-          <h3>User_Name</h3>
-          <h3>hange Email</h3>
-          <h3>Change Password</h3>
+          <label>
+          Enter New E - Mail:
+          <input type='text' name ='email' onChange={this.handleChange}/>
+          </label>
+          
+          <label>Enter New Password:
+          <input type='text'name = 'password' onChange={this.handleChange}/>
+          </label>
+        </form>
         </div>
 
         <button>Log Out</button>

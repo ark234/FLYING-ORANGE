@@ -16,6 +16,7 @@
 /////////////////////////////////////////////////
 
 const db = require('../db/index.js');
+const pgp = require('pg-promise')();
 const axios = require('axios');
 const moment = require('moment');
 const TokenService = require('../services/TokenService');
@@ -24,6 +25,41 @@ const TokenService = require('../services/TokenService');
 const bcrypt = require('bcryptjs');
 
 const usersModel = {};
+const allergyNames = [
+  'balanced       ',
+  'high_fiber     ',
+  'high_protein   ',
+  'low_carb       ',
+  'low_fat        ',
+  'low_sodium     ',
+  'alcohol_free   ',
+  'celery_free    ',
+  'crustacean_free',
+  'dairy_free     ',
+  'egg_free       ',
+  'fish_free      ',
+  'gluten_free    ',
+  'kidney_friendly',
+  'kosher         ',
+  'low_potassium  ',
+  'lupine_free    ',
+  'mustard_free   ',
+  'no_oil_added   ',
+  'low_sugar      ',
+  'paleo          ',
+  'peanut_free    ',
+  'pescatarian    ',
+  'pork_free      ',
+  'red_meat_free  ',
+  'sesame_free    ',
+  'shellfish_free ',
+  'soy_free       ',
+  'sugar_conscious',
+  'tree_nut_free  ',
+  'vegan          ',
+  'vegetarian     ',
+  'wheat_free     '
+].map(name => name.trim());
 
 // TODO: add method for retrieving users...
 
@@ -48,7 +84,7 @@ usersModel.findByEmail = email => {
 };
 // helper method used in login
 usersModel.getPrefs = userId => {
-	return db.one('SELECT * FROM profiles WHERE user_id = $1;', [userId]);
+	return db.one('SELECT * FROM preferences WHERE user_id = $1;', [userId]);
 };
 
 // method for login...
@@ -85,12 +121,17 @@ usersModel.login = (req, res, next) => {
 						next();
 					})
 					.catch(err => {
-						next();
+            console.log('*error in userModel.login, err:', err);
+						next(err);
 					});
-			});
+			}).catch(err => {
+        console.log('**error in userModel.login, err:', err);
+        next(err);
+      });
 		})
 		.catch(err => {
-			next();
+      console.log('error in userModel.login, err:', err);
+			next(err);
 		});
 };
 
@@ -110,7 +151,7 @@ usersModel.create = (req, res, next) => {
 		.then(data => {
 			// insert entry into profiles table with default values for new user
 			db
-				.one('INSERT INTO profiles (user_id) VALUES ($1) RETURNING *;', [data.id])
+				.one('INSERT INTO preferences (user_id) VALUES ($1) RETURNING *;', [data.id])
 				.then(prefData => {
 					// remove the password_digest since it's sensitive
 					const { password_digest, ...userData } = data;
@@ -139,6 +180,39 @@ usersModel.create = (req, res, next) => {
 			next();
 		});
 };
+
+
+// TODO: add method for updating user
+usersModel.updatePreferences = (req, res, next) => {
+	console.log('in usersModel.update! req.body:', req.body);
+
+  // const array = req.body.health;
+  // console.log(array);
+
+  const userId = req.body.user_id;
+
+  const valueArray = allergyNames.map(name => {
+   return req.body.health.includes(name); 
+  });
+
+  const query = 'UPDATE preferences SET (${allergies:name})=(${values:csv}) WHERE user_id=${userId} RETURNING *';
+  
+  const finalQuery = pgp.as.format(query, 
+  {allergies: allergyNames, // array of strings
+  userId: userId, // number
+  values: valueArray // array of booleans
+});
+  
+  db 
+    .one(finalQuery)
+    .then(data=>{
+      console.log('+++THE DATA++++', data);
+      next();
+    })
+    .catch(error => {
+            console.log('***CHECK OUT THIS AWSOME ERROR', error);
+        });
+  }
 
 usersModel.getUserById = (req, res, next) => {
 	console.log('in usersModel.getUserById...');
@@ -177,5 +251,19 @@ usersModel.destroy = (req, res, next) => {
 		next(error);
 	});
 };
+
+usersModel.updateAccount = (req, res, next) =>{
+  console.log('IN usersModel.updateAccount');
+
+  const password_digest = bcrypt.hashSync(req.body.password, 10);
+  const email = req.body.email;
+
+  db
+    .none('UPDATE users SET email = $1, password_digest= $2 WHERE user.id = $3', [email, password_digest, user_id])
+    .then( response=>{
+      console.log('WE MADE IT');
+    })
+
+}
 
 module.exports = usersModel;

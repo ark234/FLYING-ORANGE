@@ -128,12 +128,15 @@
   margin: 5px;
 }
 .modal {
-  position: absolute;
-  z-index: 3;
-  width: 99vw;
-  height: 99vh;
-  background: orange;
-  opacity: 0.97;
+
+  top:0;
+	position: absolute;
+	z-index: 3;
+	width: 99vw;
+	height: 99vh;
+	background: orange;
+	opacity: 1;
+
 }
 
 /*RECIPE INFORMATION PAGE */
@@ -282,4 +285,5 @@ b {
 }
 .info-title {
   text-align: center;
+
 }
