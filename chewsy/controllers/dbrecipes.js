@@ -30,7 +30,7 @@ router.get('/:id/savedRecipes', recipesDBModel.getAllRecipes, (req, res, next) =
 });
 
 // route for destroying of saved ":idRec" by user_":idUser" in DB...
-router.get('/:idUser/savedRecipes/:idRec', recipesDBModel.destroy, (req, res, next) => {
+router.get('/:idRec', recipesDBModel.destroy, (req, res, next) => {
   // res.json(res.locals.idRecDB);
   console.log('in DELETE at /:idUser/:idRec...');
   res.json({});

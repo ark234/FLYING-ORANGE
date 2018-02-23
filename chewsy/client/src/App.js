@@ -30,6 +30,7 @@ import RecipeInfo from './components/RecipeInfo';
 import RecipeSave from './components/RecipeSave';
 //////////////////////////////////////////////////LAI
 import SavedRecipes from './components/SavedRecipes';
+import MoreInfoRecipe from './components/MoreInfoRecipe';
 //////////////////////////////////////////////////LAI
 import Results from './components/Results';
 
@@ -39,12 +40,18 @@ class App extends Component {
 
 		this.state = {
 			recipeData: null,
-			savedRecipe: null,
+			/////////////////////////////////////////////////LAI
+			// savedRecipe: null,
+			moreInfoRecipe: null,
+			itemRecipeUser: null,
+			extInfoSource: null,
+			recipesUser: [],
+			/////////////////////////////////////////////////LAI
 			isLoaded: null,
 			moreInfo: [],
 			signUpClicked: false,
 			loginClicked: false,
-			recipesUser: [],
+			recId: null,
 			userId: 1 // hard-coded for testing...
 		};
 
@@ -65,19 +72,61 @@ class App extends Component {
 		this.toggleLogin = this.toggleLogin.bind(this);
 		/////////////////////////////////////////////////////////////LAI
 		this.getRecipesUserData = this.getRecipesUserData.bind(this);
+		this.getAllUserRecipes = this.getAllUserRecipes.bind(this);
 		/////////////////////////////////////////////////////////////LAI
-		this.getSavedRecipe = this.getSavedRecipe.bind(this);
+		this.getMoreInfoForRecipe = this.getMoreInfoForRecipe.bind(this);
 	}
 
-	getSavedRecipe(uri) {
+	getMoreInfoForRecipe(uri, recIdDB) {
+		console.log('uri: ', uri);
+		console.log('recId: ', recIdDB);
 		axios({
 			url: 'http://localhost:8080/recipes/moreInfo',
 			method: 'post',
 			data: { uri }
 		}).then(response => {
 			console.log('SAVED RECIPE DATA===>', response.data);
-			this.setState({ savedRecipe: response.data });
-			this.props.history.push('/moreInfo');
+			/////////////////////////////////////////////////////////////LAI
+			// Changing the name "savedRecipe" to ===> "moreInfoRecipe"
+			this.setState(prevState => {
+				prevState.moreInfoRecipe=response.data;
+				prevState.recId=recIdDB;
+				prevState.extInfoSource=uri;
+				return prevState;
+			});
+			// this.setState({ savedRecipe: response.data });
+			/////////////////////////////////////////////////////////////LAI
+			// this.props.history.push('/moreInfo');
+		});
+	}
+
+
+	getAllUserRecipes() {
+
+		// Retrieve a set of user records from "recipes_user" tabel...
+
+		const idUser = this.state.userId;
+
+		console.log('User ID: ', idUser);
+
+		axios({
+			url: 'http://localhost:8080/users/:idUser/savedRecipes',
+			method: 'get',
+			data: {idUser}
+		})
+		.then(response => {
+			console.log(
+				'In SavedRecipes.queryRecipesUser: server responded. response.data: ',
+				response.data
+			);
+
+			this.setState(prevState => { 
+											prevState.recipesUser = response.data;
+											// prevState.userId = idUser; 
+											return prevState;
+										});
+
+			// this.props.getRecipesUserData(response.data);
 		});
 	}
 
@@ -105,8 +154,14 @@ class App extends Component {
 	}
 
 	/////////////////////////////////////////////////LAI
-	getRecipesUserData(responseData) {
-		this.setState({ recipesUser: responseData });
+	getRecipesUserData(recordData, recId, recUri) {
+		this.setState(prevState => {
+																	prevState.extInfoSource=recUri;
+																	prevState.itemRecipeUser=recordData;
+																	prevState.recId=recId;
+																	return prevState;
+	
+																});
 		console.log(this.state);
 	}
 	/////////////////////////////////////////////////LAI
@@ -191,7 +246,25 @@ class App extends Component {
 									userId={this.state.userId}
 									recipesUser={this.state.recipesUser}
 									getRecipesUserData={this.getRecipesUserData}
+									getMoreInfoForRecipe={this.getMoreInfoForRecipe}
+									getAllUserRecipes={this.getAllUserRecipes}
 								/>
+							);
+						}}
+					/>
+					<Route
+						exact
+						path="/users/:idUser/savedRecipes/:idRec"
+						render={props => {
+							return (
+								<MoreInfoRecipe 
+									{...props} 
+									 moreInfoRecipe={this.state.moreInfoRecipe} 
+									 itemRecipeUser={this.state.itemRecipeUser}
+									 extInfoSource={this.state.extInfoSource} 
+									 recId={this.state.recId}
+									 userId={this.state.userId}
+									 getMoreInfoForRecipe={this.getMoreInfoForRecipe} />
 							);
 						}}
 					/>
