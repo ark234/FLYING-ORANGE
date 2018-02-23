@@ -14,9 +14,10 @@
 // This file is from models forlder...         //
 //                                             //
 /////////////////////////////////////////////////
-// LAI added recipesDBModel.getAllRecipes... 022118//
-// LAI added recipesDBModel.destroy...   022218//
-/////////////////////////////////////////////////
+
+// LAI: recipesDBModel.getAllRecipes...  022118//
+// LAI: recipesDBModel.destroy...        022218//
+
 
 const db = require('../db/index.js');
 const axios = require('axios');

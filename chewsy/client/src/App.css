@@ -171,7 +171,7 @@
 	align-items: center;
 }
 .modal {
-<<<<<<< HEAD
+
   top: 0;
   position: absolute;
   z-index: 3;
@@ -182,7 +182,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-=======
 	background: rgba(255, 255, 255, 0.886);
 	height: 50%;
 	width: 50%;
@@ -422,8 +421,8 @@ b {
 .check {
 	/*display: inline;*/
 }
-.userForm{
-  width: 400px;
-  display: flex;
-  flex-direction: column;
+.userForm {
+	width: 400px;
+	display: flex;
+	flex-direction: column;
 }

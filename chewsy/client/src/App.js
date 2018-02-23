@@ -30,6 +30,7 @@ import RecipeInfo from './components/RecipeInfo';
 import RecipeSave from './components/RecipeSave';
 //////////////////////////////////////////////////LAI
 import SavedRecipes from './components/SavedRecipes';
+import MoreInfoRecipe from './components/MoreInfoRecipe';
 //////////////////////////////////////////////////LAI
 import Results from './components/Results';
 import Header from './components/Header';
@@ -61,7 +62,13 @@ class App extends Component {
 
 		this.state = {
 			recipeData: null,
-			savedRecipe: null,
+			/////////////////////////////////////////////////LAI
+			// savedRecipe: null,
+			moreInfoRecipe: null,
+			itemRecipeUser: null,
+			extInfoSource: null,
+			recipesUser: [],
+			/////////////////////////////////////////////////LAI
 			isLoaded: null,
 			moreInfo: [],
 			signUpClicked: false,
@@ -71,7 +78,9 @@ class App extends Component {
 			prefData: {},
 			isLoggedIn: false,
 			tokenData: {},
-			navClicked: false
+			navClicked: false,
+			recId: null,
+			userId: 1 // hard-coded for testing...
 		};
 
 		///////////////////////////////////////////////////////////////LAI
@@ -91,8 +100,9 @@ class App extends Component {
 		this.toggleLogin = this.toggleLogin.bind(this);
 		/////////////////////////////////////////////////////////////LAI
 		this.getRecipesUserData = this.getRecipesUserData.bind(this);
+		this.getAllUserRecipes = this.getAllUserRecipes.bind(this);
 		/////////////////////////////////////////////////////////////LAI
-		this.getSavedRecipe = this.getSavedRecipe.bind(this);
+		// this.getSavedRecipe = this.getSavedRecipe.bind(this);
 		this.routeToResults = this.routeToResults.bind(this);
 		this.renderResults = this.renderResults.bind(this);
 		this.register = this.register.bind(this);
@@ -101,6 +111,7 @@ class App extends Component {
 		this.authClick = this.authClick.bind(this);
 		this.checkLogin = this.checkLogin.bind(this);
 		// this.toggleNav = this.toggleNav.bind(this);
+		this.getMoreInfoForRecipe = this.getMoreInfoForRecipe.bind(this);
 	}
 
 	checkLogin() {
@@ -116,15 +127,53 @@ class App extends Component {
 			.catch(err => console.log(err));
 	}
 
-	getSavedRecipe(uri) {
+	getMoreInfoForRecipe(uri, recIdDB) {
+		console.log('uri: ', uri);
+		console.log('recId: ', recIdDB);
 		axios({
 			url: 'http://localhost:8080/recipes/moreInfo',
 			method: 'post',
 			data: { uri }
 		}).then(response => {
 			console.log('SAVED RECIPE DATA===>', response.data);
-			this.setState({ savedRecipe: response.data });
-			this.props.history.push('/moreInfo');
+			/////////////////////////////////////////////////////////////LAI
+			// Changing the name "savedRecipe" to ===> "moreInfoRecipe"
+			this.setState(prevState => {
+				prevState.moreInfoRecipe = response.data;
+				prevState.recId = recIdDB;
+				prevState.extInfoSource = uri;
+				return prevState;
+			});
+			// this.setState({ savedRecipe: response.data });
+			/////////////////////////////////////////////////////////////LAI
+			// this.props.history.push('/moreInfo');
+		});
+	}
+
+	getAllUserRecipes() {
+		// Retrieve a set of user records from "recipes_user" tabel...
+
+		const idUser = this.state.userId;
+
+		console.log('User ID: ', idUser);
+
+		axios({
+			url: 'http://localhost:8080/users/:idUser/savedRecipes',
+			method: 'get',
+			data: { idUser }
+		}).then(response => {
+			console.log(
+				'In SavedRecipes.queryRecipesUser: server responded. response.data: ',
+				response.data
+			);
+
+			this.setState(prevState => {
+				prevState.recipesUser = response.data;
+				// prevState.userId = idUser;
+				return prevState;
+			});
+
+			// this.props.getRecipesUserData(response.data);
 		});
 	}
 
@@ -215,8 +264,13 @@ class App extends Component {
 	}
 
 	/////////////////////////////////////////////////LAI
-	getRecipesUserData(responseData) {
-		this.setState({ recipesUser: responseData });
+	getRecipesUserData(recordData, recId, recUri) {
+		this.setState(prevState => {
+			prevState.extInfoSource = recUri;
+			prevState.itemRecipeUser = recordData;
+			prevState.recId = recId;
+			return prevState;
+		});
 		console.log(this.state);
 	}
 	/////////////////////////////////////////////////LAI
@@ -262,8 +316,12 @@ class App extends Component {
 						toggleNav={this.toggleNav}
 						navClicked={this.state.navClicked}
 					/>
-					{this.state.loginClicked ? <Login submit={this.login} toggleLogin={this.toggleLogin} /> : null}
-					{this.state.signUpClicked ? <Register submit={this.register} toggleSignUp={this.toggleSignUp} /> : null}
+					{this.state.loginClicked ? (
+						<Login submit={this.login} toggleLogin={this.toggleLogin} />
+					) : null}
+					{this.state.signUpClicked ? (
+						<Register submit={this.register} toggleSignUp={this.toggleSignUp} />
+					) : null}
 					<Switch>
 						<Route
 							exact
@@ -312,6 +370,25 @@ class App extends Component {
 										userId={this.state.userId}
 										recipesUser={this.state.recipesUser}
 										getRecipesUserData={this.getRecipesUserData}
+										getMoreInfoForRecipe={this.getMoreInfoForRecipe}
+										getAllUserRecipes={this.getAllUserRecipes}
+									/>
+								);
+							}}
+						/>
+						<Route
+							exact
+							path="/users/:idUser/savedRecipes/:idRec"
+							render={props => {
+								return (
+									<MoreInfoRecipe
+										{...props}
+										moreInfoRecipe={this.state.moreInfoRecipe}
+										itemRecipeUser={this.state.itemRecipeUser}
+										extInfoSource={this.state.extInfoSource}
+										recId={this.state.recId}
+										userId={this.state.userId}
+										getMoreInfoForRecipe={this.getMoreInfoForRecipe}
 									/>
 								);
 							}}
@@ -319,9 +396,28 @@ class App extends Component {
 						{
 							/////////////////////////////////////////////////////LAI
 						}
-						{/* <Route exact path="/register" component={props => <Register {...props} submit={this.register} />} />
-						<Route exact path="/login" component={props => <Login {...props} submit={this.login} />} /> */}
-						<Route exact path="/profile" component={props => <UserProfile {...props} userId={this.state.userData} />} />
+						<Route
+							exact
+							path="/register"
+							component={props => <Register {...props} submit={this.register} />}
+						/>
+						<Route
+							exact
+							path="/login"
+							component={props => (
+								<Login
+									{...props}
+									submit={this.login}
+									authClick={this.authClick}
+									logout={this.logout}
+								/>
+							)}
+						/>
+						<Route
+							exact
+							path="/profile"
+							component={props => <UserProfile {...props} userId={this.state.userData} />}
+						/>
 					</Switch>
 				</div>
 			</BrowserRouter>
