@@ -79,7 +79,7 @@ class RecipeInfo extends Component {
 										<b>Calories </b>
 										{Math.trunc(recipeInfo.calories)}
 									</th>
-									<td>Calories from Fat 130</td>
+									<td>Calories from Fat</td>
 								</tr>
 								<tr className="thick-row">
 									<td colspan="3" className="small-info">
@@ -89,22 +89,34 @@ class RecipeInfo extends Component {
 								<tr>
 									<th colspan="2">
 										<b>Total Fat </b>
-										{Math.trunc(recipeInfo.totalNutrients.FAT.quantity)}
-										{recipeInfo.totalNutrients.FAT.unit}
+										{recipeInfo.totalNutrients.FAT
+											? Math.trunc(recipeInfo.totalNutrients.FAT.quantity)
+											: null}
+										{recipeInfo.totalNutrients.FAT &&
+											recipeInfo.totalNutrients.FAT.unit}
 									</th>
 									<td>
-										<b>{Math.trunc(recipeInfo.totalDaily.FAT.quantity)}%</b>
+										<b>
+											{recipeInfo.totalDaily.FAT &&
+												Math.trunc(recipeInfo.totalDaily.FAT.quantity)}%
+										</b>
 									</td>
 								</tr>
 								<tr>
 									<td className="blank-cell" />
 									<th>
 										Saturated Fat{" "}
-										{Math.trunc(recipeInfo.totalNutrients.FASAT.quantity)}
-										{recipeInfo.totalNutrients.FAT.unit}
+										{recipeInfo.totalNutrients.FASAT
+											? Math.trunc(recipeInfo.totalNutrients.FASAT.quantity)
+											: null}
+										{recipeInfo.totalNutrients.FASAT &&
+											recipeInfo.totalNutrients.FASAT.unit}
 									</th>
 									<td>
-										<b>{Math.trunc(recipeInfo.totalDaily.FASAT.quantity)}%</b>
+										<b>
+											{recipeInfo.totalDaily.FASAT &&
+												Math.trunc(recipeInfo.totalDaily.FASAT.quantity)}%
+										</b>
 									</td>
 								</tr>
 								<tr>
@@ -115,58 +127,88 @@ class RecipeInfo extends Component {
 								<tr>
 									<th colspan="2">
 										<b>Cholesterol </b>
-										{Math.trunc(recipeInfo.totalNutrients.CHOLE.quantity)}
-										{recipeInfo.totalNutrients.CHOLE.unit}
+										{recipeInfo.totalNutrients.CHOLE
+											? Math.trunc(recipeInfo.totalNutrients.CHOLE.quantity)
+											: null}
+										{recipeInfo.totalNutrients.CHOLE &&
+											recipeInfo.totalNutrients.CHOLE.unit}
 									</th>
 									<td>
-										<b>{Math.trunc(recipeInfo.totalDaily.CHOLE.quantity)}%</b>
+										<b>
+											{recipeInfo.totalDaily.CHOLE &&
+												Math.trunc(recipeInfo.totalDaily.CHOLE.quantity)}%
+										</b>
 									</td>
 								</tr>
 								<tr>
 									<th colspan="2">
 										<b>Sodium </b>
-										{Math.trunc(recipeInfo.totalNutrients.NA.quantity)}
-										{recipeInfo.totalNutrients.NA.unit}
+										{recipeInfo.totalNutrients.NA.quantity
+											? Math.trunc(recipeInfo.totalNutrients.NA.quantity)
+											: null}
+										{recipeInfo.totalNutrients.NA &&
+											recipeInfo.totalNutrients.NA.unit}
 									</th>
 									<td>
-										<b>{Math.trunc(recipeInfo.totalDaily.NA.quantity)}%</b>
+										<b>
+											{recipeInfo.totalDaily.NA &&
+												Math.trunc(recipeInfo.totalDaily.NA.quantity)}%
+										</b>
 									</td>
 								</tr>
 								<tr>
 									<th colspan="2">
 										<b>Total Carbohydrate </b>
-										{Math.trunc(recipeInfo.totalNutrients.CHOCDF.quantity)}
-										{recipeInfo.totalNutrients.CHOCDF.unit}
+										{recipeInfo.totalNutrients.CHOCDF
+											? Math.trunc(recipeInfo.totalNutrients.CHOCDF.quantity)
+											: null}
+										{recipeInfo.totalNutrients.CHOCDF &&
+											recipeInfo.totalNutrients.CHOCDF.unit}
 									</th>
 									<td>
-										<b>{Math.trunc(recipeInfo.totalDaily.CHOCDF.quantity)}%</b>
+										<b>
+											{recipeInfo.totalDaily.CHOCDF &&
+												Math.trunc(recipeInfo.totalDaily.CHOCDF.quantity)}%
+										</b>
 									</td>
 								</tr>
 								<tr>
 									<td className="blank-cell" />
 									<th>
 										Dietary Fiber{" "}
-										{Math.trunc(recipeInfo.totalNutrients.FIBTG.quantity)}
-										{recipeInfo.totalNutrients.FIBTG.unit}
+										{recipeInfo.totalNutrients.FIBTG
+											? Math.trunc(recipeInfo.totalNutrients.FIBTG.quantity)
+											: null}
+										{recipeInfo.totalNutrients.FIBTG &&
+											recipeInfo.totalNutrients.FIBTG.unit}
 									</th>
 									<td>
-										<b>{Math.trunc(recipeInfo.totalDaily.FIBTG.quantity)}%</b>
+										<b>
+											{recipeInfo.totalDaily.FIBTG &&
+												Math.trunc(recipeInfo.totalDaily.FIBTG.quantity)}%
+										</b>
 									</td>
 								</tr>
 								<tr>
 									<td className="blank-cell" />
 									<th>
 										Sugars{" "}
-										{Math.trunc(recipeInfo.totalNutrients.SUGAR.quantity)}
-										{recipeInfo.totalNutrients.SUGAR.unit}
+										{recipeInfo.totalNutrients.SUGAR
+											? Math.trunc(recipeInfo.totalNutrients.SUGAR.quantity)
+											: null}
+										{recipeInfo.totalNutrients.SUGAR &&
+											recipeInfo.totalNutrients.SUGAR.unit}
 									</th>
 									<td />
 								</tr>
 								<tr className="thick-end">
 									<th colspan="2">
 										<b>Protein </b>
-										{Math.trunc(recipeInfo.totalNutrients.PROCNT.quantity)}
-										{recipeInfo.totalNutrients.PROCNT.unit}
+										{recipeInfo.totalNutrients.PROCNT
+											? Math.trunc(recipeInfo.totalNutrients.PROCNT.quantity)
+											: null}
+										{recipeInfo.totalNutrients.PROCNT &&
+											recipeInfo.totalNutrients.PROCNT.unit}
 									</th>
 									<td />
 								</tr>
@@ -178,17 +220,30 @@ class RecipeInfo extends Component {
 								<tr>
 									<td colspan="2">
 										Vitamin A{" "}
-										{Math.trunc(recipeInfo.totalDaily.VITA_RAE.quantity)}%
+										{recipeInfo.totalDaily.VITA_RAE
+											? Math.trunc(recipeInfo.totalDaily.VITA_RAE.quantity) +
+												"%"
+											: null}
 									</td>
 									<td>
-										Vitamin C {Math.trunc(recipeInfo.totalDaily.VITC.quantity)}%
+										{recipeInfo.totalDaily.VITC
+											? Math.trunc(recipeInfo.totalDaily.VITC.quantity) + "%"
+											: null}
 									</td>
 								</tr>
 								<tr className="thin-end">
 									<td colspan="2">
-										Calcium {Math.trunc(recipeInfo.totalNutrients.CA.quantity)}%
+										Calcium
+										{recipeInfo.totalDaily.CA
+											? Math.trunc(recipeInfo.totalDaily.CA.quantity) + "%"
+											: null}
 									</td>
-									<td>Iron {Math.trunc(recipeInfo.totalDaily.FE.quantity)}%</td>
+									<td>
+										Iron
+										{recipeInfo.totalDaily.FE
+											? Math.trunc(recipeInfo.totalNutrients.FE.quantity) + "%"
+											: null}
+									</td>
 								</tr>
 							</tbody>
 						</table>
