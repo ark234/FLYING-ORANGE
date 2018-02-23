@@ -30,14 +30,14 @@ export default class UserForm extends Component {
 
 	render() {
 		return (
-			
-			<form className='userForm' onSubmit={this.handleSubmit}>
+			<form onSubmit={this.handleSubmit} className="user-form">
+				<h1>{this.props.type}</h1>
 				<label>
-					Email
+					<span>Email</span>
 					<input type="text" name="email" onChange={this.handleChange} value={this.state.email} />
 				</label>
 				<label>
-					Password
+					<span>Password</span>
 					<input
 						type="password"
 						name="password"
@@ -45,11 +45,8 @@ export default class UserForm extends Component {
 						value={this.state.password}
 					/>
 				</label>
-				<button type="submit" value="Submit">
-					Submit
-				</button>
+				<button className="form-submit-btn">{this.props.type}</button>
 			</form>
-			
 		);
 	}
 }

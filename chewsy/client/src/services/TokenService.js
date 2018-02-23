@@ -6,7 +6,7 @@ export default {
 
 	// fetch the token out of localStorage
 	read() {
-		return window.localStorage.getItem('authToken');
+		return window.localStorage.getItem('authToken') || '';
 	},
 
 	// delete the token

@@ -40,6 +40,23 @@ import TokenService from './services/TokenService';
 import UserProfile from './components/UserProfile';
 
 class App extends Component {
+	resetState() {
+		this.setState({
+			recipeData: null,
+			savedRecipe: null,
+			isLoaded: false,
+			moreInfo: [],
+			signUpClicked: false,
+			loginClicked: false,
+			recipesUser: [],
+			userData: {},
+			prefData: {},
+			isLoggedIn: false,
+			tokenData: {},
+			navClicked: false
+		});
+	}
+
 	constructor(props) {
 		super(props);
 
@@ -56,6 +73,12 @@ class App extends Component {
 			moreInfo: [],
 			signUpClicked: false,
 			loginClicked: false,
+			recipesUser: [],
+			userData: {},
+			prefData: {},
+			isLoggedIn: false,
+			tokenData: {},
+			navClicked: false,
 			recId: null,
 			userId: 1 // hard-coded for testing...
 		};
@@ -86,7 +109,22 @@ class App extends Component {
 		this.login = this.login.bind(this);
 		this.logout = this.logout.bind(this);
 		this.authClick = this.authClick.bind(this);
+		this.checkLogin = this.checkLogin.bind(this);
+		// this.toggleNav = this.toggleNav.bind(this);
 		this.getMoreInfoForRecipe = this.getMoreInfoForRecipe.bind(this);
+	}
+
+	checkLogin() {
+		axios('http://localhost:8080/isLoggedIn', {
+			headers: {
+				Authorization: `Bearer ${TokenService.read()}`
+			}
+		})
+			.then(resp => {
+				console.log('checkLogin response:', resp.data);
+				this.setState({ isLoggedIn: resp.data.isLoggedIn, tokenData: resp.data.tokenData });
+			})
+			.catch(err => console.log(err));
 	}
 
 	getMoreInfoForRecipe(uri, recIdDB) {
@@ -155,8 +193,8 @@ class App extends Component {
 				this.setState({ userData: resp.data.user });
 				console.log('prefs ====>', resp.data.prefs);
 				this.setState({ prefData: resp.data.prefs });
-
-				// this.props.history.push('/');
+				this.setState({ signUpClicked: false });
+				this.checkLogin();
 			})
 			.catch(err => console.log(`err: ${err}`));
 	}
@@ -176,6 +214,8 @@ class App extends Component {
 				this.setState({ userData: resp.data.user });
 				console.log('prefs ====>', resp.data.prefs);
 				this.setState({ prefData: resp.data.prefs });
+				this.setState({ loginClicked: false });
+				this.checkLogin();
 			})
 			.catch(err => console.log(`err: ${err}`));
 	}
@@ -195,8 +235,8 @@ class App extends Component {
 	}
 
 	// just delete the token
-	logout(ev) {
-		ev.preventDefault();
+	logout() {
+		this.resetState();
 		TokenService.destroy();
 	}
 
@@ -251,6 +291,11 @@ class App extends Component {
 			return <Results {...props} results={this.state.recipeData} moreInfo={this.getMoreInfoData} />;
 		}
 	}
+
+	componentDidMount() {
+		this.checkLogin();
+	}
+
 	render() {
 		return (
 			<BrowserRouter>
@@ -266,6 +311,10 @@ class App extends Component {
 						loginClicked={this.state.loginClicked}
 						signUpClicked={this.state.signUpClicked}
 						routeToResults={this.routeToResults}
+						logout={this.logout}
+						isLoggedIn={this.isLoggedIn}
+						toggleNav={this.toggleNav}
+						navClicked={this.state.navClicked}
 					/>
 					{this.state.loginClicked ? (
 						<Login submit={this.login} toggleLogin={this.toggleLogin} />

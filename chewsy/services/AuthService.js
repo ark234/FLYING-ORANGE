@@ -25,6 +25,21 @@ function restrict() {
 	];
 }
 
+function isLoggedIn(req, res, next) {
+	TokenService.verify(req.authToken)
+		.then(data => {
+			console.log('DATA ===>', data);
+			res.locals.isLoggedIn = true;
+			res.locals.tokenData = data;
+			next();
+		})
+		.catch(err => {
+			res.locals.isLoggedIn = false;
+			next(err);
+		});
+}
+
 module.exports = {
-	restrict
+	restrict,
+	isLoggedIn
 };

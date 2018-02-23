@@ -65,6 +65,10 @@ app.get('/restricted', authService.restrict(), (req, res) => {
 	res.json({ msg: 'yay' });
 });
 
+app.get('/isLoggedIn', authService.isLoggedIn, (req, res) => {
+	res.json({ isLoggedIn: res.locals.isLoggedIn, tokenData: res.locals.tokenData });
+});
+
 // Set up error handling middleware
 app.use((err, req, res, next) => {
 	console.log('Error encountered:', err);
