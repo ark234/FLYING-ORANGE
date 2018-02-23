@@ -257,6 +257,7 @@ usersModel.updateAccount = (req, res, next) =>{
 
   const password_digest = bcrypt.hashSync(req.body.password, 10);
   const email = req.body.email;
+  const user_id = req.body.user_id;
 
   db
     .none('UPDATE users SET email = $1, password_digest= $2 WHERE user.id = $3', [email, password_digest, user_id])
