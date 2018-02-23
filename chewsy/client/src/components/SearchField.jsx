@@ -61,7 +61,7 @@ class SearchFeild extends Component {
 	}
 
 	handleError() {
-		return <h6>Please enter an ingredent in Search Bar</h6>;
+		return <h6 className="error-msg">Please enter a recipe</h6>;
 	}
 	handleLoad() {
 		return <img src={logo} width="100px" height="100px" />;

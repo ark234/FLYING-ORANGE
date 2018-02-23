@@ -55,10 +55,12 @@
   margin-right: 20px;
   font-size: 40px;
   border-radius: 13px;
+  text-align: center;
+  cursor: pointer;
 }
 .submitButton {
   font-family: "Fjalla One", sans-serif;
-
+  cursor: pointer;
   font-size: 100px;
   padding: 20px;
 }
@@ -88,7 +90,7 @@
   align-content: center;
   margin: 10px;
   background-color: rgb(19, 19, 19);
-  border-radius: 12px;
+  cursor: pointer;
 }
 
 .recipeResultsContainer:hover {
@@ -110,7 +112,6 @@
   margin-top: 40;
   border: 0;
   width: 275px;
-  border-radius: 12px;
 }
 .recipeName {
   font-family: "Fjalla One", sans-serif;
@@ -148,10 +149,12 @@
   visibility: hidden;
   opacity: 0;
   position: absolute;
+  cursor: pointer;
 }
 .viewRecipe:hover {
   visibility: visible;
   opacity: 1;
+  cursor: pointer;
 }
 .checkBox {
   margin: 5px;
@@ -307,7 +310,6 @@ b {
 }
 .info-image {
   width: 400px;
-  border-radius: 10px;
 }
 .flex-it {
   background-color: red;
@@ -336,6 +338,7 @@ b {
 .recipe-name-info {
   font-family: "Fjalla One", sans-serif;
   font-size: 60px;
+  margin-top: 0;
 }
 .info-text {
   font-family: "Fjalla One", sans-serif;
@@ -355,11 +358,13 @@ b {
   margin: 0;
   border: 0;
   text-decoration: none;
+  cursor: pointer;
 }
 .hamburger {
   position: fixed;
   z-index: 5;
   font-family: "Fjalla One", sans-serif;
+  cursor: pointer;
 }
 .checks {
   display: inline;
@@ -368,7 +373,16 @@ b {
   list-style: none;
   height: 200px;
   font-family: "Fjalla One", sans-serif;
+  cursor: pointer;
 }
 .check {
   /*display: inline;*/
+}
+
+/*SEARCH FIELD */
+.error-msg {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font-family: "Fjalla One", sans-serif;
 }
