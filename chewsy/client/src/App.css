@@ -13,23 +13,31 @@
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  /*  height: 60vh;
-*/
-  background: url(./images/bread.jpeg);
+  background: red;
+  height: 27vh;
+
+  /*background: url(./images/bread.jpeg);*/
   color: white;
   margin: 0;
   padding: 0;
 }
 .checkBoxContainer {
-  background: black;
   width: 55vw;
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 200px;
   margin-left: -187px;
+  border: 0;
 }
 .checkBoxContainer h1 {
   width: 100%;
+  font-family: "Fjalla One", sans-serif;
+}
+.allergens-text {
+  font-family: "Fjalla One", sans-serif;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 .textInputContainer {
@@ -40,12 +48,17 @@
   width: 90%;
 }
 .textInput {
+  font-family: "Fjalla One", sans-serif;
   width: 70%;
   height: 40px;
   margin-left: 160px;
   margin-right: 20px;
+  font-size: 40px;
+  border-radius: 13px;
 }
 .submitButton {
+  font-family: "Fjalla One", sans-serif;
+
   font-size: 100px;
   padding: 20px;
 }
@@ -54,9 +67,14 @@
 }
 .find-text {
   font-family: "Fjalla One", sans-serif;
-  font-size: 60px;
+  font-size: 50px;
   padding: 0;
   margin: 0;
+}
+
+/*HEADER PAGE*/
+.yellow {
+  width: 100vw;
 }
 
 /*RESULTS PAGE*/
@@ -70,6 +88,7 @@
   align-content: center;
   margin: 10px;
   background-color: rgb(19, 19, 19);
+  border-radius: 12px;
 }
 
 .recipeResultsContainer:hover {
@@ -91,6 +110,7 @@
   margin-top: 40;
   border: 0;
   width: 275px;
+  border-radius: 12px;
 }
 .recipeName {
   font-family: "Fjalla One", sans-serif;
@@ -117,6 +137,8 @@
   border: 0;
 }
 .test {
+  font-family: "Fjalla One", sans-serif;
+
   display: flex;
   width: 100vw;
   flex-wrap: wrap;
@@ -144,10 +166,15 @@
   background: orange;
   opacity: 1;
 }
-
+.results-header {
+  font-family: "Fjalla One", sans-serif;
+  font-size: 40px;
+}
 /*RECIPE INFORMATION PAGE */
 
 /*RECIPE INFORMATION PAGE: NUTRITION LABEL*/
+/*Reference used for Nutrition Label CSS: https://codepen.io/chriscoyier/pen/egHEK?editors=1100 */
+
 .nutrition-label {
   font-size: small;
   line-height: 1.4;
@@ -155,7 +182,7 @@
 .p-class {
   margin: 0;
 }
-.performance-facts {
+.nutrition-facts {
   border: 1px solid black;
   margin: 20px;
   float: left;
@@ -164,27 +191,28 @@
   color: black;
   background: white;
   position: absolute;
-  right: 500px;
-  top: 630px;
+  right: 300px;
+  top: 570px;
 }
 table {
   border-collapse: collapse;
 }
 
-.performance-facts__title {
+.nutrition-facts__title {
   font-weight: bold;
   font-size: 2rem;
   margin: 0 0 0.25rem 0;
 }
-.performance-facts__header {
+.nutrition-facts__header {
   border-bottom: 10px solid black;
   padding: 0 0 0.25rem 0;
   margin: 0 0 0.5rem 0;
-  p {
-    margin: 0;
-  }
 }
-.performance-facts__table {
+.nutrition-facts__header p {
+  margin: 0;
+}
+
+.nutrition-facts__table {
   width: 100%;
 }
 thead tr {
@@ -219,28 +247,30 @@ td {
   font-size: 0.7rem;
 }
 
-.performance-facts__table--small {
-  @extend .performance-facts__table;
+.nutrition-facts__table--small {
   border-bottom: 1px solid #999;
   margin: 0 0 0.5rem 0;
-  thead {
-    tr {
-      border-bottom: 1px solid black;
-    }
-  }
-  td {
-    &:last-child {
-      text-align: left;
-    }
-  }
-  th,
-  td {
-    border: 0;
-    padding: 0;
-  }
+}
+thead {
+  border-bottom: 1px solid black;
 }
 
-.performance-facts__table--grid {
+tr {
+  border-bottom: 1px solid black;
+}
+
+td {
+  &:last-child {
+    text-align: left;
+  }
+}
+th,
+td {
+  border: 0;
+  padding: 0;
+}
+
+.nutrition-facts__table--grid {
   margin: 0 0 0.5rem 0;
 }
 td {
@@ -270,27 +300,46 @@ b {
 /*RECIPE INFORMATION PAGE: */
 .information {
   font-family: "Fjalla One", sans-serif;
-  background-color: rgb(41, 41, 41);
+  /*  background-color: rgb(41, 41, 41);
+*/
   color: white;
+  background-color: black;
 }
 .info-image {
   width: 400px;
+  border-radius: 10px;
 }
 .flex-it {
   background-color: red;
   width: 100%;
+  font-family: "Fjalla One", sans-serif;
 }
 .style-this {
   display: flex;
   margin: 10px;
   width: 250px;
   flex-direction: column;
+  margin-left: 100px;
+  font-family: "Fjalla One", sans-serif;
 }
 .info-buttons {
   float: left;
+  font-family: "Fjalla One", sans-serif;
 }
 .info-title {
   text-align: center;
+  font-family: "Fjalla One", sans-serif;
+}
+.info-title h2 a {
+  font-family: "Fjalla One", sans-serif;
+}
+.recipe-name-info {
+  font-family: "Fjalla One", sans-serif;
+  font-size: 60px;
+}
+.info-text {
+  font-family: "Fjalla One", sans-serif;
+  font-size: 20px;
 }
 /*FIXED NAV*/
 .header-nav {
@@ -305,10 +354,12 @@ b {
   padding: 0;
   margin: 0;
   border: 0;
+  text-decoration: none;
 }
 .hamburger {
   position: fixed;
   z-index: 5;
+  font-family: "Fjalla One", sans-serif;
 }
 .checks {
   display: inline;
@@ -316,6 +367,7 @@ b {
 .allergens {
   list-style: none;
   height: 200px;
+  font-family: "Fjalla One", sans-serif;
 }
 .check {
   /*display: inline;*/

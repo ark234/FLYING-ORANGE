@@ -83,8 +83,12 @@ class FixedNav extends Component {
 	}
 	render() {
 		return (
-			<div>
-				<img src={navImage} width="80px" height="80px" onClick={this.toggleNavShow} />
+			<div className="header-nav">
+				<img className="hamburger" src={navImage} width="80px" height="80px" onClick={this.toggleNavShow} />
+
+				<h1 className="logo">
+					<a href="/">chewsy</a>
+				</h1>
 				{this.state.showNavMenu ? this.userMenu() : null}
 				{this.state.showNavMenu ? this.guestMenu() : null}
 				{this.state.guestMenuClicked ? this.guestOptions() : null}
