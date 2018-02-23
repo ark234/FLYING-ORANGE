@@ -39,6 +39,21 @@ import TokenService from './services/TokenService';
 import UserProfile from './components/UserProfile';
 
 class App extends Component {
+	resetState() {
+		this.setState({
+			recipeData: null,
+			savedRecipe: null,
+			isLoaded: false,
+			moreInfo: [],
+			signUpClicked: false,
+			loginClicked: false,
+			recipesUser: [],
+			userData: {},
+			prefData: {},
+			isLoggedIn: false
+		});
+	}
+
 	constructor(props) {
 		super(props);
 
@@ -162,8 +177,8 @@ class App extends Component {
 	}
 
 	// just delete the token
-	logout(ev) {
-		ev.preventDefault();
+	logout() {
+		this.resetState();
 		TokenService.destroy();
 	}
 
@@ -228,6 +243,7 @@ class App extends Component {
 						loginClicked={this.state.loginClicked}
 						signUpClicked={this.state.signUpClicked}
 						routeToResults={this.routeToResults}
+						logout={this.logout}
 					/>
 					{this.state.loginClicked ? (
 						<Login submit={this.login} toggleLogin={this.toggleLogin} />
