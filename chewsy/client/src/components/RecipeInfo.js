@@ -226,6 +226,7 @@ class RecipeInfo extends Component {
 											: null}
 									</td>
 									<td>
+										Vitamin C{" "}
 										{recipeInfo.totalDaily.VITC
 											? Math.trunc(recipeInfo.totalDaily.VITC.quantity) + "%"
 											: null}
@@ -233,13 +234,13 @@ class RecipeInfo extends Component {
 								</tr>
 								<tr className="thin-end">
 									<td colspan="2">
-										Calcium
+										Calcium{" "}
 										{recipeInfo.totalDaily.CA
 											? Math.trunc(recipeInfo.totalDaily.CA.quantity) + "%"
 											: null}
 									</td>
 									<td>
-										Iron
+										Iron{" "}
 										{recipeInfo.totalDaily.FE
 											? Math.trunc(recipeInfo.totalNutrients.FE.quantity) + "%"
 											: null}

@@ -176,7 +176,7 @@
 /*RECIPE INFORMATION PAGE */
 
 /*RECIPE INFORMATION PAGE: NUTRITION LABEL*/
-/*Reference used for Nutrition Label CSS: https://codepen.io/chriscoyier/pen/egHEK?editors=1100 */
+/*Reference used for Nutrition Label CSS: https://codepen.io/chriscoyier/pen/egHEK?editors=1100. Modified slightly in styling to fit needs of project */
 
 .nutrition-label {
   font-size: small;
@@ -365,6 +365,8 @@ b {
   z-index: 5;
   font-family: "Fjalla One", sans-serif;
   cursor: pointer;
+  height: 30px;
+  width: 30px;
 }
 .checks {
   display: inline;
