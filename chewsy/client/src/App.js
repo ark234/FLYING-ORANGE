@@ -222,8 +222,8 @@ class App extends Component {
 									signUpClicked={this.state.signUpClicked}
 									routeToResults={this.routeToResults}
 									/>
-			{this.loginClicked ? <Login toggleLogin={this.toggleLogin} /> : null}
-				{this.signUpClicked ? <Register toggleSignUp={this.toggleSignUp} /> : null}
+			{this.state.loginClicked ? <Login submit={this.login} toggleLogin={this.toggleLogin} /> : null}
+				{this.state.signUpClicked ? <Register submit={this.register} toggleSignUp={this.toggleSignUp} /> : null}
 				<Switch>
 					<Route
 						exact
