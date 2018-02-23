@@ -118,7 +118,7 @@ class SearchFeild extends Component {
 							name="q"
 							onChange={this.handleChange}
 						/>
-						<input type="submit" className="submitButton" value="search" />
+						<input type="submit" className="submitButton" value="SEARCH" />
 					</div>
 					<div className="checkBoxContainer">
 						<h1 className="allergens-text">Allergens</h1>
