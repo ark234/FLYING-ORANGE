@@ -18,6 +18,9 @@ class Header extends Component {
 					loginClicked={this.props.loginClicked}
 					signUpClicked={this.props.signUpClicked}
 					logout={this.props.logout}
+					isLoggedIn={this.props.isLoggedIn}
+					toggleNav={this.props.toggleNav}
+					navClicked={this.props.navClicked}
 				/>
 				<SearchField
 					routeToResults={this.props.routeToResults}

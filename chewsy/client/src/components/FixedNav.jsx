@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-// import { Link } from "react-router-dom";
-import navImage from '../images/threeLines.png';
+import { Link } from 'react-router-dom';
+import hamburger from '../images/threeLines.png';
 class FixedNav extends Component {
 	constructor(props) {
 		super(props);
@@ -9,15 +9,29 @@ class FixedNav extends Component {
 			showUserMenu: false,
 			showGuestMenu: false,
 			userMenuClicked: false,
-			guestMenuClicked: false
+			guestMenuClicked: false,
+			isLoggedIn: false,
+			menuClicked: false,
+			showMenu: false
 		};
 		this.toggleNavShow = this.toggleNavShow.bind(this);
-		this.showUserNav = this.showUserNav.bind(this);
-		this.showGuestNav = this.showGuestNav.bind(this);
-		this.userMenu = this.userMenu.bind(this);
-		this.guestMenu = this.guestMenu.bind(this);
-		this.showUserOptions = this.showUserOptions.bind(this);
-		this.showGuestOptions = this.showGuestOptions.bind(this);
+		// this.showUserNav = this.showUserNav.bind(this);
+		// this.showGuestNav = this.showGuestNav.bind(this);
+		// this.userMenu = this.userMenu.bind(this);
+		// this.guestMenu = this.guestMenu.bind(this);
+		// this.showUserOptions = this.showUserOptions.bind(this);
+		// this.showGuestOptions = this.showGuestOptions.bind(this);
+		// this.showMenuOptions = this.showMenuOptions.bind(this);
+		// this.showMenu = this.showMenu.bind(this);
+		// this.menu = this.menu.bind(this);
+		// this.toggleNav = this.toggleNav.bind(this);
+	}
+
+	toggleNav() {
+		this.setState(prevState => {
+			prevState.showMenu = !prevState.showMenu;
+			return prevState;
+		});
 	}
 
 	toggleNavShow() {
@@ -25,12 +39,12 @@ class FixedNav extends Component {
 			prevState.showNavMenu = !prevState.showNavMenu;
 			return prevState;
 		});
-		this.setState({
-			guestMenuClicked: false,
-			showGuestMenu: false,
-			showUserMenu: false,
-			userMenuClicked: false
-		});
+		// this.setState({
+		// 	guestMenuClicked: false,
+		// 	showGuestMenu: false,
+		// 	showUserMenu: false,
+		// 	userMenuClicked: false
+		// });
 	}
 	showUserNav() {
 		this.setState(prevState => {
@@ -78,21 +92,43 @@ class FixedNav extends Component {
 			</div>
 		);
 	}
-	userMenu() {
-		return <div onClick={() => this.showUserOptions()}>User</div>;
+
+	navOptions() {
+		console.log('am i logged in??,', this.props);
+		if (this.props.isLoggedIn) {
+			return (
+				<nav className="side-nav">
+					<button>Saved Recipes</button>
+					<button>Recipe Preferences</button>
+					<button>Account Settings</button>
+					<button onClick={() => this.props.logout()}>Logout</button>
+				</nav>
+			);
+		}
+		return (
+			<nav className="side-nav">
+				<button onClick={() => this.props.toggleLogin()}>Log In</button>
+				<button onClick={() => this.props.toggleSignUp()}>Sign Up</button>
+			</nav>
+		);
 	}
+
 	render() {
 		return (
 			<div className="header-nav">
-				<img className="hamburger" src={navImage} width="80px" height="80px" onClick={this.toggleNavShow} />
-
+				<img className="hamburger" src={hamburger} onClick={this.toggleNavShow} />
 				<h1 className="logo">
-					<a href="/">chewsy</a>
+					<Link to="/">chewsy</Link>
 				</h1>
-				{this.state.showNavMenu ? this.userMenu() : null}
+				{/* {this.state.showMenu ? this.menu : null}
+				{this.state.menuClicked ? this.menuOptions : null} */}
+
+				{this.state.showNavMenu ? this.navOptions() : null}
+
+				{/* {this.state.showNavMenu ? this.userMenu() : null}
 				{this.state.showNavMenu ? this.guestMenu() : null}
 				{this.state.guestMenuClicked ? this.guestOptions() : null}
-				{this.state.userMenuClicked ? this.userOptions() : null}
+				{this.state.userMenuClicked ? this.userOptions() : null} */}
 			</div>
 		);
 	}

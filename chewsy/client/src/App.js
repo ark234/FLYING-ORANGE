@@ -51,7 +51,8 @@ class App extends Component {
 			userData: {},
 			prefData: {},
 			isLoggedIn: false,
-			tokenData: {}
+			tokenData: {},
+			navClicked: false
 		});
 	}
 
@@ -69,7 +70,8 @@ class App extends Component {
 			userData: {},
 			prefData: {},
 			isLoggedIn: false,
-			tokenData: {}
+			tokenData: {},
+			navClicked: false
 		};
 
 		///////////////////////////////////////////////////////////////LAI
@@ -98,6 +100,7 @@ class App extends Component {
 		this.logout = this.logout.bind(this);
 		this.authClick = this.authClick.bind(this);
 		this.checkLogin = this.checkLogin.bind(this);
+		// this.toggleNav = this.toggleNav.bind(this);
 	}
 
 	checkLogin() {
@@ -142,7 +145,7 @@ class App extends Component {
 				console.log('prefs ====>', resp.data.prefs);
 				this.setState({ prefData: resp.data.prefs });
 				this.setState({ signUpClicked: false });
-				// this.props.history.push('/');
+				this.checkLogin();
 			})
 			.catch(err => console.log(`err: ${err}`));
 	}
@@ -163,6 +166,7 @@ class App extends Component {
 				console.log('prefs ====>', resp.data.prefs);
 				this.setState({ prefData: resp.data.prefs });
 				this.setState({ loginClicked: false });
+				this.checkLogin();
 			})
 			.catch(err => console.log(`err: ${err}`));
 	}
@@ -254,6 +258,9 @@ class App extends Component {
 						signUpClicked={this.state.signUpClicked}
 						routeToResults={this.routeToResults}
 						logout={this.logout}
+						isLoggedIn={this.isLoggedIn}
+						toggleNav={this.toggleNav}
+						navClicked={this.state.navClicked}
 					/>
 					{this.state.loginClicked ? <Login submit={this.login} toggleLogin={this.toggleLogin} /> : null}
 					{this.state.signUpClicked ? <Register submit={this.register} toggleSignUp={this.toggleSignUp} /> : null}
@@ -312,8 +319,8 @@ class App extends Component {
 						{
 							/////////////////////////////////////////////////////LAI
 						}
-						<Route exact path="/register" component={props => <Register {...props} submit={this.register} />} />
-						<Route exact path="/login" component={props => <Login {...props} submit={this.login} />} />
+						{/* <Route exact path="/register" component={props => <Register {...props} submit={this.register} />} />
+						<Route exact path="/login" component={props => <Login {...props} submit={this.login} />} /> */}
 						<Route exact path="/profile" component={props => <UserProfile {...props} userId={this.state.userData} />} />
 					</Switch>
 				</div>

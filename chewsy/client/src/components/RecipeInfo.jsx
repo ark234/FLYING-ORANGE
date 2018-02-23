@@ -43,9 +43,9 @@ class RecipeInfo extends Component {
 		return (
 			<div className="information">
 				<div className="info-title">
-					<h1 class="recipe-name-info">{recipeInfo.label}</h1>
+					<h1 className="recipe-name-info">{recipeInfo.label}</h1>
 
-					<h2 class="info-text">
+					<h2 className="info-text">
 						{recipeInfo.yield} Servings {Math.trunc(recipeInfo.calories)} calories
 					</h2>
 				</div>
@@ -200,15 +200,15 @@ class RecipeInfo extends Component {
 					</div>
 				</div>
 
-				<h2 class="info-text">Health Labels: {recipeInfo.healthLabels}</h2>
-				<h2 class="info-text">Diet Labels: {recipeInfo.dietLabels}</h2>
-				<h2 class="info-text">Cautions: {recipeInfo.cautions}</h2>
+				<h2 className="info-text">Health Labels: {recipeInfo.healthLabels}</h2>
+				<h2 className="info-text">Diet Labels: {recipeInfo.dietLabels}</h2>
+				<h2 className="info-text">Cautions: {recipeInfo.cautions}</h2>
 
-				<h2 class="info-text">Ingredients:</h2>
+				<h2 className="info-text">Ingredients:</h2>
 				<ul>
-					{recipeInfo.ingredientLines.map(function(ingredient) {
+					{recipeInfo.ingredientLines.map(function(ingredient, i) {
 						const ingredientName = ingredient;
-						return <li>{ingredientName}</li>;
+						return <li key={i}>{ingredientName}</li>;
 					})}
 				</ul>
 			</div>
