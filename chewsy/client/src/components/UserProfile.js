@@ -11,7 +11,7 @@ class UserProfile extends Component {
     this.healthArray = new Set();
     this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
+    this.handleAccountEdit = this.handleAccountEdit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(e){
@@ -38,7 +38,7 @@ class UserProfile extends Component {
 
   editAccount(info){
     axios({
-      url:'localhost:8080/users/editAccount',
+      url:'http://localhost:8080/users/editAccount',
       method:'put',
       data: info
     })
