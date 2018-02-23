@@ -91,6 +91,12 @@ She has yet to find a faster, more efficient way to find what she needs
 
 
 Link to your wireframes – sketches of views and interfaces in your application
+https://ga-students.slack.com/files/U8CQLHT2A/F9C1JH0KU/image_uploaded_from_ios.jpg
+
+https://ga-students.slack.com/files/U8D3W08NS/F9C6LL3HQ/image_uploaded_from_ios.jpg
+
+https://ga-students.slack.com/files/U8CQLHT2A/F9C1JRJ74/image_uploaded_from_ios.jpg
+
 Descriptions of any unsolved problems or hurdles your team had to overcome
 # Hurdles:
 
