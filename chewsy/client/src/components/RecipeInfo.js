@@ -43,9 +43,9 @@ class RecipeInfo extends Component {
 		return (
 			<div className="information">
 				<div className="info-title">
-					<h1>{recipeInfo.label}</h1>
+					<h1 class="recipe-name-info">{recipeInfo.label}</h1>
 
-					<h2>
+					<h2 class="info-text">
 						{recipeInfo.yield} Servings {Math.trunc(recipeInfo.calories)}{" "}
 						calories
 					</h2>
@@ -56,16 +56,16 @@ class RecipeInfo extends Component {
 					<button>
 						<a href={recipeInfo.url}>View Recipe</a>
 					</button>
-					<div className="performance-facts">
-						<header className="performance-facts__header">
-							<h1 className="performance-facts__title">Nutrition Facts</h1>
+					<div className="nutrition-facts">
+						<header className="nutrition-facts__header">
+							<h1 className="nutrition-facts__title">Nutrition Facts</h1>
 							<p className="p-className">{recipeInfo.label}</p>
 							<p className="p-className">
 								Serving Per Recipe {recipeInfo.yield}
 							</p>
 						</header>
 
-						<table className="performance-facts__table">
+						<table className="nutrition-facts__table">
 							<thead>
 								<tr>
 									<th colspan="3" className="small-info">
@@ -215,7 +215,7 @@ class RecipeInfo extends Component {
 							</tbody>
 						</table>
 
-						<table className="performance-facts__table--grid">
+						<table className="nutrition-facts__table--grid">
 							<tbody>
 								<tr>
 									<td colspan="2">
@@ -256,11 +256,11 @@ class RecipeInfo extends Component {
 					</div>
 				</div>
 
-				<h2>Health Labels:{recipeInfo.healthLabels}</h2>
-				<h2>Diet Labels:{recipeInfo.dietLabels}</h2>
-				<h2>Cautions:{recipeInfo.cautions}</h2>
+				<h2 class="info-text">Health Labels: {recipeInfo.healthLabels}</h2>
+				<h2 class="info-text">Diet Labels: {recipeInfo.dietLabels}</h2>
+				<h2 class="info-text">Cautions: {recipeInfo.cautions}</h2>
 
-				<h2>Ingredients:</h2>
+				<h2 class="info-text">Ingredients:</h2>
 				<ul>
 					{recipeInfo.ingredientLines.map(function(ingredient) {
 						const ingredientName = ingredient;

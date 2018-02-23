@@ -92,7 +92,9 @@ class FixedNav extends Component {
 					onClick={this.toggleNavShow}
 				/>
 
-				<h1 className="logo">chewsy</h1>
+				<h1 className="logo">
+					<a href="/">chewsy</a>
+				</h1>
 				{this.state.showNavMenu ? this.userMenu() : null}
 				{this.state.showNavMenu ? this.guestMenu() : null}
 				{this.state.guestMenuClicked ? this.guestOptions() : null}
