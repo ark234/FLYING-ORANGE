@@ -94,7 +94,7 @@ class FixedNav extends Component {
 	}
 
 	navOptions() {
-		console.log('am i logged in??,', this.props);
+		console.log('Fixed Nav Props ==>', this.props);
 		if (this.props.isLoggedIn) {
 			return (
 				<nav className="side-nav">

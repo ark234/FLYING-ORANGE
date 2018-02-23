@@ -6,8 +6,10 @@ class RecipeInfo extends Component {
 	constructor(props) {
 		super(props);
 		const recipeInfo = this.props.recipeDatum;
+		const userId = this.props.tokenData.id;
+		console.log('**USER ID**', userId);
 		this.state = {
-			user_id: 1,
+			user_id: userId,
 			recipe_uri: recipeInfo.uri,
 			recipe_url: recipeInfo.url,
 			recipe_img_url: recipeInfo.image,
