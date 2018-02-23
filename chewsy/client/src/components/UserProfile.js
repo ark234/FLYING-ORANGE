@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SearchField from "./SearchField";
-import axios from './axios';
+import axios from 'axios';
 
 class UserProfile extends Component {
   constructor(props) {
@@ -14,7 +14,8 @@ class UserProfile extends Component {
   }
   handleChange(e){
     //not sure if e.preventDefault() needs to be called
-    this.setState({[name]]:e.target.value});
+    const name = e.target.name;
+    this.setState({[name]:e.target.value});
   }
 
   handleChangeCheckbox(event) {
@@ -55,8 +56,9 @@ class UserProfile extends Component {
  
   handleSubmit(e){
     e.preventDefault();
+    const user_id = this.props.userId;
     const preferenceArray = Array.from(this.healthArray);
-    this.edit(preferenceArray, user_id);
+    this.edit(preferenceArray, user_id.id);
   }
 
   handleAccountEdit(e){
@@ -64,6 +66,7 @@ class UserProfile extends Component {
 
   }
   handleChange(e){
+    const name = e.target.name;
     this.setState({[name]:e.target.value});
   }
   render() {

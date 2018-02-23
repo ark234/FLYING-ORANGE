@@ -128,7 +128,7 @@
   margin: 5px;
 }
 .modal {
-<<<<<<< HEAD
+
   top:0;
 	position: absolute;
 	z-index: 3;
@@ -136,13 +136,7 @@
 	height: 99vh;
 	background: orange;
 	opacity: 1;
-=======
-  position: absolute;
-  z-index: 3;
-  width: 99vw;
-  height: 99vh;
-  background: orange;
-  opacity: 0.97;
+
 }
 
 /*RECIPE INFORMATION PAGE */

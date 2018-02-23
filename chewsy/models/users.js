@@ -84,7 +84,7 @@ usersModel.findByEmail = email => {
 };
 // helper method used in login
 usersModel.getPrefs = userId => {
-	return db.one('SELECT * FROM profiles WHERE user_id = $1;', [userId]);
+	return db.one('SELECT * FROM preferences WHERE user_id = $1;', [userId]);
 };
 
 // method for login...
@@ -121,12 +121,17 @@ usersModel.login = (req, res, next) => {
 						next();
 					})
 					.catch(err => {
-						next();
+            console.log('*error in userModel.login, err:', err);
+						next(err);
 					});
-			});
+			}).catch(err => {
+        console.log('**error in userModel.login, err:', err);
+        next(err);
+      });
 		})
 		.catch(err => {
-			next();
+      console.log('error in userModel.login, err:', err);
+			next(err);
 		});
 };
 
@@ -146,7 +151,7 @@ usersModel.create = (req, res, next) => {
 		.then(data => {
 			// insert entry into profiles table with default values for new user
 			db
-				.one('INSERT INTO profiles (user_id) VALUES ($1) RETURNING *;', [data.id])
+				.one('INSERT INTO preferences (user_id) VALUES ($1) RETURNING *;', [data.id])
 				.then(prefData => {
 					// remove the password_digest since it's sensitive
 					const { password_digest, ...userData } = data;

@@ -110,7 +110,7 @@ class SearchFeild extends Component {
 		const form = () => {
 			return (
 				<form onSubmit={this.handleSubmit} className="apiQueryForm">
-					<h2 class="find-text">FIND A RECIPE</h2>
+					<h2 className="find-text">FIND A RECIPE</h2>
 					<div className="textInputContainer">
 						<input
 							className="textInput"

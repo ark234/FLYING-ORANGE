@@ -36,6 +36,7 @@ import Header from './components/Header';
 import Login from "./components/Login";
 import Register from './components/Register';
 import TokenService from './services/TokenService';
+import UserProfile from  './components/UserProfile';
 
 class App extends Component {
 	constructor(props) {
@@ -51,7 +52,7 @@ class App extends Component {
 			recipesUser: [],
 			userData: {},
 			prefData: {},
-			userId: 1 // hard-coded for testing...
+		//userId: 1 // hard-coded for testing...
 		};
 
 		///////////////////////////////////////////////////////////////LAI
@@ -298,6 +299,15 @@ class App extends Component {
 							/>
 						)}
 					/>
+					<Route 
+						exact
+						path = '/profile'
+						component={props=> (
+							<UserProfile 
+							{...props}
+							userId={this.state.userData}/>
+							)}
+						/>
 				</Switch>
 				</div>
 			</BrowserRouter>
