@@ -14,7 +14,7 @@
   align-items: center;
   width: 100vw;
   background: red;
-  height: 27vh;
+  height: 210px;
 
   /*background: url(./images/bread.jpeg);*/
   color: white;
@@ -93,6 +93,22 @@
 }
 .label {
   font-family: "Fjalla One", sans-serif;
+  width: 70%;
+  height: 40px;
+  margin-left: 160px;
+  margin-right: 20px;
+  font-size: 40px;
+  border-radius: 13px;
+}
+
+.checkBox {
+  margin: 5px;
+}
+.find-text {
+  font-family: "Fjalla One", sans-serif;
+  font-size: 50px;
+  padding: 0;
+  margin: 0;
 }
 
 /*HEADER PAGE*/
@@ -112,6 +128,7 @@
   margin: 10px;
   background-color: rgb(19, 19, 19);
   cursor: pointer;
+  border-radius: 12px;
 }
 
 .recipeResultsContainer:hover {
@@ -157,6 +174,27 @@
   margin: 0;
   border: 0;
   font-size: 15px;
+  margin-top: 40;
+  width: 275px;
+  border-radius: 12px;
+}
+.recipeName {
+  font-family: "Fjalla One", sans-serif;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.healthLabels {
+  font-family: "Fjalla One", sans-serif;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.servings {
+  font-family: "Fjalla One", sans-serif;
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 .calories {
   font-family: "Fjalla One", sans-serif;
@@ -165,7 +203,7 @@
   border: 0;
 }
 .test {
-  font-family: "Fjalla One", sans-serif;
+  <<<<<<<: "Fjalla One", sans-serif;
   display: flex;
   width: 100vw;
   flex-wrap: wrap;
@@ -182,10 +220,35 @@
   visibility: visible;
   opacity: 1;
   cursor: pointer;
+
+  font-family: "Fjalla One", sans-serif;
+  display: flex;
+  width: 100vw;
+  flex-wrap: wrap;
+  background-color: rgb(19, 19, 19);
 }
+.viewRecipe {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+}
+
 .checkBox {
   margin: 5px;
   display: inline;
+}
+.modal-container {
+  top: 0;
+  position: fixed;
+  z-index: 3;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(12, 24, 72, 0.756);
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .modal {
   top: 0;
@@ -195,10 +258,24 @@
   height: 99vh;
   background: red;
   opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.886);
+  height: 50%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.user-form {
+  display: flex;
+  flex-direction: column;
 }
 .results-header {
   font-family: "Fjalla One", sans-serif;
-  font-size: 30px;
+  font-size: 40px;
 }
 .details {
   color: red;
@@ -287,6 +364,7 @@ td {
 .bottom-text {
   line-height: 40px;
   padding-left: 100px;
+  font-size: 0.7rem;
 }
 
 .nutrition-facts__table--small {
@@ -349,6 +427,7 @@ b {
 }
 .info-image {
   width: 400px;
+  border-radius: 10px;
 }
 .flex-it {
   background-color: red;
@@ -387,6 +466,23 @@ b {
 .header-nav {
   /*display: flex;*/
 }
+.side-nav {
+  position: fixed;
+  height: 100%;
+  transform: translateY(-125px);
+  padding-top: 50px;
+  width: 20%;
+  background: rgba(0, 0, 0, 0.762);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.side-nav button {
+  margin: 30px 0 0 0;
+  height: 40px;
+  width: 100px;
+}
 .logo {
   font-family: "Lobster", cursive;
   color: red;
@@ -410,7 +506,17 @@ b {
   cursor: pointer;
   height: 30px;
   width: 30px;
+  font-family: "Lobster", cursive;
+  color: red;
+  text-align: center;
+  justify-content: center;
+  font-size: 100px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  text-decoration: none;
 }
+
 .checks {
   display: inline;
 }
@@ -423,6 +529,18 @@ b {
 .check {
   cursor: pointer;
   /*display: inline;*/
+
+  list-style: none;
+  height: 200px;
+  font-family: "Fjalla One", sans-serif;
+}
+.check {
+  /*display: inline;*/
+}
+.userForm {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
 }
 
 /*SEARCH FIELD */

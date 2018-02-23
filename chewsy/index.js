@@ -52,8 +52,8 @@ const recipesRouter = require('./controllers/recipes.js');
 app.use('/recipes', recipesRouter);
 
 // Hook up recipes_user router
-const recipesDBRouter = require('./controllers/dbrecipes.js');
-app.use('/users', recipesDBRouter);
+// const recipesDBRouter = require('./controllers/dbrecipes.js');
+// app.use('/users', recipesDBRouter);
 
 // Hook up users router
 const usersRouter = require('./controllers/users.js');
@@ -63,6 +63,10 @@ app.use('/users', usersRouter);
 // as a middleware for restricted routes
 app.get('/restricted', authService.restrict(), (req, res) => {
 	res.json({ msg: 'yay' });
+});
+
+app.get('/isLoggedIn', authService.isLoggedIn, (req, res) => {
+	res.json({ isLoggedIn: res.locals.isLoggedIn, tokenData: res.locals.tokenData });
 });
 
 // Set up error handling middleware

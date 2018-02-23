@@ -1,18 +1,15 @@
 import React, { Component } from "react";
 import SearchField from "./SearchField";
 import axios from 'axios';
-import TokenService from '../services/TokenService';
 
 class UserProfile extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      user_id: this.props.userId
-    };
+    this.state = {};
     this.healthArray = new Set();
     this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleAccountEdit = this.handleAccountEdit.bind(this);
+    this.edit = this.edit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(e){
@@ -36,21 +33,24 @@ class UserProfile extends Component {
     this.setState({ health: healthArray });
   }
 
-
-  editAccount(info){
-    const payload = {...info, "user_id": this.props.userId};
+  edit(info, user_id){
     axios({
-      url:'http://localhost:8080/users/editAccount',
+      url: 'localhost:8080/users/preferences',
+      method: 'put',
+      data: {health: info, user_id: user_id }
+    })
+    .then(response =>{
+      console.log('PUT response', response);
+    })
+  }
+  editAccount(info){
+    axios({
+      url:'localhost:8080/users/editAccount',
       method:'put',
-      data: payload,
-      headers: {
-        Authorization: `Bearer ${TokenService.read()}`
-      }
+      data: info
     })
     .then( response =>{
-      console.log('in response callback of UserProfile.editAccount axios call. response.data:', response.data);
-      this.props.editTokenData(response.data);
-
+      console.log('MADE it');
     })
   }
  
@@ -63,8 +63,7 @@ class UserProfile extends Component {
 
   handleAccountEdit(e){
     e.preventDefault();
-    //this.setState({user_id:this.props.userId})
-    this.editAccount(this.state);
+
   }
   handleChange(e){
     const name = e.target.name;
@@ -114,7 +113,7 @@ class UserProfile extends Component {
         <form onSubmit={this.handleSubmit}>
           <div className="checkBoxContainer">
             <h2>Allergens</h2>
-          
+            {checkBoxes}
           </div>
         </form>
         <button>View Your Saved Recipes</button>
@@ -128,9 +127,8 @@ class UserProfile extends Component {
           </label>
           
           <label>Enter New Password:
-          <input type='password' name = 'password' onChange={this.handleChange}/>
+          <input type='text'name = 'password' onChange={this.handleChange}/>
           </label>
-          <input type='submit' value='submit' />
         </form>
         </div>
 

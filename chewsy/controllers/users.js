@@ -16,8 +16,10 @@
 /////////////////////////////////////////////////
 
 const router = require('express').Router();
+const recipesDBModel = require('../models/dbrecipes.js');
 const usersModel = require('../models/users.js');
 const TokenService = require('../services/TokenService');
+const authService = require('../services/AuthService');
 
 // TODO: define GET request for '/' to retrieve all users...
 router.get('/', usersModel.getAllUsers, (req, res, next) => {
@@ -46,7 +48,12 @@ router.post('/register', usersModel.create, (req, res) => {
 
 router.put('/preferences', usersModel.updatePreferences);
 
-router.put('/editAccount', usersModel.updateAccount);
+router.put('/editAccount', usersModel.updateAccount, 
+  (req, res, next) => {
+    console.log('in handler for users.js PUT at users/editAccount. res.locals:', res.locals);
+    const updatedUserData = res.locals.updatedAccount;
+    res.json(updatedUserData);
+});
 
 // POST to '/users/login' to login...
 // if the user didn't get created thrown an error
@@ -67,6 +74,23 @@ router.post('/login', usersModel.login, (req, res) => {
 router.delete('/:id', usersModel.destroy, (req, res) => {
 	console.log('In router.delete, usersModel.destroy...');
 
+	res.json({});
+});
+
+// route for retrieving all recipes saved by user_":id" in DB...
+router.get(
+	'/:userId/savedRecipes',
+	authService.restrict(),
+	recipesDBModel.getAllRecipes,
+	(req, res, next) => {
+		res.json(res.locals.allRecipesDB);
+	}
+);
+
+// route for destroying of saved ":idRec" by user_":idUser" in DB...
+router.get('/:idRec', recipesDBModel.destroy, (req, res, next) => {
+	// res.json(res.locals.idRecDB);
+	console.log('in DELETE at /:idUser/:idRec...');
 	res.json({});
 });
 
