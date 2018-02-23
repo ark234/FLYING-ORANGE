@@ -50,7 +50,7 @@ class App extends Component {
 			recipesUser: [],
 			userData: {},
 			prefData: {},
-			userId: 1 // hard-coded for testing...
+			isLoggedIn: false
 		};
 
 		///////////////////////////////////////////////////////////////LAI
@@ -76,6 +76,18 @@ class App extends Component {
 		this.login = this.login.bind(this);
 		this.logout = this.logout.bind(this);
 		this.authClick = this.authClick.bind(this);
+	}
+
+	checkLogin() {
+		axios('http://localhost:3000/isLoggedIn', {
+			headers: {
+				Authorization: `Bearer ${TokenService.read()}`
+			}
+		})
+			.then(resp => {
+				console.log(resp);
+			})
+			.catch(err => console.log(err));
 	}
 
 	getSavedRecipe(uri) {
