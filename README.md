@@ -13,22 +13,19 @@ Explanations of the technologies used
 -body-parser
   Used to parse request with res.body being sent 
 -cookie-parser
-
--cors
+  cookie-parser will parse the Cookie header and handle cookie separation and encoding!
 -dotenv
   Used to secure sensitive information in a .env file to keep the secret keys a secret 
 -express
   Used to serve data from server to Client based on respective client requests 
 -express-session
-
--moment (CALCULATES TIMES-TBD)
-
+  Used to create session middleware
 -morgan
   Used to log all requests to the server as well as log error messages
--mustache-express(NOT USED)
-
 -passport
+  Used to authenticate request
 -passport-local
+  Used to authenticate using a username and password
 -pg-promise
   Used to communicate with DataBase and server
 -react
