@@ -359,6 +359,7 @@ class App extends Component {
 							render={props => {
 								return (
 									<RecipeInfo
+										{...props}
 										recipeDatum={this.state.moreInfo}
 										results={this.state.recipeData}
 										moreInfo={this.getMoreInfoData}
