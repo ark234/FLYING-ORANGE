@@ -52,8 +52,8 @@ const recipesRouter = require('./controllers/recipes.js');
 app.use('/recipes', recipesRouter);
 
 // Hook up recipes_user router
-const recipesDBRouter = require('./controllers/dbrecipes.js');
-app.use('/users', recipesDBRouter);
+// const recipesDBRouter = require('./controllers/dbrecipes.js');
+// app.use('/users', recipesDBRouter);
 
 // Hook up users router
 const usersRouter = require('./controllers/users.js');

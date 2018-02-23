@@ -22,6 +22,7 @@ class Header extends Component {
 					isLoggedIn={this.props.isLoggedIn}
 					toggleNav={this.props.toggleNav}
 					navClicked={this.props.navClicked}
+					tokenData={this.props.tokenData}
 				/>
 				<SearchField
 					routeToResults={this.props.routeToResults}

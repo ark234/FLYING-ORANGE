@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import { Link } from "react-router-dom";
-import logo from "../images/orange.png";
+// import logo from "../images/orange.png";
 import Nav from "./FixedNav";
 import axios from "axios";
 

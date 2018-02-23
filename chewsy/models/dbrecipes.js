@@ -18,7 +18,6 @@
 // LAI: recipesDBModel.getAllRecipes...  022118//
 // LAI: recipesDBModel.destroy...        022218//
 
-
 const db = require('../db/index.js');
 const axios = require('axios');
 const dotenv = require('dotenv').config();
@@ -28,8 +27,8 @@ const recipesDBModel = {};
 // middleware to fetch all DB records from "recipes_user" table...
 
 recipesDBModel.getAllRecipes = (req, res, next) => {
+	console.log('inside recipesDBModel.getAllRecipes');
 	const curr_id = req.params.userId;
-	// const curr_id = 1;
 	console.log('user_id: ', curr_id);
 
 	db

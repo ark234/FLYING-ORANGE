@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import logo from '../images/orange.png';
+import React, { Component } from "react";
+import axios from "axios";
+// import logo from "../images/orange.png";
 
 class SearchFeild extends Component {
 	constructor(props) {
@@ -11,8 +11,8 @@ class SearchFeild extends Component {
 		this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.postApiParams = this.postApiParams.bind(this);
-		this.handleError = this.handleError.bind(this);
-		this.handleLoad = this.handleLoad.bind(this);
+		// this.handleError = this.handleError.bind(this);
+		// this.handleLoad = this.handleLoad.bind(this);
 	}
 
 	handleChange(event) {
@@ -24,11 +24,11 @@ class SearchFeild extends Component {
 		const value = event.target.value;
 
 		if (this.healthArray.has(value)) {
-			console.log('ifStatement');
+			console.log("ifStatement");
 
 			this.healthArray.delete(value);
 		} else {
-			console.log('elseStatement');
+			console.log("elseStatement");
 			this.healthArray.add(value);
 		}
 		const healthArray = Array.from(this.healthArray);
@@ -44,8 +44,8 @@ class SearchFeild extends Component {
 	postApiParams(info) {
 		this.props.isLoaded();
 		axios({
-			url: 'http://localhost:8080/recipes',
-			method: 'post',
+			url: "http://localhost:8080/recipes",
+			method: "post",
 			data: info
 		})
 			.then(response => {
@@ -55,17 +55,17 @@ class SearchFeild extends Component {
 				console.log(response);
 			})
 			.catch(error => {
-				console.log('NO response', error);
+				console.log("NO response", error);
 				this.props.errorForResponse();
 			});
 	}
 
-	handleError() {
-		return <h6>Please enter an ingredent in Search Bar</h6>;
-	}
-	handleLoad() {
-		return <img src={logo} width="100px" height="100px" />;
-	}
+	// handleError() {
+	// 	return <h6 className="error-msg">Please enter a recipe</h6>;
+	// }
+	// handleLoad() {
+	// 	return <img src={logo} width="100px" height="100px" />;
+	// }
 
 	componentDidMount() {
 		this.healthArray = new Set();
@@ -73,21 +73,21 @@ class SearchFeild extends Component {
 
 	render() {
 		const allergens = [
-			'crustacean-free',
-			'shellfish-free',
-			'soy-free',
-			'dairy-free',
-			'egg-free',
-			'fish-free',
-			'gluten-free',
-			'kosher',
-			'lupine-free',
-			'peanut-free',
-			'pork-free',
-			'red-meat-free',
-			'vegan',
-			'tree-nut-free',
-			'wheat-free'
+			"crustacean-free",
+			"shellfish-free",
+			"soy-free",
+			"dairy-free",
+			"egg-free",
+			"fish-free",
+			"gluten-free",
+			"kosher",
+			"lupine-free",
+			"peanut-free",
+			"pork-free",
+			"red-meat-free",
+			"vegan",
+			"tree-nut-free",
+			"wheat-free"
 		];
 
 		const checkBoxes = allergens.map((allergen, i) => {
@@ -110,26 +110,25 @@ class SearchFeild extends Component {
 		const form = () => {
 			return (
 				<form onSubmit={this.handleSubmit} className="apiQueryForm">
-					<h2 className="find-text">FIND A RECIPE</h2>
 					<div className="textInputContainer">
-						<input className="textInput" type="text" name="q" onChange={this.handleChange} />
+						<h2 className="find-text">FIND A RECIPE</h2>
+						<input
+							className="textInput"
+							type="text"
+							name="q"
+							onChange={this.handleChange}
+						/>
 						<input type="submit" className="submitButton" value="search" />
 					</div>
 					<div className="checkBoxContainer">
-						<h1 className="allergens-text">Allergens:</h1>
+						<h1 className="allergens-text">Allergens</h1>
 						{checkBoxes}
 					</div>
 				</form>
 			);
 		};
 
-		return (
-			<div>
-				{form()}
-				{this.props.loadingFlag === false ? this.handleLoad() : null}
-				{this.props.errorFlag ? this.handleError() : null}
-			</div>
-		);
+		return <div>{form()}</div>;
 	}
 }
 

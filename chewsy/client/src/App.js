@@ -79,8 +79,8 @@ class App extends Component {
 			isLoggedIn: false,
 			tokenData: {},
 			navClicked: false,
-			recId: null,
-			userId: 1 // hard-coded for testing...
+			recId: null
+			// userId: 1 // hard-coded for testing...
 		};
 
 		///////////////////////////////////////////////////////////////LAI
@@ -163,14 +163,18 @@ class App extends Component {
 	getAllUserRecipes() {
 		// Retrieve a set of user records from "recipes_user" tabel...
 
-		const idUser = this.state.userId;
+		// const idUser = this.state.userId;
+		const idUser = this.state.tokenData.id;
 
 		console.log('User ID: ', idUser);
 
 		axios({
-			url: 'http://localhost:8080/users/:idUser/savedRecipes',
+			url: `http://localhost:8080/users/${idUser}/savedRecipes`,
 			method: 'get',
-			data: { idUser }
+			data: { idUser },
+			headers: {
+				Authorization: `Bearer ${TokenService.read()}`
+			}
 		}).then(response => {
 			console.log(
 				'In SavedRecipes.queryRecipesUser: server responded. response.data: ',
@@ -326,6 +330,7 @@ class App extends Component {
 						isLoggedIn={this.state.isLoggedIn}
 						toggleNav={this.toggleNav}
 						navClicked={this.state.navClicked}
+						tokenData={this.state.tokenData}
 					/>
 					{this.state.loginClicked ? (
 						<Login submit={this.login} toggleLogin={this.toggleLogin} />
@@ -365,6 +370,7 @@ class App extends Component {
 										recipeDatum={this.state.moreInfo}
 										results={this.state.recipeData}
 										moreInfo={this.getMoreInfoData}
+										tokenData={this.state.tokenData}
 									/>
 								);
 							}}
@@ -379,7 +385,7 @@ class App extends Component {
 								return (
 									<SavedRecipes
 										{...props}
-										userId={this.state.userId}
+										userId={props.match.params.id}
 										recipesUser={this.state.recipesUser}
 										getRecipesUserData={this.getRecipesUserData}
 										getMoreInfoForRecipe={this.getMoreInfoForRecipe}

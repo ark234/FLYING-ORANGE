@@ -36,25 +36,26 @@ class ShowResults extends Component {
 							<img src={recipeInfo.image} className="recipeResultsImg" />
 							<h2 className="recipeName">{recipeInfo.label}</h2>
 							<h6 className="healthLabels">{recipeInfo.healthLabels}</h6>
-							<h6 className="servings">{recipeInfo.yield} servings</h6>
-							<h6 className="calories">{Math.trunc(recipeInfo.calories)} calories</h6>
+							<div className="details">
+								<h6 className="servings">
+									{recipeInfo.yield} servings {Math.trunc(recipeInfo.calories)} calories
+								</h6>
+							</div>
 						</div>
 					</div>
 				</div>
 			);
 		});
 
-		return (
-			this.props.results===null? null : (<div>
-              <div className="search-bar">
-                
-              </div>
-      
-              <div className="results-header">
-                Found {results.count} matching results for {results.q}
-              </div>
-              <div className="test">{resultsList }</div>
-            </div>)
+		return this.props.results === null ? null : (
+			<div>
+				<div className="search-bar" />
+
+				<div className="results-header">
+					Found {results.count} matching results for {results.q}
+				</div>
+				<div className="test">{resultsList}</div>
+			</div>
 		);
 	}
 }

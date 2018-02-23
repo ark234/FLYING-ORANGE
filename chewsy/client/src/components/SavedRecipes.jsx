@@ -101,7 +101,7 @@ class SavedRecipes extends Component {
 		});
 
 		return (
-			<div className="recipeResultsContainer">
+			<div className="saved-recipes-container">
 				<div className="recipes-user">
 					<h3 className="viewRecipe">User Name: {this.state.userId} </h3>
 					<div className="theList">{recipesUserList}</div>
