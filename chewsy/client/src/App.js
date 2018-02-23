@@ -50,7 +50,8 @@ class App extends Component {
 			recipesUser: [],
 			userData: {},
 			prefData: {},
-			isLoggedIn: false
+			isLoggedIn: false,
+			tokenData: {}
 		});
 	}
 
@@ -67,7 +68,8 @@ class App extends Component {
 			recipesUser: [],
 			userData: {},
 			prefData: {},
-			isLoggedIn: false
+			isLoggedIn: false,
+			tokenData: {}
 		};
 
 		///////////////////////////////////////////////////////////////LAI
@@ -95,16 +97,18 @@ class App extends Component {
 		this.login = this.login.bind(this);
 		this.logout = this.logout.bind(this);
 		this.authClick = this.authClick.bind(this);
+		this.checkLogin = this.checkLogin.bind(this);
 	}
 
 	checkLogin() {
-		axios('http://localhost:3000/isLoggedIn', {
+		axios('http://localhost:8080/isLoggedIn', {
 			headers: {
 				Authorization: `Bearer ${TokenService.read()}`
 			}
 		})
 			.then(resp => {
-				console.log(resp);
+				console.log('checkLogin response:', resp.data);
+				this.setState({ isLoggedIn: resp.data.isLoggedIn, tokenData: resp.data.tokenData });
 			})
 			.catch(err => console.log(err));
 	}
@@ -228,6 +232,11 @@ class App extends Component {
 			return <Results {...props} results={this.state.recipeData} moreInfo={this.getMoreInfoData} />;
 		}
 	}
+
+	componentDidMount() {
+		this.checkLogin();
+	}
+
 	render() {
 		return (
 			<BrowserRouter>
