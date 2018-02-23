@@ -221,7 +221,7 @@ class RecipeInfo extends Component {
 											: null}
 									</td>
 									<td>
-										Vitamin C{" "}
+										Vitamin C{' '}
 										{recipeInfo.totalDaily.VITC
 											? Math.trunc(recipeInfo.totalDaily.VITC.quantity) + '%'
 											: null}
@@ -229,19 +229,14 @@ class RecipeInfo extends Component {
 									<td>Vitamin C {Math.trunc(recipeInfo.totalDaily.VITC.quantity)}%</td>
 								</tr>
 								<tr className="thin-end">
-<<<<<<< HEAD:chewsy/client/src/components/RecipeInfo.js
-									<td colspan="2">
-										Calcium{" "}
-=======
 									<td colSpan="2">
 										Calcium
->>>>>>> 7c228b91fdde4fdd86e15b929d543fa4492a8fe3:chewsy/client/src/components/RecipeInfo.jsx
 										{recipeInfo.totalDaily.CA
 											? Math.trunc(recipeInfo.totalDaily.CA.quantity) + '%'
 											: null}
 									</td>
 									<td>
-										Iron{" "}
+										Iron{' '}
 										{recipeInfo.totalDaily.FE
 											? Math.trunc(recipeInfo.totalNutrients.FE.quantity) + '%'
 											: null}
@@ -256,33 +251,23 @@ class RecipeInfo extends Component {
 						</p>
 					</div>
 				</div>
-				<div class="bottom-text">
-					<h2 class="info-text">Health Labels: {recipeInfo.healthLabels}</h2>
-					<h2 class="info-text">Diet Labels: {recipeInfo.dietLabels}</h2>
-					<h2 class="info-text">Cautions: {recipeInfo.cautions}</h2>
+				<div className="bottom-text">
+					<h2 className="info-text">Health Labels: {recipeInfo.healthLabels}</h2>
+					<h2 className="info-text">Diet Labels: {recipeInfo.dietLabels}</h2>
+					<h2 className="info-text">Cautions: {recipeInfo.cautions}</h2>
 
-<<<<<<< HEAD:chewsy/client/src/components/RecipeInfo.js
-					<h2 class="info-text">Ingredients:</h2>
+					<h2 className="info-text">Health Labels: {recipeInfo.healthLabels}</h2>
+					<h2 className="info-text">Diet Labels: {recipeInfo.dietLabels}</h2>
+					<h2 className="info-text">Cautions: {recipeInfo.cautions}</h2>
+
+					<h2 className="info-text">Ingredients:</h2>
 					<ul>
-						{recipeInfo.ingredientLines.map(function(ingredient) {
+						{recipeInfo.ingredientLines.map(function(ingredient, i) {
 							const ingredientName = ingredient;
-							return <li>{ingredientName}</li>;
+							return <li key={i}>{ingredientName}</li>;
 						})}
 					</ul>
 				</div>
-=======
-				<h2 className="info-text">Health Labels: {recipeInfo.healthLabels}</h2>
-				<h2 className="info-text">Diet Labels: {recipeInfo.dietLabels}</h2>
-				<h2 className="info-text">Cautions: {recipeInfo.cautions}</h2>
-
-				<h2 className="info-text">Ingredients:</h2>
-				<ul>
-					{recipeInfo.ingredientLines.map(function(ingredient, i) {
-						const ingredientName = ingredient;
-						return <li key={i}>{ingredientName}</li>;
-					})}
-				</ul>
->>>>>>> 7c228b91fdde4fdd86e15b929d543fa4492a8fe3:chewsy/client/src/components/RecipeInfo.jsx
 			</div>
 		);
 	}
