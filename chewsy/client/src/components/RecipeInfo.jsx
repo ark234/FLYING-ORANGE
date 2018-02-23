@@ -33,8 +33,6 @@ class RecipeInfo extends Component {
 		this.saveRecipe();
 		console.log('PROPS ==>', this.props);
 		this.props.history.goBack();
-		// this.props.history.push('/');
-		// this.context.router.history.goBack();
 	}
 	render() {
 		const recipeInfo = this.props.recipeDatum;
