@@ -323,14 +323,7 @@ class App extends Component {
 						<Route
 							exact
 							path="/login"
-							component={props => (
-								<Login
-									{...props}
-									submit={this.login}
-									authClick={this.authClick}
-									logout={this.logout}
-								/>
-							)}
+							component={props => <Login {...props} submit={this.login} />}
 						/>
 						<Route
 							exact
