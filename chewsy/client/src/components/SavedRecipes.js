@@ -60,12 +60,14 @@ class SavedRecipes extends Component {
   onClickHandler(e) {
 
     e.preventDefault();
-    const recId = ''+e.target.id;
+    let recId = e.target.id;
     const record = this.props.recipesUser[recId];
+    console.log('set: ', record);
     const recUri = record.recipe_uri;
     const idUser = record.user_id;
+    recId =+ 1;
     	console.log('event: ', recId);
-    	console.log('set: ', this.props.recipesUser[recId]);
+    	
     	console.log('recipe chosen: ', recUri);
 
       this.props.getRecipesUserData(record, recId, recUri);
