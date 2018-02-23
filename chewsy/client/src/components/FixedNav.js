@@ -87,7 +87,7 @@ class FixedNav extends Component {
 			<div>
 				<input type="button" value="User Preference" />
 				<input type="button" value="saved Recipies" />
-				<input type="button" value="account settings"/>
+				<input type="button" value="account settings" />
 				<input type="button" value="Log Out" onClick={() => this.props.logout()} />
 			</div>
 		);
@@ -99,10 +99,14 @@ class FixedNav extends Component {
 		console.log('user id ===>', userId);
 		if (this.props.isLoggedIn) {
 			return (
-				<nav className="side-nav" onClick={()=>this.toggleNavShow()}>
-
-					<button>Saved Recipes</button>
-					<Link to='/profile'> <button>Account Settings</button></Link>
+				<nav className="side-nav" onClick={() => this.toggleNavShow()}>
+					<Link to={`/users/${userId}/savedRecipes`}>
+						<button>Saved Recipes</button>
+					</Link>
+					<Link to="/profile">
+						{' '}
+						<button>Account Settings</button>
+					</Link>
 
 					<button onClick={() => this.props.logout()}>Logout</button>
 				</nav>
