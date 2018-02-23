@@ -17,22 +17,24 @@
 //                                             //
 /////////////////////////////////////////////////
 
-import React, { Component } from "react";
-import axios from "axios";
-import "../App.css";
-import TokenService from "../services/TokenService";
+import React, { Component } from 'react';
+import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
+import axios from 'axios';
+import '../App.css';
+import TokenService from '../services/TokenService';
 
 class SavedRecipes extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			recipesUser: [],
-			userId: null
+			itemRecipeUser: null,
+			userId: null,
+			recipeId: null
 		};
-		this.queryRecipesUser = this.queryRecipesUser.bind(this);
-		this.deleteRecipe = this.deleteRecipe.bind(this);
-		// this.deleteRecipe = this.deleteRecipe.bind(this, recipes.id);
+
+		// this.queryRecipesUser = this.queryRecipesUser.bind(this);
+		this.onClickHandler = this.onClickHandler.bind(this);
 	}
 
 	// [
@@ -50,45 +52,50 @@ class SavedRecipes extends Component {
 	// ]
 
 	componentDidMount() {
-		this.queryRecipesUser();
+		this.props.getAllUserRecipes();
 	}
 
-	queryRecipesUser() {
-		const idUser = this.props.userId;
+	onClickHandler(e) {
+		e.preventDefault();
+		let recId = e.target.id;
+		const record = this.props.recipesUser[recId];
+		console.log('set: ', record);
+		const recUri = record.recipe_uri;
+		const idUser = record.user_id;
+		recId = +1;
+		console.log('event: ', recId);
 
-		axios({
-			url: `http://localhost:8080/users/${idUser}/savedRecipes`,
-			method: "get",
-			headers: {
-				Authorization: `Bearer ${TokenService.read()}`
-			}
-		})
-			.then(response => {
-				console.log(
-					"In SavedRecipes.queryRecipesUser: server responded. response.data: ",
-					response.data
-				);
-				this.setState({
-					recipesUser: response.data,
-					userId: idUser
-				});
-				this.props.getRecipesUserData(response.data);
-			})
-			.catch(error => {
-				console.log("error getting saved recipes");
-				console.log("error response:", error.response);
-			});
+		console.log('recipe chosen: ', recUri);
+
+		this.props.getRecipesUserData(record, recId, recUri);
+		this.props.history.push(`/users/${idUser}/savedRecipes/${recId}`);
 	}
 
 	render() {
-		const recipesUserList = this.state.recipesUser.map(recipeDB => {
+		const recipesUserList = this.props.recipesUser.map((recipeDB, key) => {
+			// const idUser = recipeDB.user_id;
+			const idUser = this.props.userId;
+			const recId = recipeDB.id;
+			const recUri = recipeDB.recipe_uri;
+			console.log('idUser:', idUser);
+			console.log('recId:', recId);
+
 			return (
-				<div className="db-record" key={recipeDB.id}>
+				<div className="db-record" key={key}>
 					<h3>Your Saved Recipes</h3>
 					<img className="recipeDBImg" src={recipeDB.recipe_img_url} />
 					<h3 className="recipeDBName">{recipeDB.recipe_label}</h3>
 					<h6 className="recipeDBUri">{recipeDB.recipe_uri}</h6>
 					<h6 className="healthLabels">{recipeDB.recipe_hlth_lbl}</h6>
+					<div key={key}>
+						<Link
+							to={`/users/${idUser}/savedRecipes/${recId}`}
+							id={key}
+							onClick={this.onClickHandler}
+						>
+							See additional info on {recipeDB.recipe_label}
+						</Link>
+					</div>
 				</div>
 			);
 		});

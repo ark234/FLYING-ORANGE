@@ -30,13 +30,14 @@ import RecipeInfo from './components/RecipeInfo';
 import RecipeSave from './components/RecipeSave';
 //////////////////////////////////////////////////LAI
 import SavedRecipes from './components/SavedRecipes';
+import MoreInfoRecipe from './components/MoreInfoRecipe';
 //////////////////////////////////////////////////LAI
 import Results from './components/Results';
 import Header from './components/Header';
-import Login from "./components/Login";
+import Login from './components/Login';
 import Register from './components/Register';
 import TokenService from './services/TokenService';
-import UserProfile from  './components/UserProfile';
+import UserProfile from './components/UserProfile';
 
 class App extends Component {
 	constructor(props) {
@@ -44,15 +45,19 @@ class App extends Component {
 
 		this.state = {
 			recipeData: null,
-			savedRecipe: null,
+			/////////////////////////////////////////////////LAI
+			// savedRecipe: null,
+			moreInfoRecipe: null,
+			itemRecipeUser: null,
+			extInfoSource: null,
+			recipesUser: [],
+			/////////////////////////////////////////////////LAI
 			isLoaded: null,
 			moreInfo: [],
 			signUpClicked: false,
 			loginClicked: false,
-			recipesUser: [],
-			userData: {},
-			prefData: {},
-		//userId: 1 // hard-coded for testing...
+			recId: null,
+			userId: 1 // hard-coded for testing...
 		};
 
 		///////////////////////////////////////////////////////////////LAI
@@ -72,25 +77,65 @@ class App extends Component {
 		this.toggleLogin = this.toggleLogin.bind(this);
 		/////////////////////////////////////////////////////////////LAI
 		this.getRecipesUserData = this.getRecipesUserData.bind(this);
+		this.getAllUserRecipes = this.getAllUserRecipes.bind(this);
 		/////////////////////////////////////////////////////////////LAI
 		this.getSavedRecipe = this.getSavedRecipe.bind(this);
-		 this.routeToResults = this.routeToResults.bind(this);
-		 this.renderResults = this.renderResults.bind(this);
+		this.routeToResults = this.routeToResults.bind(this);
+		this.renderResults = this.renderResults.bind(this);
 		this.register = this.register.bind(this);
 		this.login = this.login.bind(this);
 		this.logout = this.logout.bind(this);
 		this.authClick = this.authClick.bind(this);
+		this.getMoreInfoForRecipe = this.getMoreInfoForRecipe.bind(this);
 	}
 
-	getSavedRecipe(uri) {
+	getMoreInfoForRecipe(uri, recIdDB) {
+		console.log('uri: ', uri);
+		console.log('recId: ', recIdDB);
 		axios({
 			url: 'http://localhost:8080/recipes/moreInfo',
 			method: 'post',
 			data: { uri }
 		}).then(response => {
 			console.log('SAVED RECIPE DATA===>', response.data);
-			this.setState({ savedRecipe: response.data });
-			this.props.history.push('/moreInfo');
+			/////////////////////////////////////////////////////////////LAI
+			// Changing the name "savedRecipe" to ===> "moreInfoRecipe"
+			this.setState(prevState => {
+				prevState.moreInfoRecipe = response.data;
+				prevState.recId = recIdDB;
+				prevState.extInfoSource = uri;
+				return prevState;
+			});
+			// this.setState({ savedRecipe: response.data });
+			/////////////////////////////////////////////////////////////LAI
+			// this.props.history.push('/moreInfo');
+		});
+	}
+
+	getAllUserRecipes() {
+		// Retrieve a set of user records from "recipes_user" tabel...
+
+		const idUser = this.state.userId;
+
+		console.log('User ID: ', idUser);
+
+		axios({
+			url: 'http://localhost:8080/users/:idUser/savedRecipes',
+			method: 'get',
+			data: { idUser }
+		}).then(response => {
+			console.log(
+				'In SavedRecipes.queryRecipesUser: server responded. response.data: ',
+				response.data
+			);
+
+			this.setState(prevState => {
+				prevState.recipesUser = response.data;
+				// prevState.userId = idUser;
+				return prevState;
+			});
+
+			// this.props.getRecipesUserData(response.data);
 		});
 	}
 
@@ -179,8 +224,13 @@ class App extends Component {
 	}
 
 	/////////////////////////////////////////////////LAI
-	getRecipesUserData(responseData) {
-		this.setState({ recipesUser: responseData });
+	getRecipesUserData(recordData, recId, recUri) {
+		this.setState(prevState => {
+			prevState.extInfoSource = recUri;
+			prevState.itemRecipeUser = recordData;
+			prevState.recId = recId;
+			return prevState;
+		});
 		console.log(this.state);
 	}
 	/////////////////////////////////////////////////LAI
@@ -191,124 +241,135 @@ class App extends Component {
 	loading() {
 		this.setState({ isLoaded: false });
 	}
-	  routeToResults() {
-    this.props.history.push("/results");
-  }
-  renderResults(props){
-  	if(this.state.recipeData=== null){
-  		return null;
-  	}
-  	else{
-  	return(
-  						<Results
-  							{...props}
-									results={this.state.recipeData}
-									moreInfo={this.getMoreInfoData}
-								/>)
-  }
-  }
+	routeToResults() {
+		this.props.history.push('/results');
+	}
+	renderResults(props) {
+		if (this.state.recipeData === null) {
+			return null;
+		} else {
+			return <Results {...props} results={this.state.recipeData} moreInfo={this.getMoreInfoData} />;
+		}
+	}
 	render() {
 		return (
 			<BrowserRouter>
-			<div>
-								<Header 
-									toggleSignUp={this.toggleSignUp}
-									toggleLogin={this.toggleLogin}
-									getResponseData={this.getResponseData}
-									errorForResponse={this.errorForResponse}
-									errorFlag={this.state.error}
-									loadingFlag={this.state.isLoaded}
-									isLoaded={this.loading}
-									loginClicked={this.state.loginClicked}
-									signUpClicked={this.state.signUpClicked}
-									routeToResults={this.routeToResults}
+				<div>
+					<Header
+						toggleSignUp={this.toggleSignUp}
+						toggleLogin={this.toggleLogin}
+						getResponseData={this.getResponseData}
+						errorForResponse={this.errorForResponse}
+						errorFlag={this.state.error}
+						loadingFlag={this.state.isLoaded}
+						isLoaded={this.loading}
+						loginClicked={this.state.loginClicked}
+						signUpClicked={this.state.signUpClicked}
+						routeToResults={this.routeToResults}
+					/>
+					{this.state.loginClicked ? (
+						<Login submit={this.login} toggleLogin={this.toggleLogin} />
+					) : null}
+					{this.state.signUpClicked ? (
+						<Register submit={this.register} toggleSignUp={this.toggleSignUp} />
+					) : null}
+					<Switch>
+						<Route
+							exact
+							path="/"
+							render={props => {
+								return this.renderResults(props);
+							}}
+						/>
+						<Route
+							exact
+							path="/results"
+							render={props => {
+								return (
+									<Results
+										{...props}
+										toggleSignUp={this.toggleSignUp}
+										results={this.state.recipeData}
+										moreInfo={this.getMoreInfoData}
 									/>
-			{this.state.loginClicked ? <Login submit={this.login} toggleLogin={this.toggleLogin} /> : null}
-				{this.state.signUpClicked ? <Register submit={this.register} toggleSignUp={this.toggleSignUp} /> : null}
-				<Switch>
-					<Route
-						exact
-						path="/"
-						render={props => {
-							return (
-									 this.renderResults(props) 
-							);
-						}}
-					/>
-					<Route
-						exact
-						path="/results"
-						render={props => {
-							return (
-								<Results
+								);
+							}}
+						/>
+						<Route
+							exact
+							path="/moreInfo"
+							render={props => {
+								return (
+									<RecipeInfo
+										recipeDatum={this.state.moreInfo}
+										results={this.state.recipeData}
+										moreInfo={this.getMoreInfoData}
+									/>
+								);
+							}}
+						/>
+						{
+							/////////////////////////////////////////////////////LAI
+						}
+						<Route
+							exact
+							path="/users/:id/savedRecipes"
+							render={props => {
+								return (
+									<SavedRecipes
+										{...props}
+										userId={this.state.userId}
+										recipesUser={this.state.recipesUser}
+										getRecipesUserData={this.getRecipesUserData}
+										getMoreInfoForRecipe={this.getMoreInfoForRecipe}
+										getAllUserRecipes={this.getAllUserRecipes}
+									/>
+								);
+							}}
+						/>
+						<Route
+							exact
+							path="/users/:idUser/savedRecipes/:idRec"
+							render={props => {
+								return (
+									<MoreInfoRecipe
+										{...props}
+										moreInfoRecipe={this.state.moreInfoRecipe}
+										itemRecipeUser={this.state.itemRecipeUser}
+										extInfoSource={this.state.extInfoSource}
+										recId={this.state.recId}
+										userId={this.state.userId}
+										getMoreInfoForRecipe={this.getMoreInfoForRecipe}
+									/>
+								);
+							}}
+						/>
+						{
+							/////////////////////////////////////////////////////LAI
+						}
+						<Route
+							exact
+							path="/register"
+							component={props => <Register {...props} submit={this.register} />}
+						/>
+						<Route
+							exact
+							path="/login"
+							component={props => (
+								<Login
 									{...props}
-									toggleSignUp={this.toggleSignUp}
-									results={this.state.recipeData}
-									moreInfo={this.getMoreInfoData}
+									submit={this.login}
+									authClick={this.authClick}
+									logout={this.logout}
 								/>
-							);
-						}}
-					/>
-					<Route
-						exact
-						path="/moreInfo"
-						render={props => {
-							return (
-								<RecipeInfo
-									recipeDatum={this.state.moreInfo}
-									results={this.state.recipeData}
-									moreInfo={this.getMoreInfoData}
-								/>
-							);
-						}}
-					/>
-					{
-						/////////////////////////////////////////////////////LAI
-					}
-					<Route
-						exact
-						path="/users/:id/savedRecipes"
-						render={props => {
-							return (
-								<SavedRecipes
-									{...props}
-									userId={this.state.userId}
-									recipesUser={this.state.recipesUser}
-									getRecipesUserData={this.getRecipesUserData}
-								/>
-							);
-						}}
-					/>
-					{
-						/////////////////////////////////////////////////////LAI
-					}
-					<Route
-						exact
-						path="/register"
-						component={props => <Register {...props} submit={this.register} />}
-					/>
-					<Route
-						exact
-						path="/login"
-						component={props => (
-							<Login
-								{...props}
-								submit={this.login}
-								authClick={this.authClick}
-								logout={this.logout}
-							/>
-						)}
-					/>
-					<Route 
-						exact
-						path = '/profile'
-						component={props=> (
-							<UserProfile 
-							{...props}
-							userId={this.state.userData}/>
 							)}
 						/>
-				</Switch>
+						<Route
+							exact
+							path="/profile"
+							component={props => <UserProfile {...props} userId={this.state.userData} />}
+						/>
+					</Switch>
 				</div>
 			</BrowserRouter>
 		);
