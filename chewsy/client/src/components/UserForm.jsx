@@ -30,7 +30,8 @@ export default class UserForm extends Component {
 
 	render() {
 		return (
-			<form onSubmit={this.handleSubmit}>
+			
+			<form className='userForm' onSubmit={this.handleSubmit}>
 				<label>
 					Email
 					<input type="text" name="email" onChange={this.handleChange} value={this.state.email} />
@@ -48,6 +49,7 @@ export default class UserForm extends Component {
 					Submit
 				</button>
 			</form>
+			
 		);
 	}
 }
