@@ -312,7 +312,7 @@ class App extends Component {
 						signUpClicked={this.state.signUpClicked}
 						routeToResults={this.routeToResults}
 						logout={this.logout}
-						isLoggedIn={this.isLoggedIn}
+						isLoggedIn={this.state.isLoggedIn}
 						toggleNav={this.toggleNav}
 						navClicked={this.state.navClicked}
 					/>

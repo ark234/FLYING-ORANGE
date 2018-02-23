@@ -17,7 +17,7 @@ export default class Register extends Component {
 		// as a prop
 		return (
 			<div className="modal-container" onClick={() => this.props.toggleSignUp()}>
-				<div className="modal" onClick={e => e.stopPropagation()}>
+				<div className="modal" onClick={ e => e.stopPropagation()}>
 					<UserForm submit={this.onSubmit} type="Register" />
 				</div>
 			</div>
