@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 // import { Link } from "react-router-dom";
-import navImage from "../images/threeLines.png";
+import navImage from '../images/threeLines.png';
 class FixedNav extends Component {
 	constructor(props) {
 		super(props);
@@ -74,7 +74,7 @@ class FixedNav extends Component {
 				<input type="button" value="User Preference" />
 				<input type="button" value="saved Recipies" />
 				<input type="button" value="account settings" />
-				<input type="button" value="Log Out" />
+				<input type="button" value="Log Out" onClick={() => this.props.logout()} />
 			</div>
 		);
 	}
@@ -83,16 +83,8 @@ class FixedNav extends Component {
 	}
 	render() {
 		return (
-			<div className="header-nav">
-				<img
-					className="hamburger"
-					src={navImage}
-					width="80px"
-					height="80px"
-					onClick={this.toggleNavShow}
-				/>
-
-				<h1 className="logo">chewsy</h1>
+			<div>
+				<img src={navImage} width="80px" height="80px" onClick={this.toggleNavShow} />
 				{this.state.showNavMenu ? this.userMenu() : null}
 				{this.state.showNavMenu ? this.guestMenu() : null}
 				{this.state.guestMenuClicked ? this.guestOptions() : null}
