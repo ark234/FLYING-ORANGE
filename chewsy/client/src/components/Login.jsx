@@ -18,8 +18,8 @@ class Login extends Component{
 
     return(
       <div  className='modal'>
+      <h1>Login</h1>
       <UserForm submit={this.onSubmit}/>
-      Login
       <button onClick={()=>this.props.toggleLogin()}>Back Home</button>
       </div>
       )

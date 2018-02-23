@@ -165,6 +165,9 @@
   height: 99vh;
   background: orange;
   opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .results-header {
   font-family: "Fjalla One", sans-serif;
@@ -371,4 +374,9 @@ b {
 }
 .check {
   /*display: inline;*/
+}
+.userForm{
+  width: 400px;
+  display: flex;
+  flex-direction: column;
 }
