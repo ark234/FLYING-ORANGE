@@ -30,6 +30,7 @@ export default class UserForm extends Component {
 
 	render() {
 		return (
+
 			<form onSubmit={this.handleSubmit} className="user-form">
 				<h1>{this.props.type}</h1>
 				<label>

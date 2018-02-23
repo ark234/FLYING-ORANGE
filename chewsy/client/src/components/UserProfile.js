@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SearchField from "./SearchField";
 import axios from 'axios';
+import TokenService from '../services/TokenService';
 
 class UserProfile extends Component {
   constructor(props) {
@@ -37,13 +38,19 @@ class UserProfile extends Component {
 
 
   editAccount(info){
+    const payload = {...info, "user_id": this.props.userId};
     axios({
       url:'http://localhost:8080/users/editAccount',
       method:'put',
-      data: info
+      data: payload,
+      headers: {
+        Authorization: `Bearer ${TokenService.read()}`
+      }
     })
     .then( response =>{
-      console.log('MADE it');
+      console.log('in response callback of UserProfile.editAccount axios call. response.data:', response.data);
+      this.props.editTokenData(response.data);
+
     })
   }
  
@@ -56,7 +63,7 @@ class UserProfile extends Component {
 
   handleAccountEdit(e){
     e.preventDefault();
-    this.setState({user_id:this.props.userId})
+    //this.setState({user_id:this.props.userId})
     this.editAccount(this.state);
   }
   handleChange(e){

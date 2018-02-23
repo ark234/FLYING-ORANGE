@@ -171,6 +171,17 @@
 	align-items: center;
 }
 .modal {
+
+  top: 0;
+  position: absolute;
+  z-index: 3;
+  width: 99vw;
+  height: 99vh;
+  background: orange;
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 	background: rgba(255, 255, 255, 0.886);
 	height: 50%;
 	width: 50%;

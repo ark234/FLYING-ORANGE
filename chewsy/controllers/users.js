@@ -48,7 +48,12 @@ router.post('/register', usersModel.create, (req, res) => {
 
 router.put('/preferences', usersModel.updatePreferences);
 
-router.put('/editAccount', usersModel.updateAccount);
+router.put('/editAccount', usersModel.updateAccount, 
+  (req, res, next) => {
+    console.log('in handler for users.js PUT at users/editAccount. res.locals:', res.locals);
+    const updatedUserData = res.locals.updatedAccount;
+    res.json(updatedUserData);
+});
 
 // POST to '/users/login' to login...
 // if the user didn't get created thrown an error
