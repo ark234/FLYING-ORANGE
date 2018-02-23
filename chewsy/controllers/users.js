@@ -48,11 +48,10 @@ router.post('/register', usersModel.create, (req, res) => {
 
 router.put('/preferences', usersModel.updatePreferences);
 
-router.put('/editAccount', usersModel.updateAccount, 
-  (req, res, next) => {
-    console.log('in handler for users.js PUT at users/editAccount. res.locals:', res.locals);
-    const updatedUserData = res.locals.updatedAccount;
-    res.json(updatedUserData);
+router.put('/editAccount', usersModel.updateAccount, (req, res, next) => {
+	console.log('in handler for users.js PUT at users/editAccount. res.locals:', res.locals);
+	const updatedUserData = res.locals.updatedAccount;
+	res.json(updatedUserData);
 });
 
 // POST to '/users/login' to login...
@@ -71,7 +70,7 @@ router.post('/login', usersModel.login, (req, res) => {
 });
 
 // TODO: define DELETE request for '/:id' to delete user...
-router.delete('/:id', usersModel.destroy, (req, res) => {
+router.delete('/:idRec', usersModel.destroy, (req, res) => {
 	console.log('In router.delete, usersModel.destroy...');
 
 	res.json({});

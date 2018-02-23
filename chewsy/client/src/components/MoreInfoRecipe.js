@@ -33,7 +33,8 @@ class MoreInfoRecipe extends Component {
 		console.log('uri: ', this.props.extInfoSource);
 		console.log('recId: ', this.props.recId);
 		const uri = this.props.extInfoSource;
-		const recId = this.props.recId;
+		// const recId = this.props.recId;
+		const recId = this.props.match.params.idRec;
 		this.props.getMoreInfoForRecipe(uri, recId);
 		this.setState({
 			extInfoSource: uri,
@@ -103,7 +104,7 @@ class MoreInfoRecipe extends Component {
 							{/* <Link to={`/${this.props.tokenData.id}/${idRec}`}>
 								To Delete DB record for {mrInf.label}
 							</Link> */}
-							<button>Delete Recipe</button>
+							<button onClick={() => this.props.deleteSavedRecipe}>Delete Recipe</button>
 						</div>
 						<br />
 					</div>

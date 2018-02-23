@@ -49,7 +49,6 @@ recipesDBModel.getAllRecipes = (req, res, next) => {
 
 // middleware to delete record ":idRec", owned by ":idUser"
 // in "recipes_user" table...
-
 recipesDBModel.destroy = (req, res, next) => {
 	db.none('DELETE FROM recipes_user WHERE id=$1;', [req.params.idRec]).catch(error => {
 		console.log('Error: in recipesDBModel.destroy. Details: ', error);

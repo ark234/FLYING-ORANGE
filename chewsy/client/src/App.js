@@ -53,7 +53,8 @@ class App extends Component {
 			prefData: {},
 			isLoggedIn: false,
 			tokenData: {},
-			navClicked: false
+			navClicked: false,
+			recId: null
 		});
 	}
 
@@ -80,7 +81,6 @@ class App extends Component {
 			tokenData: {},
 			navClicked: false,
 			recId: null
-			// userId: 1 // hard-coded for testing...
 		};
 
 		///////////////////////////////////////////////////////////////LAI
@@ -113,6 +113,8 @@ class App extends Component {
 		// this.toggleNav = this.toggleNav.bind(this);
 		this.getMoreInfoForRecipe = this.getMoreInfoForRecipe.bind(this);
 		this.editTokenData = this.editTokenData.bind(this);
+		this.deleteSavedRecipe = this.deleteSavedRecipe.bind(this);
+		this.setRecId = this.setRecId.bind(this);
 	}
 
 	checkLogin() {
@@ -127,6 +129,32 @@ class App extends Component {
 			})
 			.catch(err => console.log(err));
 	}
+
+	// Delete user-saved recipe from the database
+	deleteSavedRecipe() {
+		const recId = this.state.recId;
+		console.log('record id:', recId);
+		axios({
+			url: `http://localhost:8080/users/${recId}`,
+			method: 'delete',
+			headers: {
+				Authorization: `Bearer ${TokenService.read()}`
+			}
+		}).then(response => {
+			console.log(
+				'In SavedRecipes.queryRecipesUser: server responded. response.data: ',
+				response.data
+			);
+		});
+	}
+
+	setRecId(id) {
+		this.setState(prevState => {
+			prevState.recId = id;
+			return prevState;
+		});
+	}
+
 	editTokenData(info) {
 		console.log('in editTokenData. info:', info);
 		const newTokenData = {
@@ -390,6 +418,7 @@ class App extends Component {
 										getRecipesUserData={this.getRecipesUserData}
 										getMoreInfoForRecipe={this.getMoreInfoForRecipe}
 										getAllUserRecipes={this.getAllUserRecipes}
+										setRecId={this.setRecId}
 									/>
 								);
 							}}
@@ -398,6 +427,7 @@ class App extends Component {
 							exact
 							path="/users/:idUser/savedRecipes/:idRec"
 							render={props => {
+								console.log('in /users/:idUser/savedRecipes/:idRec Route. props:', props);
 								return (
 									<MoreInfoRecipe
 										{...props}
@@ -407,6 +437,7 @@ class App extends Component {
 										recId={this.state.recId}
 										userId={this.state.userId}
 										getMoreInfoForRecipe={this.getMoreInfoForRecipe}
+										deleteSavedRecipe={this.deleteSavedRecipe}
 										tokenData={this.state.tokenData}
 									/>
 								);

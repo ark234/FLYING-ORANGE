@@ -58,14 +58,16 @@ class SavedRecipes extends Component {
 	onClickHandler(e) {
 		e.preventDefault();
 		let recId = e.target.id;
+		this.props.setRecId(recId);
+		console.log('RECIPE ID ====>', recId);
 		const record = this.props.recipesUser[recId];
-		console.log('set: ', record);
+		// console.log('set: ', record);
 		const recUri = record.recipe_uri;
 		const idUser = record.user_id;
 		recId = +1;
-		console.log('event: ', recId);
+		// console.log('event: ', recId);
 
-		console.log('recipe chosen: ', recUri);
+		// console.log('recipe chosen: ', recUri);
 
 		this.props.getRecipesUserData(record, recId, recUri);
 		this.props.history.push(`/users/${idUser}/savedRecipes/${recId}`);
@@ -88,11 +90,7 @@ class SavedRecipes extends Component {
 					<h6 className="recipeDBUri">{recipeDB.recipe_uri}</h6>
 					<h6 className="healthLabels">{recipeDB.recipe_hlth_lbl}</h6>
 					<div key={key}>
-						<Link
-							to={`/users/${idUser}/savedRecipes/${recId}`}
-							id={key}
-							onClick={this.onClickHandler}
-						>
+						<Link to={`/users/${idUser}/savedRecipes/${recId}`} id={key}>
 							See additional info on {recipeDB.recipe_label}
 						</Link>
 					</div>

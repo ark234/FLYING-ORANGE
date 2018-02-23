@@ -104,7 +104,6 @@ class FixedNav extends Component {
 						<button>Saved Recipes</button>
 					</Link>
 					<Link to="/profile">
-						{' '}
 						<button>Account Settings</button>
 					</Link>
 
