@@ -365,6 +365,7 @@ td {
   line-height: 40px;
   padding-left: 100px;
   font-size: 0.7rem;
+  width: 400px;
 }
 
 .nutrition-facts__table--small {
@@ -460,7 +461,11 @@ b {
 }
 .info-text {
   font-family: "Fjalla One", sans-serif;
-  font-size: 20px;
+  font-size: 25px;
+}
+
+.ing-list {
+  font-size: 17px;
 }
 /*FIXED NAV*/
 .header-nav {

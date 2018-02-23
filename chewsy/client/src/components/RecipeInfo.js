@@ -61,7 +61,7 @@ class RecipeInfo extends Component {
 							<h1 className="nutrition-facts__title">Nutrition Facts</h1>
 							<p className="p-className">{recipeInfo.label}</p>
 							<p className="p-className">
-								Serving Per Recipe {recipeInfo.yield}
+								Serving Per Recipe {recipeInfo.yield && recipeInfo.yield}
 							</p>
 						</header>
 
@@ -257,15 +257,22 @@ class RecipeInfo extends Component {
 					</div>
 				</div>
 				<div class="bottom-text">
-					<h2 class="info-text">Health Labels: {recipeInfo.healthLabels}</h2>
-					<h2 class="info-text">Diet Labels: {recipeInfo.dietLabels}</h2>
-					<h2 class="info-text">Cautions: {recipeInfo.cautions}</h2>
+					<h2 class="info-text">
+						Health Labels: {recipeInfo.healthLabels && recipeInfo.healthLabels}
+					</h2>
+
+					<h2 class="info-text">
+						Diet Labels: {recipeInfo.dietLabels && recipeInfo.dietLabels}
+					</h2>
+					<h2 class="info-text">
+						Cautions: {recipeInfo.cautions && recipeInfo.cautions}
+					</h2>
 
 					<h2 class="info-text">Ingredients:</h2>
 					<ul>
 						{recipeInfo.ingredientLines.map(function(ingredient) {
 							const ingredientName = ingredient;
-							return <li>{ingredientName}</li>;
+							return <li class="ing-list">{ingredientName}</li>;
 						})}
 					</ul>
 				</div>
