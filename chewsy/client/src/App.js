@@ -79,7 +79,7 @@ class App extends Component {
 		this.getRecipesUserData = this.getRecipesUserData.bind(this);
 		this.getAllUserRecipes = this.getAllUserRecipes.bind(this);
 		/////////////////////////////////////////////////////////////LAI
-		this.getSavedRecipe = this.getSavedRecipe.bind(this);
+		// this.getSavedRecipe = this.getSavedRecipe.bind(this);
 		this.routeToResults = this.routeToResults.bind(this);
 		this.renderResults = this.renderResults.bind(this);
 		this.register = this.register.bind(this);
