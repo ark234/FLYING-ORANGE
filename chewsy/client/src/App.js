@@ -141,7 +141,7 @@ class App extends Component {
 				this.setState({ userData: resp.data.user });
 				console.log('prefs ====>', resp.data.prefs);
 				this.setState({ prefData: resp.data.prefs });
-
+				this.setState({ signUpClicked: false });
 				// this.props.history.push('/');
 			})
 			.catch(err => console.log(`err: ${err}`));
@@ -162,6 +162,7 @@ class App extends Component {
 				this.setState({ userData: resp.data.user });
 				console.log('prefs ====>', resp.data.prefs);
 				this.setState({ prefData: resp.data.prefs });
+				this.setState({ loginClicked: false });
 			})
 			.catch(err => console.log(`err: ${err}`));
 	}
@@ -254,12 +255,8 @@ class App extends Component {
 						routeToResults={this.routeToResults}
 						logout={this.logout}
 					/>
-					{this.state.loginClicked ? (
-						<Login submit={this.login} toggleLogin={this.toggleLogin} />
-					) : null}
-					{this.state.signUpClicked ? (
-						<Register submit={this.register} toggleSignUp={this.toggleSignUp} />
-					) : null}
+					{this.state.loginClicked ? <Login submit={this.login} toggleLogin={this.toggleLogin} /> : null}
+					{this.state.signUpClicked ? <Register submit={this.register} toggleSignUp={this.toggleSignUp} /> : null}
 					<Switch>
 						<Route
 							exact
@@ -315,21 +312,9 @@ class App extends Component {
 						{
 							/////////////////////////////////////////////////////LAI
 						}
-						<Route
-							exact
-							path="/register"
-							component={props => <Register {...props} submit={this.register} />}
-						/>
-						<Route
-							exact
-							path="/login"
-							component={props => <Login {...props} submit={this.login} />}
-						/>
-						<Route
-							exact
-							path="/profile"
-							component={props => <UserProfile {...props} userId={this.state.userData} />}
-						/>
+						<Route exact path="/register" component={props => <Register {...props} submit={this.register} />} />
+						<Route exact path="/login" component={props => <Login {...props} submit={this.login} />} />
+						<Route exact path="/profile" component={props => <UserProfile {...props} userId={this.state.userData} />} />
 					</Switch>
 				</div>
 			</BrowserRouter>
