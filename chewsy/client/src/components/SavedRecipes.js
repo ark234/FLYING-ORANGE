@@ -17,10 +17,10 @@
 //                                             //
 /////////////////////////////////////////////////
 
-import React, { Component } from 'react';
-import axios from 'axios';
-import '../App.css';
-import TokenService from '../services/TokenService';
+import React, { Component } from "react";
+import axios from "axios";
+import "../App.css";
+import TokenService from "../services/TokenService";
 
 class SavedRecipes extends Component {
 	constructor(props) {
@@ -31,6 +31,8 @@ class SavedRecipes extends Component {
 			userId: null
 		};
 		this.queryRecipesUser = this.queryRecipesUser.bind(this);
+		this.deleteRecipe = this.deleteRecipe.bind(this);
+		// this.deleteRecipe = this.deleteRecipe.bind(this, recipes.id);
 	}
 
 	// [
@@ -56,14 +58,14 @@ class SavedRecipes extends Component {
 
 		axios({
 			url: `http://localhost:8080/users/${idUser}/savedRecipes`,
-			method: 'get',
+			method: "get",
 			headers: {
 				Authorization: `Bearer ${TokenService.read()}`
 			}
 		})
 			.then(response => {
 				console.log(
-					'In SavedRecipes.queryRecipesUser: server responded. response.data: ',
+					"In SavedRecipes.queryRecipesUser: server responded. response.data: ",
 					response.data
 				);
 				this.setState({
@@ -73,8 +75,8 @@ class SavedRecipes extends Component {
 				this.props.getRecipesUserData(response.data);
 			})
 			.catch(error => {
-				console.log('error getting saved recipes');
-				console.log('error response:', error.response);
+				console.log("error getting saved recipes");
+				console.log("error response:", error.response);
 			});
 	}
 
