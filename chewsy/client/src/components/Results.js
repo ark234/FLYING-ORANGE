@@ -1,10 +1,10 @@
 // import { Link } from "react-router-dom";
-import React, { Component } from 'react';
-import axios from 'axios';
-import '../App.css';
-import Login from './Login';
-import Register from './Register';
-import Header from './Header';
+import React, { Component } from "react";
+import axios from "axios";
+import "../App.css";
+import Login from "./Login";
+import Register from "./Register";
+import Header from "./Header";
 
 class ShowResults extends Component {
 	constructor(props) {
@@ -14,7 +14,7 @@ class ShowResults extends Component {
 	}
 
 	routeToResults() {
-		this.props.history.push('/results');
+		this.props.history.push("/results");
 	}
 
 	render() {
@@ -30,31 +30,33 @@ class ShowResults extends Component {
 						<div
 							onClick={() => {
 								this.props.moreInfo(recipeInfo);
-								this.props.history.push('/moreInfo');
+								this.props.history.push("/moreInfo");
 							}}
 						>
 							<img src={recipeInfo.image} className="recipeResultsImg" />
 							<h2 className="recipeName">{recipeInfo.label}</h2>
 							<h6 className="healthLabels">{recipeInfo.healthLabels}</h6>
-							<h6 className="servings">{recipeInfo.yield} servings</h6>
-							<h6 className="calories">{Math.trunc(recipeInfo.calories)} calories</h6>
+							<div class="details">
+								<h6 className="servings">
+									{recipeInfo.yield} servings {Math.trunc(recipeInfo.calories)}{" "}
+									calories
+								</h6>
+							</div>
 						</div>
 					</div>
 				</div>
 			);
 		});
 
-		return (
-			this.props.results===null? null : (<div>
-              <div className="search-bar">
-                
-              </div>
-      
-              <div className="results-header">
-                Found {results.count} matching results for {results.q}
-              </div>
-              <div className="test">{resultsList }</div>
-            </div>)
+		return this.props.results === null ? null : (
+			<div>
+				<div className="search-bar" />
+
+				<div className="results-header">
+					Found {results.count} matching results for {results.q}
+				</div>
+				<div className="test">{resultsList}</div>
+			</div>
 		);
 	}
 }

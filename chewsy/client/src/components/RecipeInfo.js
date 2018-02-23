@@ -256,18 +256,19 @@ class RecipeInfo extends Component {
 						</p>
 					</div>
 				</div>
+				<div class="bottom-text">
+					<h2 class="info-text">Health Labels: {recipeInfo.healthLabels}</h2>
+					<h2 class="info-text">Diet Labels: {recipeInfo.dietLabels}</h2>
+					<h2 class="info-text">Cautions: {recipeInfo.cautions}</h2>
 
-				<h2 class="info-text">Health Labels: {recipeInfo.healthLabels}</h2>
-				<h2 class="info-text">Diet Labels: {recipeInfo.dietLabels}</h2>
-				<h2 class="info-text">Cautions: {recipeInfo.cautions}</h2>
-
-				<h2 class="info-text">Ingredients:</h2>
-				<ul>
-					{recipeInfo.ingredientLines.map(function(ingredient) {
-						const ingredientName = ingredient;
-						return <li>{ingredientName}</li>;
-					})}
-				</ul>
+					<h2 class="info-text">Ingredients:</h2>
+					<ul>
+						{recipeInfo.ingredientLines.map(function(ingredient) {
+							const ingredientName = ingredient;
+							return <li>{ingredientName}</li>;
+						})}
+					</ul>
+				</div>
 			</div>
 		);
 	}

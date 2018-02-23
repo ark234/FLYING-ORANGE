@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import logo from "../images/orange.png";
+// import logo from "../images/orange.png";
 
 class SearchFeild extends Component {
 	constructor(props) {
@@ -11,8 +11,8 @@ class SearchFeild extends Component {
 		this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.postApiParams = this.postApiParams.bind(this);
-		this.handleError = this.handleError.bind(this);
-		this.handleLoad = this.handleLoad.bind(this);
+		// this.handleError = this.handleError.bind(this);
+		// this.handleLoad = this.handleLoad.bind(this);
 	}
 
 	handleChange(event) {
@@ -60,12 +60,12 @@ class SearchFeild extends Component {
 			});
 	}
 
-	handleError() {
-		return <h6 className="error-msg">Please enter a recipe</h6>;
-	}
-	handleLoad() {
-		return <img src={logo} width="100px" height="100px" />;
-	}
+	// handleError() {
+	// 	return <h6 className="error-msg">Please enter a recipe</h6>;
+	// }
+	// handleLoad() {
+	// 	return <img src={logo} width="100px" height="100px" />;
+	// }
 
 	componentDidMount() {
 		this.healthArray = new Set();
@@ -110,8 +110,8 @@ class SearchFeild extends Component {
 		const form = () => {
 			return (
 				<form onSubmit={this.handleSubmit} className="apiQueryForm">
-					<h2 className="find-text">FIND A RECIPE</h2>
 					<div className="textInputContainer">
+						<h2 className="find-text">FIND A RECIPE</h2>
 						<input
 							className="textInput"
 							type="text"
@@ -121,20 +121,14 @@ class SearchFeild extends Component {
 						<input type="submit" className="submitButton" value="search" />
 					</div>
 					<div className="checkBoxContainer">
-						<h1 class="allergens-text">Allergens:</h1>
+						<h1 className="allergens-text">Allergens</h1>
 						{checkBoxes}
 					</div>
 				</form>
 			);
 		};
 
-		return (
-			<div>
-				{form()}
-				{this.props.loadingFlag === false ? this.handleLoad() : null}
-				{this.props.errorFlag ? this.handleError() : null}
-			</div>
-		);
+		return <div>{form()}</div>;
 	}
 }
 
